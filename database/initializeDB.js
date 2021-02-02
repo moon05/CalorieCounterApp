@@ -29,6 +29,15 @@ const setupDatabaseAsync = async () => {
 
         db.transaction(tx => {
 
+                const onSuccess = () => {
+                    console.log(`Success`);
+                };
+
+                const onError = (tx, error) => {
+                    console.log(`Error`, { error });
+                    // throw Error("Statement failed.");
+                };
+
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS Profile (
                 profile_id INTEGER PRIMARY KEY NOT NULL,
@@ -37,20 +46,21 @@ const setupDatabaseAsync = async () => {
                 starting_weight INT,
                 current_weight FLOAT,
                 goal_weight FLOAT);
-                `, [], null, null);
+                `, [], null, onError);
+
                 tx.executeSql(`
                     CREATE TABLE IF NOT EXISTS k (
                    k_id INTEGER PRIMARY KEY NOT NULL,
                    profile_id INTEGER,
                    FOREIGN KEY (profile_id) REFERENCES Profile (profile_id) );
-                `, [], null, null);
+                `, [], null, onError);
 
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WeightLog (
                 weight_log_id INTEGER NOT NULL PRIMARY KEY,
                 date DATE NOT NULL,
                 weight FLOAT NOT NULL);
-                `);
+                `, [], null, onError);
 
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS Food (
@@ -65,51 +75,47 @@ const setupDatabaseAsync = async () => {
                 image_src VARCHAR(400),
                 type_of_food INT,
                 weight FLOAT NOT NULL);
-                `);
+                `, [], null, onError);
 
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS BreakfastFood (
                 breakfood_id INTEGER PRIMARY KEY NOT NULL ,
                 date DATE NOT NULL,
                 food_id INTEGER,
-                FOREIGN KEY (food_id) REFERENCES Food ( food_id ) );`,
-                    [],
-                    (tx, results) =>{
-                        console.log(results)
-                        console.log("executed sql")
-                    },
-                    (tx, error) => {
-                        console.log(error);
-                        console.log("Found Error")
-                    }
-                );
+                FOREIGN KEY (food_id) REFERENCES Food ( food_id ) );
+                `,[],null, onError);
+
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS LunchFood (
                 lunchfood_id INTEGER NOT NULL PRIMARY KEY,
                 date DATE NOT NULL,
                 food_id INTEGER,
-                FOREIGN KEY ( food_id ) REFERENCES Food (food_id) );`
-                );
+                FOREIGN KEY ( food_id ) REFERENCES Food (food_id) );
+                `, [], null, onError);
                 tx.executeSql(`
+                
                 CREATE TABLE IF NOT EXISTS DinnerFood (
                 dinnerfood_id INTEGER NOT NULL PRIMARY KEY,
                 date DATE NOT NULL,
                 food_id INTEGER,
-                FOREIGN KEY ( food_id ) REFERENCES Food (food_id) );`
-                );
+                FOREIGN KEY ( food_id ) REFERENCES Food (food_id) );
+                `, [], null, onError);
+
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS SnacksFood (
                 snacksfood_id INTEGER NOT NULL PRIMARY KEY,
                 date DATE NOT NULL,
                 food_id INTEGER,
-                FOREIGN KEY (food_id) REFERENCES Food( food_id ));`
-                );
+                FOREIGN KEY (food_id) REFERENCES Food( food_id ));
+                `, [], null, onError);
+
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WaterFood (
                 waterfood_id INTEGER NOT NULL PRIMARY KEY,
                 date DATE NOT NULL,
-                water_count INTEGER NOT NULL);`
-                );
+                water_count INTEGER NOT NULL);
+                `, [], null, onError);
+
                 tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS FoodGather (
                 foodgather_id INTEGER NOT NULL PRIMARY KEY,
@@ -121,8 +127,9 @@ const setupDatabaseAsync = async () => {
                 total_carb FLOAT,
                 total_protein FLOAT,
                 total_fat FLOAT);
-                `);
+                `, [], null, onError);
                 tx.executeSql(`
+                
                 CREATE TABLE IF NOT EXISTS RecentlyEatenFood (
                 recently_id INTEGER NOT NULL PRIMARY KEY,
                 created_at DATE NOT NULL,
@@ -130,19 +137,17 @@ const setupDatabaseAsync = async () => {
                 number_of_times_added INT NOT NULL,
                 food_id INTEGER,
                 FOREIGN KEY (food_id) REFERENCES Food( food_id ));
-                `, [], null, (tx, error) => {
-                    console.log(error);
-                    console.log("Found Error")
-                });
+                `, [], null, onError);
 
             },
             (_, error) => {
-                console.log("db error creating tables");
+                console.log("Database Creation ERROR!!!");
                 console.log("Error", {error});
+                console.log("In initializeDB.js")
                 reject(error)
             },
             (_, success) => {
-                console.log("db creation success");
+                console.log("Initialization Database Creation Success!");
                 resolve(success)
             }
         )
