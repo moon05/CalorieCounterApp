@@ -1,28 +1,42 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import AppNavigator from './navigation.component';
+import * as SQLite from "expo-sqlite"
+import * as SplashScreen from 'expo-splash-screen';
+import {NavigationContainer} from '@react-navigation/native';
+import useDatabase from './database/useDatabase'
+// import useCachedResources from './hooks/useCachedResources';
 
-import {Profile, WeightLog, TypeOfFood, Food, RecentlyEatenFood, DailyLog} from './model/Profile'
-import Database from "@nozbe/watermelondb/Database";
-import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
-import {mySchema} from "./models/schema";
+const db = SQLite.openDatabase('NewSampleDB.db')
+console.log(db)
 
-const adapter = new SQLiteAdapter({
-    dbName: 'CalorieCounterDemo',
-    schema: mySchema,
-})
+// db.exec(
+//     [{ sql: 'PRAGMA foreign_keys = ON;', args: [] }],
+//     false,
+//     () => console.log('Foreign keys turned on'),
+// );
 
-const database = new Database({
-    adapter,
-    modelClasses: [Profile, WeightLog, TypeOfFood, Food, DailyLog, RecentlyEatenFood],
-})
 
 export default function App() {
-    return (
-        <PaperProvider>
-            <AppNavigator/>
-        </PaperProvider>
 
-    )
+    // SplashScreen.preventAutoHideAsync();
+
+    // const isLoadingComplete = useCachedResources();
+    const isDBLoadingComplete = useDatabase();
+
+    // if (isDBLoadingComplete) {
+    //     SplashScreen.hideAsync();
+
+        return (
+            <PaperProvider>
+                <NavigationContainer>
+                    <AppNavigator database={db}/>
+                </NavigationContainer>
+            </PaperProvider>
+
+        )
+    // } else {
+    //     return null
+    // }
 }
 

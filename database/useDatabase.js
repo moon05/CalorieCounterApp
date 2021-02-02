@@ -1,26 +1,26 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react'
 
-import {database} from './initializeDB'
+import { database } from './initializeDB'
 
-export default function useDatabase() {
-    const [isDBLoadingComplete, setDBLoadingComplete] = React.useState(false);
+export default function useDatabase () {
+  const [isDBLoadingComplete, setDBLoadingComplete] = React.useState(false)
 
-    useEffect(() => {
-        async function loadDataAsync() {
-            try {
-                // await database.dropDatabaseTablesAsync()
-                await database.setupDatabaseAsync()
-                // await database.setupForeignKeyDatabaseAsync()
-                // await database.setupUsersAsync()
+  useEffect(() => {
+    async function loadDataAsync () {
+      try {
+        // await database.dropDatabaseTablesAsync()
+        await database.setupDatabaseAsync()
+        // await database.setupForeignKeyDatabaseAsync()
+        // await database.setupUsersAsync()
 
-                setDBLoadingComplete(true);
-            } catch (e) {
-                console.warn(e);
-            }
-        }
+        setDBLoadingComplete(true)
+      } catch (e) {
+        console.warn(e)
+      }
+    }
 
-        loadDataAsync();
-    }, []);
+    loadDataAsync()
+  }, [])
 
-    return isDBLoadingComplete;
+  return isDBLoadingComplete
 }
