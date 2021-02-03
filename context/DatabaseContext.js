@@ -8,12 +8,12 @@ export const DatabaseContext = createContext({})
 export const UsersContextProvider = props => {
   // Initial values are obtained from the props
   const {
-    users: initialUsers,
+    // eslint-disable-next-line react/prop-types
     children
   } = props
 
   // Use State to store the values
-  const [users, setUsers] = useState(initialUsers)
+  // const [users, setUsers] = useState(initialUsers)
 
   // useEffect(() => {
   //     refreshUsers()
@@ -59,11 +59,6 @@ export const UsersContextProvider = props => {
     return crud.insertRecentlyEatenFood(db, createdAt, updatedAt, numberOfTimesAdded, foodID)
   }
 
-  //
-  // const refreshUsers = () =>  {
-  //     return database.getUsers(setUsers)
-  // }
-  //
   // Make the context object:
   const databaseContext = {
     addNewProfile,
