@@ -14,11 +14,11 @@ const setupDatabaseAsync = async () => {
         tx.executeSql('DROP TABLE IF EXISTS Profile;')
         tx.executeSql('DROP TABLE IF EXISTS WeightLog;')
         tx.executeSql('DROP TABLE IF EXISTS Food;')
-        tx.executeSql('DROP TABLE IF EXISTS BreakfastFood;')
-        tx.executeSql('DROP TABLE IF EXISTS LunchFood;')
-        tx.executeSql('DROP TABLE IF EXISTS DinnerFood;')
-        tx.executeSql('DROP TABLE IF EXISTS SnacksFood;')
-        tx.executeSql('DROP TABLE IF EXISTS WaterFood;')
+        tx.executeSql('DROP TABLE IF EXISTS BreakfastItems;')
+        tx.executeSql('DROP TABLE IF EXISTS LunchItems;')
+        tx.executeSql('DROP TABLE IF EXISTS DinnerItems;')
+        tx.executeSql('DROP TABLE IF EXISTS SnacksItems;')
+        tx.executeSql('DROP TABLE IF EXISTS WaterItems;')
         tx.executeSql('DROP TABLE IF EXISTS FoodGather;')
         tx.executeSql('DROP TABLE IF EXISTS RecentlyEatenFood;')
       })
@@ -34,9 +34,11 @@ const setupDatabaseAsync = async () => {
         // throw Error("Statement failed.");
       }
 
+      tx.executeSql('PRAGMA foreign_keys=on')
+
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS Profile (
-                profile_id INTEGER PRIMARY KEY NOT NULL,
+                profileID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL, 
                 username VARCHAR(20) NOT NULL,
                 height FLOAT,sex VARCHAR NOT NULL,
                 starting_weight INT,
@@ -45,22 +47,15 @@ const setupDatabaseAsync = async () => {
                 `, [], null, onError)
 
       tx.executeSql(`
-                    CREATE TABLE IF NOT EXISTS k (
-                   k_id INTEGER PRIMARY KEY NOT NULL,
-                   profile_id INTEGER,
-                   FOREIGN KEY (profile_id) REFERENCES Profile (profile_id) );
-                `, [], null, onError)
-
-      tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WeightLog (
-                weight_log_id INTEGER NOT NULL PRIMARY KEY,
+                weightLogID INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
                 date DATE NOT NULL,
                 weight FLOAT NOT NULL);
                 `, [], null, onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS Food (
-                food_id INTEGER PRIMARY KEY NOT NULL,
+                foodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                 name VARCHAR NOT NULL,
                 calories FLOAT,
                 fat FLOAT,
@@ -68,71 +63,71 @@ const setupDatabaseAsync = async () => {
                 carbohydrates FLOAT,
                 sugar FLOAT,
                 protein FLOAT,
-                image_src VARCHAR(400),
-                type_of_food INT,
+                imageSRC VARCHAR(400),
+                typeOfFood INT,
                 weight FLOAT NOT NULL);
                 `, [], null, onError)
 
       tx.executeSql(`
-                CREATE TABLE IF NOT EXISTS BreakfastFood (
-                breakfood_id INTEGER PRIMARY KEY NOT NULL ,
+                CREATE TABLE IF NOT EXISTS BreakfastItems (
+                breakfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                food_id INTEGER,
-                FOREIGN KEY (food_id) REFERENCES Food ( food_id ) );
+                foodID INTEGER,
+                FOREIGN KEY (foodID) REFERENCES Food ( foodID ) );
                 `, [], null, onError)
 
       tx.executeSql(`
-                CREATE TABLE IF NOT EXISTS LunchFood (
-                lunchfood_id INTEGER NOT NULL PRIMARY KEY,
+                CREATE TABLE IF NOT EXISTS LunchItems (
+                lunchfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                food_id INTEGER,
-                FOREIGN KEY ( food_id ) REFERENCES Food (food_id) );
+                foodID INTEGER,
+                FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
                 `, [], null, onError)
       tx.executeSql(`
                 
-                CREATE TABLE IF NOT EXISTS DinnerFood (
-                dinnerfood_id INTEGER NOT NULL PRIMARY KEY,
+                CREATE TABLE IF NOT EXISTS DinnerItems (
+                dinnerfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                food_id INTEGER,
-                FOREIGN KEY ( food_id ) REFERENCES Food (food_id) );
+                foodID INTEGER,
+                FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
                 `, [], null, onError)
 
       tx.executeSql(`
-                CREATE TABLE IF NOT EXISTS SnacksFood (
-                snacksfood_id INTEGER NOT NULL PRIMARY KEY,
+                CREATE TABLE IF NOT EXISTS SnacksItems (
+                snacksfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                food_id INTEGER,
-                FOREIGN KEY (food_id) REFERENCES Food( food_id ));
+                foodID INTEGER,
+                FOREIGN KEY (foodID) REFERENCES Food( foodID ));
                 `, [], null, onError)
 
       tx.executeSql(`
-                CREATE TABLE IF NOT EXISTS WaterFood (
-                waterfood_id INTEGER NOT NULL PRIMARY KEY,
+                CREATE TABLE IF NOT EXISTS WaterItems(
+                waterfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                water_count INTEGER NOT NULL);
+                waterCount INTEGER NOT NULL);
                 `, [], null, onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS FoodGather (
-                foodgather_id INTEGER NOT NULL PRIMARY KEY,
-                date DATE NOT NULL,
-                breakfast_net_calorie FLOAT,
-                lunch_net_calorie FLOAT,
-                dinner_net_calorie FLOAT,
-                snacks_net_calorie FLOAT,
-                total_carb FLOAT,
-                total_protein FLOAT,
-                total_fat FLOAT);
+                foodgatherID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                date DATE UNIQUE NOT NULL,
+                breakfastNetCalorie FLOAT,
+                lunchNetCalorie FLOAT,
+                dinnerNetCalorie FLOAT,
+                snacksNetCalorie FLOAT,
+                totalCarb FLOAT,
+                totalProtein FLOAT,
+                totalFat FLOAT);
                 `, [], null, onError)
-      tx.executeSql(`
-                
+
+      tx.executeSql(`       
                 CREATE TABLE IF NOT EXISTS RecentlyEatenFood (
-                recently_id INTEGER NOT NULL PRIMARY KEY,
-                created_at DATE NOT NULL,
-                updated_at DATE NOT NULL,
-                number_of_times_added INT NOT NULL,
-                food_id INTEGER,
-                FOREIGN KEY (food_id) REFERENCES Food( food_id ));
+                recentlyID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                createdAt DATE NOT NULL,
+                updatedAt DATE NOT NULL,
+                numberOfTimesAdded INT NOT NULL,
+                foodID INTEGER,
+                FOREIGN KEY (foodID) REFERENCES Food( foodID ));
                 `, [], null, onError)
     },
     (_, error) => {
