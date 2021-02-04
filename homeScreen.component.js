@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, View, StyleSheet, Picker, ScrollView } from 'react-native'
+import {
+  SafeAreaView, View, StyleSheet, Picker, ScrollView, KeyboardAvoidingView,
+  Platform, TouchableWithoutFeedback, Keyboard
+} from 'react-native'
 import { Divider, Text, TextInput, Button } from 'react-native-paper'
 
 import { CALORIE_DASHBOARD } from './reusable_components/calorie_dashboard'
 
 import { Profiles } from './reusable_components/temp'
 import { ProfileForm } from './reusable_components/createProfileForm'
+import { FirstLaunchScreen } from './firstLaunchScreen.component'
 
 export const HomeScreen = ({ database }) => {
   const styles = StyleSheet.create({
@@ -27,25 +31,18 @@ export const HomeScreen = ({ database }) => {
     }
   })
 
-  // const [profileInfo, setProfileInfo] = {}
-  //
-  // const handleSubmit = e => {
-  //
-  // }
+  const [profileHasBeenSubmitted, setProfileHasBeenSubmitted] = useState(false)
+
   console.log('Printing again in HOMESCREEN:')
   console.log(database)
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
             <Text style={styles.appHeaderName}>Lightweight Calorie Counter</Text>
-            <View style={{ flex: 1, justifyContent: 'flex-start', paddingLeft: 10, paddingRight: 10, paddingTop: 15 }}>
-                 <CALORIE_DASHBOARD/>
-                 <ScrollView>
-                 <ProfileForm database={database}/>
-
-                 <Profiles database={database}/>
-                 </ScrollView>
-            </View>
+            <ScrollView>
+              <FirstLaunchScreen database={database} propSetter={setProfileHasBeenSubmitted}/>
+            </ScrollView>
+          <Profiles database={database} safeToLoad={profileHasBeenSubmitted}/>
 
           <Divider/>
         </SafeAreaView>

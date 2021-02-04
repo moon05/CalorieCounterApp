@@ -16,10 +16,6 @@ console.log(db)
 export default function App () {
   SplashScreen.preventAutoHideAsync()
 
-  // useEffect(() => {
-  //   useDatabase()
-  // })
-
   const isDBLoadingComplete = useDatabase(db)
 
   if (isDBLoadingComplete) {

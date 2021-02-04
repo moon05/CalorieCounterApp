@@ -1,43 +1,65 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, View, StyleSheet, Picker, ScrollView } from 'react-native'
-import { Divider, Text } from 'react-native-paper'
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Picker,
+  ScrollView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard, KeyboardAvoidingView
+} from 'react-native'
+import { Divider, Text, TextInput, Button } from 'react-native-paper'
 
 // import { Profiles } from './reusable_components/temp'
 import { ProfileForm } from './reusable_components/createProfileForm'
 
-export const HomeScreen = () => {
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'space-between',
-      backgroundColor: '#fff',
-      padding: 20,
-      margin: 10
-    }
-  })
-
+export const FirstLaunchScreen = ({ database, propSetter }) => {
   useEffect(() => {
-    console.log('printing props in homeScreen')
+    console.log('printing props in FirstLaunchScreen')
     // console.log(database)
     console.log('Done printing')
   })
 
-  // const [profileInfo, setProfileInfo] = {}
-  //
-  // const handleSubmit = e => {
-  //
-  // }
+  const [profileHasBeenSubmitted, setProfileHasBeenSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (profileHasBeenSubmitted) {
+      propSetter(profileHasBeenSubmitted)
+    }
+  }, [profileHasBeenSubmitted])
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1
+    },
+    inner: {
+      padding: 24,
+      flex: 1,
+      justifyContent: 'space-around'
+    },
+    header: {
+      fontSize: 36,
+      marginBottom: 48
+    },
+    textInput: {
+      height: 40,
+      borderColor: '#000000',
+      borderBottomWidth: 1,
+      marginBottom: 36
+    },
+    btnContainer: {
+      backgroundColor: 'white',
+      marginTop: 12
+    }
+  })
 
   return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <Text style={styles.appHeaderName}>Lightweight Calorie Counter</Text>
-            <View style={{ flex: 1, justifyContent: 'flex-start', paddingLeft: 10, paddingRight: 10, paddingTop: 15 }}>
-                    <ProfileForm/>
-            </View>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                 <ProfileForm database={database} profileSubmitted={setProfileHasBeenSubmitted}/>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
 
-            {/* <Profiles/> */}
-
-            <Divider/>
-        </SafeAreaView>
   )
 }

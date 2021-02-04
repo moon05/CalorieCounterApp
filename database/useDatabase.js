@@ -8,11 +8,7 @@ export default function useDatabase (db) {
   useEffect(() => {
     async function loadDataAsync () {
       try {
-        // await database.dropDatabaseTablesAsync()
         await database.setupDatabaseAsync(db)
-        // await database.setupForeignKeyDatabaseAsync()
-        // await database.setupUsersAsync()
-
         setDBLoadingComplete(true)
       } catch (e) {
         console.warn(e)

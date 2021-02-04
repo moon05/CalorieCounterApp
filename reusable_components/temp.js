@@ -3,11 +3,12 @@ import { View } from 'react-native'
 import { Divider, Text, Button } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
 
-export const Profiles = ({ database }) => {
+export const Profiles = ({ database, safeToLoad }) => {
   const databaseContext = useContext(DatabaseContext)
   const { getStoredProfile, addSampleProfile } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [currentProfile, setCurrentProfile] = useState(undefined)
+  const [helperArr, setHelperArr] = useState([])
 
   const onSuccess = (successMessage) => {
     console.log('Success: ' + successMessage)
@@ -32,23 +33,28 @@ export const Profiles = ({ database }) => {
     console.log('Ending Sample profile Async')
   }
 
-  // const processProfileData = (data) => {
-  //   console.log(data._array[0].currentWeight)
-  // }
-
-  useEffect(() => {
-    setLoaded(true)
-  }, [])
   useEffect(() => {
     console.log('Calling FOO')
-    foo()
-    goo()
-  }, [loaded])
+    if (safeToLoad) {
+      foo()
+    }
+    // goo()
+  }, [safeToLoad])
 
   useEffect(() => {
     console.log('Starting to Print current Profile')
     console.log(currentProfile)
     console.log('Ending print current profile in USE Effect in temp.js')
+    //
+    // if (currentProfile !== 'undefined') {
+    //   if (!(!Array.isArray(currentProfile._array) || !currentProfile._array.length)) {
+    //     const k = [currentProfile._array[0].username, currentProfile._array[0].height,
+    //       currentProfile._array[0].sex, currentProfile._array[0].startingWeight,
+    //       currentProfile._array[0].currentWeight, currentProfile._array[0].goalWeight]
+    //     console.log('Printing K HERE: ' + k)
+    //     setHelperArr(k)
+    //   }
+    // }
   }, [currentProfile])
 
   return (
@@ -56,14 +62,16 @@ export const Profiles = ({ database }) => {
                 <View flexDirection='row' justifyContent="flex-start">
                     {(typeof currentProfile === 'undefined' || currentProfile === null)
                       ? <Text>Nothing to Show yet</Text>
-                      : (<View>
-                            <Text>{currentProfile._array[0].username}</Text>
-                            <Text>{currentProfile._array[0].height}</Text>
-                            <Text>{currentProfile._array[0].sex}</Text>
-                            <Text>{currentProfile._array[0].startingWeight}</Text>
-                            <Text>{currentProfile._array[0].goalWeight}</Text>
-                            <Text>{currentProfile._array[0].currentWeight}</Text>
-                        </View>)
+                      : (!Array.isArray(currentProfile._array) || !currentProfile._array.length)
+                          ? <Text>Still Null!</Text>
+                          : <View>
+                            <Text key={1}>Username: {currentProfile._array[0].username}</Text>
+                              <Text key={2}>Height: {currentProfile._array[0].height}</Text>
+                              <Text key={3}>Sex: {currentProfile._array[0].sex}</Text>
+                              <Text key={4}>Starting Weight: {currentProfile._array[0].startingWeight}</Text>
+                              <Text key={5}>Goal Weight: {currentProfile._array[0].goalWeight}</Text>
+                            </View>
+
                     }
                 </View>
 

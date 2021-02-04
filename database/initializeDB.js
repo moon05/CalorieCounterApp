@@ -47,19 +47,12 @@ const setupDatabaseAsync = async (db) => {
                 goalWeight FLOAT)
                 `, [], onSuccess('Profile'), onError)
 
-      tx.executeSql(
-        ' insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
-        ['carrie', 150, 'male', 110, 110, 140],
-        (_, success) => {
-          console.log('Inserting Sample Data from Initialize')
-        }, onError)
-
-      // tx.executeSql(`
-      //   select * from Profile`, [],
-      // (_, { rows: { _array } }) => {
-      //   console.log(_array)
-      //   console.log('Querying Profile Table')
-      // }, onError)
+      // tx.executeSql(
+      //   ' insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
+      //   ['carrie', 150, 'male', 110, 110, 140],
+      //   (_, success) => {
+      //     console.log('Inserting Sample Data from Initialize')
+      //   }, onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WeightLog (

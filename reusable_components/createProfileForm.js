@@ -4,9 +4,9 @@ import { Divider, Text, Button, TextInput } from 'react-native-paper'
 import { Controller, useForm } from 'react-hook-form'
 import { DatabaseContext } from '../context/DatabaseContext'
 
-export const ProfileForm = ({ database }) => {
+export const ProfileForm = ({ database, profileSubmitted }) => {
   const databaseContext = useContext(DatabaseContext)
-  const { addNewProfile, addSampleProfile } = databaseContext
+  const { addNewProfile } = databaseContext
 
   const { control, handleSubmit, errors } = useForm()
 
@@ -27,11 +27,8 @@ export const ProfileForm = ({ database }) => {
   const onSubmit = data => {
     console.log('SubmitPressed')
     console.log(data)
-    // console.log(addNewProfile)
-    // console.log(database)
-    // console.log(database, data.username, data.height, data.sex, data.startingWeight, data.startingWeight, data.goalWeight)
-    // addNewProfile(database, data.username, parseFloat(data.height), data.sex, parseFloat(data.startingWeight), parseFloat(data.startingWeight), parseFloat(data.goalWeight))
-    addSampleProfile(database)
+    addNewProfile(database, data.username, parseFloat(data.height), data.sex, parseFloat(data.startingWeight), parseFloat(data.startingWeight), parseFloat(data.goalWeight))
+    profileSubmitted(true)
   }
 
   const styles = StyleSheet.create({

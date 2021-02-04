@@ -147,6 +147,7 @@ const insertRecentlyEatenFoodObj = {
   sqlStatement: 'insert into RecentlyEatenFood (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) values (?,?,?,?,?,?,?,?)',
   parentFunctionName: 'insertRecentlyEatenFood'
 }
+
 const insertRecentlyEatenFood = (db, args) => {
   return INSERTQUERYPROMISE(insertRecentlyEatenFoodObj.parentFunctionName, db, insertRecentlyEatenFoodObj.sqlStatement, args)
 }
