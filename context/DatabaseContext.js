@@ -27,8 +27,8 @@ export const DatabaseContextProvider = props => {
     await crud.insertProfile(db, userName, height, sex, startingWeight, currentWeight, goalWeight)
   }
 
-  const addSampleProfile = (db) => {
-    crud.insertProfile(db, 1, 'john', 169, 'male', 110, 110, 140)
+  const addSampleProfile = async (db) => {
+    await crud.insertProfile(db, 1, 'john', 169, 'male', 110, 110, 140)
   }
 
   const getStoredProfile = async (db, setter) => {

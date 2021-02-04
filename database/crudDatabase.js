@@ -1,6 +1,3 @@
-// import * as SQLite from 'expo-sqlite'
-//
-// const db = SQLite.openDatabase('SAMPLEDB.db')
 
 const onSuccess = (successMessage) => {
   console.log('Success: ' + successMessage)
@@ -11,51 +8,17 @@ const onError = (error) => {
   // throw Error("Statement failed.");
 }
 
-// const getUser = (db, setUserFunc) => {
-//   db.transaction(
-//     tx => {
-//       tx.executeSql(
-//         'select * from Profile',
-//         [],
-//         (_, { rows: { _array } }) => {
-//           setUserFunc(_array)
-//         }
-//       )
-//     },
-//     onError(error),
-//     // (t, error) => { console.log("db error load users"); console.log(error) },
-//     onSuccess('loaded users')
-//   )
-// }
-
-const insertProfile = (db, profileID, userName, height, sex, startingWeight, currentWeight, goalWeight) => {
-  db.transaction(tx => {
-    tx.executeSql('insert into Profile (profileID, username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,? ,?,?)',
-      [profileID, userName, height, sex, startingWeight, currentWeight, goalWeight], null, (tx, error) => console.log(error))
-  },
-  (t, error) => { console.log('db error insertUser'); console.log(error) },
-  (t, success) => { console.log(t); onSuccess('Success creating Profile') }
-  )
+const insertProfile = (db, userName, height, sex, startingWeight, currentWeight, goalWeight) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql('insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
+        [userName, height, sex, startingWeight, currentWeight, goalWeight], null, (tx, error) => console.log(error))
+    },
+    (t, error) => { console.log('db error insertUser'); console.log(error) },
+    (t, success) => { console.log(t); onSuccess('Success creating Profile') }
+    )
+  })
 }
-
-// const getProfile = async () => {
-//   let db
-//   SQLite.openDatabase('SAMPLEDB.db', '', '', '',
-//     (db) => {
-//       db.transaction(tx => {
-//         tx.executeSql(`
-//         SELECT * FROM Profile`,
-//         [],
-//         (_, res) => { console.log(res); return res },
-//         (_, err) => { console.log('Error: ' + err) }
-//         )
-//       },
-//       (t, error) => { console.log('Outer Error: ' + error) },
-//       (t, success) => { console.log('Outer Success: ' + success) }
-//         // console.log('Printing in new getProfile')
-//       )
-//     })
-// }
 
 const getProfile = (db, setter) => {
   return new Promise((resolve, reject) => {

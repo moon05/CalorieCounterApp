@@ -2,12 +2,10 @@ import React, { Component, useContext, useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { Divider, Text, Button } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
-import * as SQLite from 'expo-sqlite'
-const db = SQLite.openDatabase('SAMPLEDB.db')
 
 export const Profiles = ({ database }) => {
   const databaseContext = useContext(DatabaseContext)
-  const { getStoredProfile } = databaseContext
+  const { getStoredProfile, addSampleProfile } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [currentProfile, setCurrentProfile] = useState(undefined)
 
@@ -20,12 +18,20 @@ export const Profiles = ({ database }) => {
     // throw Error("Statement failed.");
   }
 
-  const foo = () => {
+  const foo = async () => {
     console.log('Result inside ASYNC temp: ')
-    getStoredProfile(database, setCurrentProfile)
-      .then(result => { setCurrentProfile(result) })
-      .catch(err => err)
+    const k = await getStoredProfile(database, setCurrentProfile)
+    // .then(result => { setCurrentProfile(result) })
+    // .catch(err => err)
     console.log('Ending')
+  }
+
+  const goo = async () => {
+    console.log('Trying to create an additional sample profile: ')
+    const k = await addSampleProfile(database)
+    // .then(result => { setCurrentProfile(result) })
+    // .catch(err => err)
+    console.log('Ending Sample profile Async')
   }
 
   // const processProfileData = (data) => {
@@ -36,12 +42,16 @@ export const Profiles = ({ database }) => {
     setLoaded(true)
   }, [])
   useEffect(() => {
+    console.log('Calling FOO')
     foo()
+    goo()
   }, [loaded])
 
   useEffect(() => {
+    console.log('Starting to Print current Profile')
     console.log(currentProfile)
-  }, [loaded, currentProfile])
+    console.log('Ending print current profile in USE Effect in temp.js')
+  }, [currentProfile])
 
   return (
             <View flexDirection='column'>
