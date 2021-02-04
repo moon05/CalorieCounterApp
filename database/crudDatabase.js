@@ -1,3 +1,6 @@
+// import * as SQLite from 'expo-sqlite'
+//
+// const db = SQLite.openDatabase('SAMPLEDB.db')
 
 const onSuccess = (successMessage) => {
   console.log('Success: ' + successMessage)
@@ -25,13 +28,52 @@ const onError = (error) => {
 //   )
 // }
 
-const insertProfile = (db, userName, height, startingWeight, currentWeight, goalWeight) => {
+const insertProfile = (db, profileID, userName, height, sex, startingWeight, currentWeight, goalWeight) => {
   db.transaction(tx => {
-    tx.executeSql('insert into Profile (username, height, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?)', [userName, height, startingWeight, currentWeight, goalWeight])
+    tx.executeSql('insert into Profile (profileID, username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,? ,?,?)',
+      [profileID, userName, height, sex, startingWeight, currentWeight, goalWeight], null, (tx, error) => console.log(error))
   },
   (t, error) => { console.log('db error insertUser'); console.log(error) },
-  (t, success) => { onSuccess('Success creating Profile') }
+  (t, success) => { console.log(t); onSuccess('Success creating Profile') }
   )
+}
+
+// const getProfile = async () => {
+//   let db
+//   SQLite.openDatabase('SAMPLEDB.db', '', '', '',
+//     (db) => {
+//       db.transaction(tx => {
+//         tx.executeSql(`
+//         SELECT * FROM Profile`,
+//         [],
+//         (_, res) => { console.log(res); return res },
+//         (_, err) => { console.log('Error: ' + err) }
+//         )
+//       },
+//       (t, error) => { console.log('Outer Error: ' + error) },
+//       (t, success) => { console.log('Outer Success: ' + success) }
+//         // console.log('Printing in new getProfile')
+//       )
+//     })
+// }
+
+const getProfile = (db, setter) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(`
+        select * from Profile`, [],
+
+      (_, { rows }) => {
+        setter(rows)
+      },
+      (_, error) => console.log(error))
+    },
+    (t, error) => { console.log('db error getProfile'); console.log(error) },
+    (t, success) => {
+      onSuccess('Successfully Loaded Profile')
+    }
+    )
+  })
 }
 
 const insertWeightLog = (db, date, weight) => {
@@ -124,6 +166,7 @@ const insertRecentlyEatenFood = (db, createdAt, updatedAt, numberOfTimesAdded, f
 
 export const crud = {
   insertProfile,
+  getProfile,
   insertWeightLog,
   insertFood,
   insertBreakfastItem,

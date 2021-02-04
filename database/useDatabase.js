@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 
 import { database } from './initializeDB'
 
-export default function useDatabase () {
+export default function useDatabase (db) {
   const [isDBLoadingComplete, setDBLoadingComplete] = React.useState(false)
 
   useEffect(() => {
     async function loadDataAsync () {
       try {
         // await database.dropDatabaseTablesAsync()
-        await database.setupDatabaseAsync()
+        await database.setupDatabaseAsync(db)
         // await database.setupForeignKeyDatabaseAsync()
         // await database.setupUsersAsync()
 

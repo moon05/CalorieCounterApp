@@ -1609,7 +1609,7 @@
     hermes-profile-transformer "^0.0.6"
     ip "^1.1.5"
 
-"@react-native-community/cli-platform-android@^4.10.0", "@react-native-community/cli-platform-android@^4.13.0", "@react-native-community/cli-platform-android@^4.7.0":
+"@react-native-community/cli-platform-android@^4.10.0", "@react-native-community/cli-platform-android@^4.13.0":
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-platform-android/-/cli-platform-android-4.13.0.tgz#922681ec82ee1aadd993598b814df1152118be02"
   integrity sha512-3i8sX8GklEytUZwPnojuoFbCjIRzMugCdzDIdZ9UNmi/OhD4/8mLGO0dgXfT4sMWjZwu3qjy45sFfk2zOAgHbA==
@@ -1625,7 +1625,7 @@
     slash "^3.0.0"
     xmldoc "^1.1.2"
 
-"@react-native-community/cli-platform-ios@^4.10.0", "@react-native-community/cli-platform-ios@^4.7.0":
+"@react-native-community/cli-platform-ios@^4.10.0":
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-platform-ios/-/cli-platform-ios-4.13.0.tgz#a738915c68cac86df54e578b59a1311ea62b1aef"
   integrity sha512-6THlTu8zp62efkzimfGr3VIuQJ2514o+vScZERJCV1xgEi8XtV7mb/ZKt9o6Y9WGxKKkc0E0b/aVAtgy+L27CA==
@@ -1670,7 +1670,7 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-types/-/cli-types-4.10.1.tgz#d68a2dcd1649d3b3774823c64e5e9ce55bfbe1c9"
   integrity sha512-ael2f1onoPF3vF7YqHGWy7NnafzGu+yp88BbFbP0ydoCP2xGSUzmZVw0zakPTC040Id+JQ9WeFczujMkDy6jYQ==
 
-"@react-native-community/cli@^4.7.0":
+"@react-native-community/cli@^4.10.0":
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli/-/cli-4.13.1.tgz#60148723e77cafe3ae260317d6bffe91853a2d20"
   integrity sha512-+/TeRVToADpQPSprsPkwi9KY8x64YcuJpjzMBVISwWP+aWzsIDuWJmyMXTADlCg2EBMJqJR7bn1W/IkfzVRCWA==
@@ -1711,7 +1711,7 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
-"@react-native-community/masked-view@0.1.10":
+"@react-native-community/masked-view@^0.1.10":
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
@@ -3450,12 +3450,20 @@ expo-secure-store@~9.3.0:
   resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-9.3.0.tgz#b716d5d115cc50a34037d1afef84fe4b8ea0745c"
   integrity sha512-dNhKcoUUn+1kmEfFVxSU7h+YsqODqlExZQJcQgxgeiuCeeDvJWkE10t3jjrO6aNfrdM5i/X2l3oh401EDslWsQ==
 
-expo-splash-screen@~0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.8.1.tgz#de4a018c82af879eeaa9b697013ef37d9567453a"
-  integrity sha512-7NQo8OgkfQ4sv4mIHE58fkiQTGyl5dOP70uAUTb5YXC/QUsHIqEpKQ6ZXDpkLU1cbZ32c8Vtok4r2FRIUrzxcg==
+expo-splash-screen@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.9.0.tgz#f3364936d33c805bb1511d484e557b145b7650b7"
+  integrity sha512-hC03qDiSiNfYHTd32s1l1SlOL5WehFyhhLB0SWhYXGDRAbSgJRD8ZJborJbKkicZ0O0fciP0IEjid9i7/cH0Gw==
   dependencies:
     "@expo/configure-splash-screen" "0.3.1"
+
+expo-sqlite@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/expo-sqlite/-/expo-sqlite-9.0.0.tgz#b779dcc7e8bd274487ea97e5927dec7226c88c3f"
+  integrity sha512-EWsMxNYW9dhevTtliE+XrNCACKUqt9rjksv8pXUUw/YxwL4oakOzMonViGWyPlljqWkzur+8P+y+UbFz41F5ug==
+  dependencies:
+    "@expo/websql" "^1.0.1"
+    lodash "^4.17.15"
 
 expo-sqlite@~8.5.0:
   version "8.5.0"
@@ -3465,12 +3473,12 @@ expo-sqlite@~8.5.0:
     "@expo/websql" "^1.0.1"
     lodash "^4.17.15"
 
-expo-status-bar@~1.0.3:
+expo-status-bar@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.3.tgz#62b4d6145680abd43ba6ecfa465f835e88bf6263"
   integrity sha512-/Orgla1nkIrfswNHbuAOTbPVq0g3+GrhoQVk7MRafY2dwrFLgXhaPExS+eN2hpmzqPv2LG5cqAZDCQUAjmZYBQ==
 
-expo@~40.0.0:
+expo@^40.0.1:
   version "40.0.1"
   resolved "https://registry.yarnpkg.com/expo/-/expo-40.0.1.tgz#20ae9f9c787ba1662037094dfd6982380f2c0288"
   integrity sha512-9NrhimvP44I1aDjGHMU4F0izCyfFTTYAQ6xZpWpuc+ZWRZqg8Zv62zNRlzBn+Ydaf1heSucnlJJ3Sp2gMdOEnQ==
@@ -5966,7 +5974,7 @@ promise@^8.0.3:
   dependencies:
     asap "~2.0.6"
 
-prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -6025,15 +6033,19 @@ react-devtools-core@^4.6.0:
     shell-quote "^1.6.1"
     ws "^7"
 
-react-dom@16.13.1:
-  version "16.13.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
-  integrity sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag==
+react-dom@^17.0.1:
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.1.tgz#1de2560474ec9f0e334285662ede52dbc5426fc6"
+  integrity sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.19.1"
+    scheduler "^0.20.1"
+
+react-hook-form@^6.15.1:
+  version "6.15.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.15.1.tgz#57d887ec4dac5a6c0099902171aa39cc893f7bca"
+  integrity sha512-bL0LQuQ3OlM3JYfbacKtBPLOHhmgYz8Lj6ivMrvu2M6e1wnt4sbGRtPEPYCc/8z3WDbjrMwfAfLX92OsB65pFA==
 
 react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
@@ -6088,10 +6100,10 @@ react-native-safe-area-view@^0.14.9:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-react-native-screens@~2.15.2:
-  version "2.15.2"
-  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.15.2.tgz#a449700e895b462937211ec72ed6f09652758f06"
-  integrity sha512-CagNf2APXkVoRlF3Mugr264FbKbrBg9eXUkqhIPVeZB8EsdS8XPrnt99yj/pzmT+yJMBY0dGrjXT8+68WYh6YQ==
+react-native-screens@^2.17.1:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.17.1.tgz#c3c0ac750af48741c5b1635511e6af2a27b74309"
+  integrity sha512-B4gD5e4csvlVwlhf+RNqjQZ9mHTwe/iL3rXondgZxnKz4oW0QAmtLnLRKOrYVxoaJaF9Fy7jhjo//24/472APQ==
 
 react-native-svg@12.1.0:
   version "12.1.0"
@@ -6115,10 +6127,10 @@ react-native-vector-icons@^8.0.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native-web@~0.13.12:
-  version "0.13.18"
-  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.13.18.tgz#964f058a16521a3b9a31b091415edfef5b6ef305"
-  integrity sha512-WR/0ECAmwLQ2+2cL2Ur+0/swXFAtcSM0URoADJmG6D4MnY+wGc91JO8LoOTlgY0USBOY+qG/beRrjFa+RAuOiA==
+react-native-web@^0.14.11:
+  version "0.14.11"
+  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.14.11.tgz#a50ef690df97fa3ed46dead063c07fb1aa66a396"
+  integrity sha512-IhZe8KwK3X/HgbMvi6A198/vKvgfrKhCVFXjD2qiTEKTo3AW5Twc3OT92W/O+7HkOBoGMytlcu7WUBPUqGCeRg==
   dependencies:
     array-find-index "^1.0.2"
     create-react-class "^15.6.2"
@@ -6130,14 +6142,15 @@ react-native-web@~0.13.12:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
-"react-native@https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz":
-  version "0.63.2"
-  resolved "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz#5a545ad0b464824817ad699bb104d031d6ff6c39"
+react-native@^0.63.4:
+  version "0.63.4"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.63.4.tgz#2210fdd404c94a5fa6b423c6de86f8e48810ec36"
+  integrity sha512-I4kM8kYO2mWEYUFITMcpRulcy4/jd+j9T6PbIzR0FuMcz/xwd+JwHoLPa1HmCesvR1RDOw9o4D+OFLwuXXfmGw==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@react-native-community/cli" "^4.7.0"
-    "@react-native-community/cli-platform-android" "^4.7.0"
-    "@react-native-community/cli-platform-ios" "^4.7.0"
+    "@react-native-community/cli" "^4.10.0"
+    "@react-native-community/cli-platform-android" "^4.10.0"
+    "@react-native-community/cli-platform-ios" "^4.10.0"
     abort-controller "^3.0.0"
     anser "^1.4.9"
     base64-js "^1.1.2"
@@ -6180,14 +6193,13 @@ react-timer-mixin@^0.13.4:
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
   integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
 
-react@16.13.1:
-  version "16.13.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
-  integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
+react@^17.0.1:
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
+  integrity sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
 
 read-pkg-up@^2.0.0:
   version "2.0.0"
@@ -6454,10 +6466,18 @@ sax@>=0.6.0, sax@^1.2.1, sax@^1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-scheduler@0.19.1, scheduler@^0.19.1:
+scheduler@0.19.1:
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
   integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.20.1:
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.20.1.tgz#da0b907e24026b01181ecbc75efdc7f27b5a000c"
+  integrity sha512-LKTe+2xNJBNxu/QhHvDR14wUXHRQbVY5ZOYpOGWRzhydZUqrLb2JBvLPY7cAqFmqrWuDED0Mjk7013SZiOz6Bw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

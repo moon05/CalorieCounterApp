@@ -1,42 +1,40 @@
-import React, {useEffect} from 'react';
-import {Provider as PaperProvider} from 'react-native-paper';
-import AppNavigator from './navigation.component';
-import * as SQLite from "expo-sqlite"
-import * as SplashScreen from 'expo-splash-screen';
-import {NavigationContainer} from '@react-navigation/native';
+import React, { useEffect } from 'react'
+import { Provider as PaperProvider } from 'react-native-paper'
+import AppNavigator from './navigation.component'
+import * as SQLite from 'expo-sqlite'
+import * as SplashScreen from 'expo-splash-screen'
+import { NavigationContainer } from '@react-navigation/native'
 import useDatabase from './database/useDatabase'
-// import useCachedResources from './hooks/useCachedResources';
+import { DatabaseContextProvider } from './context/DatabaseContext'
+import { LogBox } from 'react-native'
 
-const db = SQLite.openDatabase('NewSampleDB.db')
+LogBox.ignoreAllLogs()
+
+const db = SQLite.openDatabase('SAMPLEDB.db')
+console.log('Printing first time in APP.js: ')
 console.log(db)
+export default function App () {
+  SplashScreen.preventAutoHideAsync()
 
-// db.exec(
-//     [{ sql: 'PRAGMA foreign_keys = ON;', args: [] }],
-//     false,
-//     () => console.log('Foreign keys turned on'),
-// );
+  // useEffect(() => {
+  //   useDatabase()
+  // })
 
+  const isDBLoadingComplete = useDatabase(db)
 
-export default function App() {
+  if (isDBLoadingComplete) {
+    SplashScreen.hideAsync()
 
-    // SplashScreen.preventAutoHideAsync();
-
-    // const isLoadingComplete = useCachedResources();
-    const isDBLoadingComplete = useDatabase();
-
-    // if (isDBLoadingComplete) {
-    //     SplashScreen.hideAsync();
-
-        return (
-            <PaperProvider>
-                <NavigationContainer>
+    return (
+        <PaperProvider>
+            <NavigationContainer>
+                 <DatabaseContextProvider>
                     <AppNavigator database={db}/>
-                </NavigationContainer>
-            </PaperProvider>
-
-        )
-    // } else {
-    //     return null
-    // }
+                 </DatabaseContextProvider>
+            </NavigationContainer>
+        </PaperProvider>
+    )
+  } else {
+    return null
+  }
 }
-

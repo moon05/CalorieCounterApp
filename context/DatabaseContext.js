@@ -1,11 +1,12 @@
 
 import React, { useEffect, createContext, useState } from 'react'
-import { database } from '../database/initializeDB'
 import { crud } from '../database/crudDatabase'
+import * as SQLite from 'expo-sqlite'
+const db = SQLite.openDatabase('SAMPLEDB.db')
 
 export const DatabaseContext = createContext({})
 
-export const UsersContextProvider = props => {
+export const DatabaseContextProvider = props => {
   // Initial values are obtained from the props
   const {
     // eslint-disable-next-line react/prop-types
@@ -19,49 +20,62 @@ export const UsersContextProvider = props => {
   //     refreshUsers()
   // }, [] )
 
-  const addNewProfile = (db, userName, height, startingWeight, currentWeight, goalWeight) => {
-    return crud.insertProfile(db, userName, height, startingWeight, currentWeight, goalWeight)
+  const addNewProfile = async (db, userName, height, sex, startingWeight, currentWeight, goalWeight) => {
+    console.log('Printing in database context')
+    console.log(db)
+    console.log(userName, height, sex, startingWeight, currentWeight, goalWeight)
+    await crud.insertProfile(db, userName, height, sex, startingWeight, currentWeight, goalWeight)
   }
 
-  const addNewWeightLog = (db, date, weight) => {
-    return crud.insertWeightLog(db, date, weight)
+  const addSampleProfile = (db) => {
+    crud.insertProfile(db, 1, 'john', 169, 'male', 110, 110, 140)
   }
 
-  const addNewFood = (db, name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight) => {
-    return crud.insertFood(db, name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight)
+  const getStoredProfile = async (db, setter) => {
+    return crud.getProfile(db, setter)
   }
 
-  const addNewBreakfastItem = (db, date, foodID) => {
-    return crud.insertBreakfastItem(db, date, foodID)
+  const addNewWeightLog = async (db, date, weight) => {
+    await crud.insertWeightLog(db, date, weight)
   }
 
-  const addNewLunchItem = (db, date, foodID) => {
-    return crud.insertLunchItem(db, date, foodID)
+  const addNewFood = async (db, name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight) => {
+    await crud.insertFood(db, name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight)
   }
 
-  const addNewDinnerItem = (db, date, foodID) => {
-    return crud.insertDinnerItem(db, date, foodID)
+  const addNewBreakfastItem = async (db, date, foodID) => {
+    await crud.insertBreakfastItem(db, date, foodID)
   }
 
-  const addNewSnacksItem = (db, date, foodID) => {
-    return crud.insertDinnerItem(db, date, foodID)
+  const addNewLunchItem = async (db, date, foodID) => {
+    await crud.insertLunchItem(db, date, foodID)
   }
 
-  const addNewWaterItem = (db, date, waterCount) => {
-    return crud.insertWaterItem(db, date, waterCount)
+  const addNewDinnerItem = async (db, date, foodID) => {
+    await crud.insertDinnerItem(db, date, foodID)
   }
 
-  const addNewFoodGather = (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) => {
-    return crud.insertFoodGather(db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat)
+  const addNewSnacksItem = async (db, date, foodID) => {
+    await crud.insertDinnerItem(db, date, foodID)
   }
 
-  const addNewRecentlyEatenFood = (db, createdAt, updatedAt, numberOfTimesAdded, foodID) => {
-    return crud.insertRecentlyEatenFood(db, createdAt, updatedAt, numberOfTimesAdded, foodID)
+  const addNewWaterItem = async (db, date, waterCount) => {
+    await crud.insertWaterItem(db, date, waterCount)
+  }
+
+  const addNewFoodGather = async (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) => {
+    await crud.insertFoodGather(db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat)
+  }
+
+  const addNewRecentlyEatenFood = async (db, createdAt, updatedAt, numberOfTimesAdded, foodID) => {
+    await crud.insertRecentlyEatenFood(db, createdAt, updatedAt, numberOfTimesAdded, foodID)
   }
 
   // Make the context object:
   const databaseContext = {
     addNewProfile,
+    addSampleProfile,
+    getStoredProfile,
     addNewWeightLog,
     addNewFood,
     addNewBreakfastItem,

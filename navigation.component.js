@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HomeScreen } from './homeScreen.component'
 import { LogScreen } from './logScreen.component'
 import { MoreScreen } from './moreScreen.component'
@@ -33,6 +33,10 @@ const AppNavigator = ({ database }) => {
   //         db={database}
   //     />
   // );
+  // useEffect(() => {
+  //   console.log('priting in app navigation')
+  //   console.log(database)
+  // })
 
   return (
         <Tab.Navigator
@@ -47,7 +51,7 @@ const AppNavigator = ({ database }) => {
                   tabBarIcon: 'home'
                 }}
             >
-                {(database) => <HomeScreen {...database}/>}
+                {() => <HomeScreen database={database}/>}
             </Tab.Screen>
             <Tab.Screen
                 name="Log"

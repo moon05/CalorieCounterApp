@@ -1,12 +1,12 @@
-import * as SQLite from 'expo-sqlite'
+// import * as SQLite from 'expo-sqlite'
+//
+// const db = SQLite.openDatabase('sampleDB.db')
 
-const db = SQLite.openDatabase('sampleDB.db')
+// db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
+//   console.log('Foreign keys turned on')
+// )
 
-db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
-  console.log('Foreign keys turned on')
-)
-
-const setupDatabaseAsync = async () => {
+const setupDatabaseAsync = async (db) => {
   return new Promise((resolve, reject) => {
     const dropAllTables = true
     if (dropAllTables) {
@@ -25,8 +25,8 @@ const setupDatabaseAsync = async () => {
     }
 
     db.transaction(tx => {
-      const onSuccess = () => {
-        console.log('Success')
+      const onSuccess = (tableName) => {
+        console.log('Success: ' + tableName)
       }
 
       const onError = (tx, error) => {
@@ -38,20 +38,35 @@ const setupDatabaseAsync = async () => {
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS Profile (
-                profileID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+                profileID INTEGER PRIMARY KEY NOT NULL, 
                 username VARCHAR(20) NOT NULL,
-                height FLOAT,sex VARCHAR NOT NULL,
-                starting_weight INT,
-                current_weight FLOAT,
-                goal_weight FLOAT);
-                `, [], null, onError)
+                height FLOAT,
+                sex VARCHAR NOT NULL,
+                startingWeight INT,
+                currentWeight FLOAT,
+                goalWeight FLOAT)
+                `, [], onSuccess('Profile'), onError)
+
+      tx.executeSql(
+        ' insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
+        ['carrie', 150, 'male', 110, 110, 140],
+        (_, success) => {
+          console.log('Inserting Sample Data from Initialize')
+        }, onError)
+
+      // tx.executeSql(`
+      //   select * from Profile`, [],
+      // (_, { rows: { _array } }) => {
+      //   console.log(_array)
+      //   console.log('Querying Profile Table')
+      // }, onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WeightLog (
                 weightLogID INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
                 date DATE NOT NULL,
                 weight FLOAT NOT NULL);
-                `, [], null, onError)
+                `, [], onSuccess('WeightLog'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS Food (
@@ -66,7 +81,7 @@ const setupDatabaseAsync = async () => {
                 imageSRC VARCHAR(400),
                 typeOfFood INT,
                 weight FLOAT NOT NULL);
-                `, [], null, onError)
+                `, [], onSuccess('Food'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS BreakfastItems (
@@ -74,7 +89,7 @@ const setupDatabaseAsync = async () => {
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY (foodID) REFERENCES Food ( foodID ) );
-                `, [], null, onError)
+                `, [], onSuccess('BreakfastItems'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS LunchItems (
@@ -82,7 +97,7 @@ const setupDatabaseAsync = async () => {
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
-                `, [], null, onError)
+                `, [], onSuccess('LunchItems'), onError)
       tx.executeSql(`
                 
                 CREATE TABLE IF NOT EXISTS DinnerItems (
@@ -90,7 +105,7 @@ const setupDatabaseAsync = async () => {
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
-                `, [], null, onError)
+                `, [], onSuccess('DinnerItems'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS SnacksItems (
@@ -98,14 +113,14 @@ const setupDatabaseAsync = async () => {
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY (foodID) REFERENCES Food( foodID ));
-                `, [], null, onError)
+                `, [], onSuccess('SnacksItems'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WaterItems(
                 waterfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
                 waterCount INTEGER NOT NULL);
-                `, [], null, onError)
+                `, [], onSuccess('WaterItems'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS FoodGather (
@@ -118,7 +133,7 @@ const setupDatabaseAsync = async () => {
                 totalCarb FLOAT,
                 totalProtein FLOAT,
                 totalFat FLOAT);
-                `, [], null, onError)
+                `, [], onSuccess('FoodGather'), onError)
 
       tx.executeSql(`       
                 CREATE TABLE IF NOT EXISTS RecentlyEatenFood (
@@ -128,7 +143,7 @@ const setupDatabaseAsync = async () => {
                 numberOfTimesAdded INT NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY (foodID) REFERENCES Food( foodID ));
-                `, [], null, onError)
+                `, [], onSuccess('RecentlyEatenFood'), onError)
     },
     (_, error) => {
       console.log('Database Creation ERROR!!!')
