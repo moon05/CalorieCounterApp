@@ -8,123 +8,131 @@ const onError = (error) => {
   // throw Error("Statement failed.");
 }
 
-const insertProfile = (db, userName, height, sex, startingWeight, currentWeight, goalWeight) => {
+const INSERTQUERYPROMISE = (parentFunctionName, db, sqlStatement, args) => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
-      tx.executeSql('insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
-        [userName, height, sex, startingWeight, currentWeight, goalWeight], null, (tx, error) => console.log(error))
+      tx.executeSql(sqlStatement, [...args], null,
+        (tx, error) => {
+          console.log('@ ' + parentFunctionName)
+          console.log(error)
+        })
     },
-    (t, error) => { console.log('db error insertUser'); console.log(error) },
-    (t, success) => { console.log(t); onSuccess('Success creating Profile') }
-    )
+    (t, error) => { console.log('Insert error @ ' + parentFunctionName); console.log(error) },
+    (t, success) => { console.log('Insert Success @ ' + parentFunctionName) })
   })
+}
+
+const SELECTQUERYPROMISE = (parentFunctionName, db, sqlStatement, args, setterFunc) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(sqlStatement, [...args],
+        (_, { rows }) => {
+          setterFunc(rows)
+        },
+        (tx, error) => {
+          console.log('@ ' + parentFunctionName)
+          console.log(error)
+        })
+    },
+    (t, error) => { console.log('Select error @ ' + parentFunctionName); console.log(error) },
+    (t, success) => { console.log('Select Success @ ' + parentFunctionName) })
+  })
+}
+
+const insertProfileObj = {
+  sqlStatement: 'insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
+  parentFunctionName: 'insertProfile'
+}
+const insertProfile = (db, args) => {
+  return INSERTQUERYPROMISE(insertProfileObj.parentFunctionName, db, insertProfileObj.sqlStatement, args)
+}
+
+const getProfileObj = {
+  sqlStatement: 'select * from Profile',
+  parentFunctionName: 'getProfile',
+  args: []
 }
 
 const getProfile = (db, setter) => {
-  return new Promise((resolve, reject) => {
-    db.transaction(tx => {
-      tx.executeSql(`
-        select * from Profile`, [],
-
-      (_, { rows }) => {
-        setter(rows)
-      },
-      (_, error) => console.log(error))
-    },
-    (t, error) => { console.log('db error getProfile'); console.log(error) },
-    (t, success) => {
-      onSuccess('Successfully Loaded Profile')
-    }
-    )
-  })
+  return SELECTQUERYPROMISE(getProfileObj.parentFunctionName, db, getProfileObj.sqlStatement, getProfileObj.args, setter)
 }
 
-const insertWeightLog = (db, date, weight) => {
-  db.transaction(tx => {
-    tx.executeSql('insert into WeightLog (date, weight) values (?,?)', [date, weight])
-  },
-  (t, error) => { console.log('db error insertWeightLog'); console.log(error) },
-  (t, success) => { onSuccess('Success creating WeightLog') })
+const insertWeightLogObj = {
+  sqlStatement: 'insert into WeightLog (date, weight) values (?,?)',
+  parentFunctionName: 'insertWeightLog'
+}
+const insertWeightLog = (db, args) => {
+  return INSERTQUERYPROMISE(insertWeightLogObj.parentFunctionName, db, insertWeightLogObj.sqlStatement, args)
 }
 
-const insertFood = (db, name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into Food (name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight) values (?,?,?,?,?,?,?,?,?,?)',
-      [name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight])
-  },
-  (t, error) => { console.log('db error insertFood'); console.log(error) },
-  (t, success) => { onSuccess('Success creating Food') })
+const insertFoodObj = {
+  sqlStatement: 'insert into Food (name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight) values (?,?,?,?,?,?,?,?,?,?)',
+  parentFunctionName: 'insertFood'
 }
 
-const insertBreakfastItem = (db, date, foodID) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into BreatfastFood (date, foodID) values (?,?)',
-      [date, foodID])
-  },
-  (t, error) => { console.log('db error insertBreakfastItems'); console.log(error) },
-  (t, success) => { onSuccess('Success creating BreakfastItems') })
+const insertFood = (db, args) => {
+  return INSERTQUERYPROMISE(insertFoodObj.parentFunctionName, db, insertFoodObj.sqlStatement, args)
 }
 
-const insertLunchItem = (db, date, foodID) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into LunchFood (date, foodID) values (?,?)',
-      [date, foodID])
-  },
-  (t, error) => { console.log('db error insertLunchItems'); console.log(error) },
-  (t, success) => { onSuccess('Success creating LunchItems') })
+const insertBreakfastItemObj = {
+  sqlStatement: 'insert into BreatfastFood (date, foodID) values (?,?)',
+  parentFunctionName: 'insertBreakfastItem'
 }
 
-const insertDinnerItem = (db, date, foodID) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into DinnerFood (date, foodID) values (?,?)',
-      [date, foodID])
-  },
-  (t, error) => { console.log('db error insertDinnerItems'); console.log(error) },
-  (t, success) => { onSuccess('Success creating DinnerItems') })
+const insertBreakfastItem = (db, args) => {
+  return INSERTQUERYPROMISE(insertBreakfastItemObj.parentFunctionName, db, insertBreakfastItemObj.sqlStatement, args)
 }
 
-const insertSnacksItem = (db, date, foodID) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into DinnerFood (date, foodID) values (?,?)',
-      [date, foodID])
-  },
-  (t, error) => { console.log('db error insertSnacksItems'); console.log(error) },
-  (t, success) => { onSuccess('Success creating SnacksItems') })
+const insertLunchItemObj = {
+  sqlStatement: 'insert into LunchFood (date, foodID) values (?,?)',
+  parentFunctionName: 'insertLunchItem'
 }
 
-const insertWaterItem = (db, date, waterCount) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into DinnerFood (date, waterCount) values (?,?)',
-      [date, waterCount])
-  },
-  (t, error) => { console.log('db error insertWaterItems'); console.log(error) },
-  (t, success) => { onSuccess('Success creating WaterItems') })
+const insertLunchItem = (db, args) => {
+  return INSERTQUERYPROMISE(insertLunchItemObj.parentFunctionName, db, insertLunchItemObj.sqlStatement, args)
 }
 
-const insertFoodGather = (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into FoodGather (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) values (?,?,?,?,?,?,?,?)',
-      [date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat])
-  },
-  (t, error) => { console.log('db error insertWaterItems'); console.log(error) },
-  (t, success) => { onSuccess('Success creating WaterItems') })
+const insertDinnerItemObj = {
+  sqlStatement: 'insert into DinnerFood (date, foodID) values (?,?)',
+  parentFunctionName: 'insertDinnerItem'
+}
+const insertDinnerItem = (db, args) => {
+  return INSERTQUERYPROMISE(insertDinnerItemObj.parentFunctionName, db, insertDinnerItemObj.sqlStatement, args)
 }
 
-const insertRecentlyEatenFood = (db, createdAt, updatedAt, numberOfTimesAdded, foodID) => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'insert into FoodGather (createdAt, updatedAt, numberOfTimesAdded, foodID) values (?,?,?,?)',
-      [createdAt, updatedAt, numberOfTimesAdded, foodID])
-  },
-  (t, error) => { console.log('db error insertWaterItems'); console.log(error) },
-  (t, success) => { onSuccess('Success creating WaterItems') })
+const insertSnacksItemObj = {
+  sqlStatement: 'insert into SnacksItems (date, foodID) values (?,?)',
+  parentFunctionName: 'insertSnacksItem'
+}
+
+const insertSnacksItem = (db, args) => {
+  return INSERTQUERYPROMISE(insertSnacksItemObj.parentFunctionName, db, insertSnacksItemObj.sqlStatement, args)
+}
+
+const insertWaterItemObj = {
+  sqlStatement: 'insert into WaterItems (date, foodID) values (?,?)',
+  parentFunctionName: 'insertWaterItem'
+}
+
+const insertWaterItem = (db, args) => {
+  return INSERTQUERYPROMISE(insertWaterItemObj.parentFunctionName, db, insertWaterItemObj.sqlStatement, args)
+}
+
+const insertFoodGatherObj = {
+  sqlStatement: 'insert into FoodGather (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) values (?,?,?,?,?,?,?,?)',
+  parentFunctionName: 'insertFoodGather'
+}
+
+const insertFoodGather = (db, args) => {
+  return INSERTQUERYPROMISE(insertFoodGatherObj.parentFunctionName, db, insertFoodGatherObj.sqlStatement, args)
+}
+
+const insertRecentlyEatenFoodObj = {
+  sqlStatement: 'insert into RecentlyEatenFood (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) values (?,?,?,?,?,?,?,?)',
+  parentFunctionName: 'insertRecentlyEatenFood'
+}
+const insertRecentlyEatenFood = (db, args) => {
+  return INSERTQUERYPROMISE(insertRecentlyEatenFoodObj.parentFunctionName, db, insertRecentlyEatenFoodObj.sqlStatement, args)
 }
 
 export const crud = {

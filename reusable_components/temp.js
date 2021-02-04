@@ -20,9 +20,7 @@ export const Profiles = ({ database }) => {
 
   const foo = async () => {
     console.log('Result inside ASYNC temp: ')
-    const k = await getStoredProfile(database, setCurrentProfile)
-    // .then(result => { setCurrentProfile(result) })
-    // .catch(err => err)
+    await getStoredProfile(database, setCurrentProfile)
     console.log('Ending')
   }
 
