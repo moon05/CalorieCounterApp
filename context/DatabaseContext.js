@@ -7,14 +7,10 @@ const db = SQLite.openDatabase('SAMPLEDB.db')
 export const DatabaseContext = createContext({})
 
 export const DatabaseContextProvider = props => {
-  // Initial values are obtained from the props
   const {
     // eslint-disable-next-line react/prop-types
     children
   } = props
-
-  // Use State to store the values
-  // const [users, setUsers] = useState(initialUsers)
 
   // useEffect(() => {
   //     refreshUsers()
@@ -85,6 +81,7 @@ export const DatabaseContextProvider = props => {
     addNewLunchItem,
     addNewDinnerItem,
     addNewSnacksItem,
+    addNewWaterItem,
     addNewFoodGather,
     addNewRecentlyEatenFood
   }

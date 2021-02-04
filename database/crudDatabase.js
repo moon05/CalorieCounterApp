@@ -1,13 +1,21 @@
 
-const onSuccess = (successMessage) => {
-  console.log('Success: ' + successMessage)
-}
+// const onSuccess = (successMessage) => {
+//   console.log('Success: ' + successMessage)
+// }
+//
+// const onError = (error) => {
+//   console.log('Error', { error })
+//   // throw Error("Statement failed.");
+// }
 
-const onError = (error) => {
-  console.log('Error', { error })
-  // throw Error("Statement failed.");
-}
-
+/**
+ *
+ * @param parentFunctionName: function calling this function
+ * @param db: database instance
+ * @param sqlStatement
+ * @param args: array of args passed
+ * @returns {Promise<unknown>}
+ */
 const INSERTQUERYPROMISE = (parentFunctionName, db, sqlStatement, args) => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
@@ -22,6 +30,14 @@ const INSERTQUERYPROMISE = (parentFunctionName, db, sqlStatement, args) => {
   })
 }
 
+/**
+ *
+ * @param parentFunctionName: function calling this function
+ * @param db: database instance
+ * @param sqlStatement
+ * @param args: array of args passed (could be empty)
+ * @returns {Promise<unknown>}
+ */
 const SELECTQUERYPROMISE = (parentFunctionName, db, sqlStatement, args, setterFunc) => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
