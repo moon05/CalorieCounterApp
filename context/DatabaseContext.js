@@ -1,8 +1,6 @@
 
 import React, { useEffect, createContext, useState } from 'react'
 import { crud } from '../database/crudDatabase'
-import * as SQLite from 'expo-sqlite'
-const db = SQLite.openDatabase('SAMPLEDB.db')
 
 export const DatabaseContext = createContext({})
 
@@ -11,10 +9,6 @@ export const DatabaseContextProvider = props => {
     // eslint-disable-next-line react/prop-types
     children
   } = props
-
-  // useEffect(() => {
-  //     refreshUsers()
-  // }, [] )
 
   /**
    * @param db: database instance passed down
@@ -40,6 +34,10 @@ export const DatabaseContextProvider = props => {
 
   const addNewFood = async (db, name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight) => {
     await crud.insertFood(db, [name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight])
+  }
+
+  const getStoredFood = async (db, setter) => {
+    await crud.getAllFood(db, setter)
   }
 
   const addNewBreakfastItem = async (db, date, foodID) => {
@@ -77,6 +75,7 @@ export const DatabaseContextProvider = props => {
     getStoredProfile,
     addNewWeightLog,
     addNewFood,
+    getStoredFood,
     addNewBreakfastItem,
     addNewLunchItem,
     addNewDinnerItem,

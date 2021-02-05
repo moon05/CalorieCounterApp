@@ -1,9 +1,16 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
-import { Divider, Text } from 'react-native-paper'
+import { Divider, Text, Button } from 'react-native-paper'
 import { CALORIE_DASHBOARD } from './reusable_components/calorie_dashboard'
+import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
 
-export const LogScreen = ({ navigation }) => {
+export const LogScreen = ({ navigation, propDB }) => {
+  console.log('Printing in LogScreen')
+  console.log(propDB)
+  console.log(navigation)
+  const NavigateToAddFoodScreen = () => {
+    navigation.navigate('Add Food')
+  }
   return (
         <SafeAreaView style={{ flex: 1 }}>
 
@@ -15,7 +22,8 @@ export const LogScreen = ({ navigation }) => {
                     <View flexDirection='column'>
                         <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Breakfast | Time of Day </Text>
                         <Divider style={{ marginTop: 10 }}/>
-                        <Text style={{ marginTop: 15 }}> ADD FOOD </Text>
+                        <FOOD_ADD_SCREEN propDB={ propDB }/>
+                        <Button onPress={NavigateToAddFoodScreen}> ADD FOOD </Button>
                     </View>
 
                     <Divider style={{ height: 10, marginTop: 20 }}/>

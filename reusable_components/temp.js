@@ -1,4 +1,4 @@
-import React, { Component, useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { Divider, Text, Button } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
@@ -8,16 +8,6 @@ export const Profiles = ({ database, safeToLoad }) => {
   const { getStoredProfile, addSampleProfile } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [currentProfile, setCurrentProfile] = useState(undefined)
-  const [helperArr, setHelperArr] = useState([])
-
-  const onSuccess = (successMessage) => {
-    console.log('Success: ' + successMessage)
-  }
-
-  const onError = (error) => {
-    console.log('Error', { error })
-    // throw Error("Statement failed.");
-  }
 
   const foo = async () => {
     console.log('Result inside ASYNC temp: ')
@@ -27,9 +17,7 @@ export const Profiles = ({ database, safeToLoad }) => {
 
   const goo = async () => {
     console.log('Trying to create an additional sample profile: ')
-    const k = await addSampleProfile(database)
-    // .then(result => { setCurrentProfile(result) })
-    // .catch(err => err)
+    await addSampleProfile(database)
     console.log('Ending Sample profile Async')
   }
 
@@ -45,16 +33,6 @@ export const Profiles = ({ database, safeToLoad }) => {
     console.log('Starting to Print current Profile')
     console.log(currentProfile)
     console.log('Ending print current profile in USE Effect in temp.js')
-    //
-    // if (currentProfile !== 'undefined') {
-    //   if (!(!Array.isArray(currentProfile._array) || !currentProfile._array.length)) {
-    //     const k = [currentProfile._array[0].username, currentProfile._array[0].height,
-    //       currentProfile._array[0].sex, currentProfile._array[0].startingWeight,
-    //       currentProfile._array[0].currentWeight, currentProfile._array[0].goalWeight]
-    //     console.log('Printing K HERE: ' + k)
-    //     setHelperArr(k)
-    //   }
-    // }
   }, [currentProfile])
 
   return (

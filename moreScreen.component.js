@@ -5,7 +5,7 @@ import { FOOD_DATA } from './food_data'
 
 import { CHICKEN_BREAST, CHICKEN_DRUMSTICK, CHICKEN_THIGH, HAM, LAMB_SHANK, PORK_CHOP, RIB_EYE, VENISON } from './images'
 
-export const MoreScreen = ({ navigation }) => {
+export const MoreScreen = ({ navigation, propDB }) => {
   const styles = StyleSheet.create({
     food_image: {
       width: 50,

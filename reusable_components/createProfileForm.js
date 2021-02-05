@@ -26,6 +26,7 @@ export const ProfileForm = ({ database, profileSubmitted }) => {
   const goalWeightInputRef = useRef()
   const onSubmit = data => {
     console.log('SubmitPressed')
+    console.log(database)
     console.log(data)
     addNewProfile(database, data.username, parseFloat(data.height), data.sex, parseFloat(data.startingWeight), parseFloat(data.startingWeight), parseFloat(data.goalWeight))
     profileSubmitted(true)

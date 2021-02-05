@@ -11,7 +11,7 @@ import { Profiles } from './reusable_components/temp'
 import { ProfileForm } from './reusable_components/createProfileForm'
 import { FirstLaunchScreen } from './firstLaunchScreen.component'
 
-export const HomeScreen = ({ database }) => {
+export const HomeScreen = ({ propDB }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -33,16 +33,16 @@ export const HomeScreen = ({ database }) => {
 
   const [profileHasBeenSubmitted, setProfileHasBeenSubmitted] = useState(false)
 
-  console.log('Printing again in HOMESCREEN:')
-  console.log(database)
+  console.log('Printing in HOMESCREEN:')
+  console.log(propDB)
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
             <Text style={styles.appHeaderName}>Lightweight Calorie Counter</Text>
             <ScrollView>
-              <FirstLaunchScreen database={database} propSetter={setProfileHasBeenSubmitted}/>
+              <FirstLaunchScreen database={propDB} propSetter={setProfileHasBeenSubmitted}/>
             </ScrollView>
-          <Profiles database={database} safeToLoad={profileHasBeenSubmitted}/>
+          <Profiles database={propDB} safeToLoad={profileHasBeenSubmitted}/>
 
           <Divider/>
         </SafeAreaView>
