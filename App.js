@@ -3,7 +3,6 @@ import { Provider as PaperProvider } from 'react-native-paper'
 import AppNavigator from './navigation.component'
 import * as SQLite from 'expo-sqlite'
 import * as SplashScreen from 'expo-splash-screen'
-import { NavigationContainer } from '@react-navigation/native'
 import useDatabase from './database/useDatabase'
 import { DatabaseContextProvider } from './context/DatabaseContext'
 import { LogBox } from 'react-native'
@@ -23,11 +22,10 @@ export default function App () {
 
     return (
         <PaperProvider>
-            <NavigationContainer>
-                 <DatabaseContextProvider>
-                    <AppNavigator database={db}/>
-                 </DatabaseContextProvider>
-            </NavigationContainer>
+            <DatabaseContextProvider>
+                <AppNavigator propDB={db}/>
+            </DatabaseContextProvider>
+
         </PaperProvider>
     )
   } else {
