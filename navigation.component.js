@@ -4,40 +4,16 @@ import { LogScreen } from './logScreen.component'
 import { MoreScreen } from './moreScreen.component'
 import { ProgressScreen } from './progressScreen.component'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
 
 // import {BottomNavigation} from 'react-native-paper';
 
 const Tab = createMaterialBottomTabNavigator()
+const Stack = createStackNavigator()
 
-const AppNavigator = ({ database }) => {
-  // const [index, setIndex] = React.useState(0);
-  // const [routes] = React.useState([
-  //     {key: 'home', title: 'Home', icon: 'home'},
-  //     {key: 'log', title: 'Log', icon: 'book'},
-  //     {key: 'progress', title: 'Progress', icon: 'chart-bar'},
-  //     {key: 'more', title: 'More', icon: 'more'},
-  // ]);
-  //
-  // const renderScene = BottomNavigation.SceneMap({
-  //     home: HomeScreen,
-  //     log: LogScreen,
-  //     progress: ProgressScreen,
-  //     more: MoreScreen
-  // });
-  //
-  // return (
-  //     <BottomNavigation
-  //         navigationState={{index, routes}}
-  //         onIndexChange={setIndex}
-  //         renderScene={renderScene}
-  //         db={database}
-  //     />
-  // );
-  // useEffect(() => {
-  //   console.log('priting in app navigation')
-  //   console.log(database)
-  // })
-
+const MainTabs = ({ propDB }) => {
   return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -51,30 +27,52 @@ const AppNavigator = ({ database }) => {
                   tabBarIcon: 'home'
                 }}
             >
-                {() => <HomeScreen database={database}/>}
+                {() => <HomeScreen propDB={propDB}/>}
             </Tab.Screen>
+
             <Tab.Screen
                 name="Log"
-                component={LogScreen}
                 options={{
                   tabBarIcon: 'book'
                 }}
-            />
+            >
+                {() => (
+                    <Stack.Navigator>
+                        <Stack.Screen name="Log">
+                            {(props) => <LogScreen {...props} propDB={propDB} />}
+                        </Stack.Screen>
+                        <Stack.Screen name="Add Food">
+                            {(props) => <FOOD_ADD_SCREEN {...props} propDB={propDB} />}
+                        </Stack.Screen>
+                    </Stack.Navigator>
+                )}
+            </Tab.Screen>
+
             <Tab.Screen
                 name="Progress"
-                component={ProgressScreen}
                 options={{
                   tabBarIcon: 'chart-bar'
                 }}
-            />
+            >
+                {() => <ProgressScreen propDB={propDB}/>}
+            </Tab.Screen>
+
             <Tab.Screen
                 name="More"
-                component={MoreScreen}
                 options={{
                   tabBarIcon: 'more'
                 }}
-            />
+            >
+                {() => <MoreScreen propDB={propDB}/>}
+            </Tab.Screen>
         </Tab.Navigator>
+  )
+}
+const AppNavigator = ({ propDB }) => {
+  return (
+      <NavigationContainer propDB={propDB}>
+          <MainTabs propDB={propDB} />
+      </NavigationContainer>
 
   )
 }
