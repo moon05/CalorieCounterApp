@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { SafeAreaView, Image, View, FlatList, StyleSheet } from 'react-native'
+import { SafeAreaView, Image, View, FlatList, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
 import { FOOD_DATA } from '../food_data'
@@ -8,7 +8,7 @@ export const FOOD_ADD_SCREEN = ({ propDB }) => {
   const databaseContext = useContext(DatabaseContext)
   const { getStoredFood } = databaseContext
   const [loaded, setLoaded] = useState(false)
-  const [foodObj, setFoodObj] = useState(undefined)
+  const [foodObj, setFoodObj] = useState('NotReady')
 
   const styles = StyleSheet.create({
     food_image: {
@@ -44,6 +44,10 @@ export const FOOD_ADD_SCREEN = ({ propDB }) => {
     }
   })
 
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
+
   const queryFoodTable = async () => {
     console.log('Result inside ASYNC FoodAddScreen: ')
     getStoredFood(propDB, setFoodObj)
@@ -60,42 +64,58 @@ export const FOOD_ADD_SCREEN = ({ propDB }) => {
   }, [loaded])
 
   useEffect(() => {
-    console.log('Starting to Print Food Obj')
-    console.log(foodObj)
-    console.log('Ending print Food Obj in USE Effect in Food Add Screen')
+    // console.log('Starting to Print Food Obj')
+    // console.log(foodObj)
+    // console.log('Ending print Food Obj in USE Effect in Food Add Screen')
+    if (foodObj !== 'NotReady') {
+      console.log('@@@@@ Printing in Food ADD Screen @@@@@')
+      console.log(foodObj._array)
+      console.log('@@@ FoodObj isnt null anymore @@@')
+      setFoodList(
+              <FlatList
+                  data={foodObj._array}
+                  renderItem={renderItem}
+                  keyExtractor={(item, index) => index}
+              />
+      )
+    }
   }, [foodObj])
 
   const Item = ({ fields }) => (
-        <View flexDirection="row" justifyContent="space-between" alignItems="center" style={styles.food_row}>
-            <View justifyContent="flex-start" alignItems="flex-start">
-                <Image source={fields.imageSRC} style={styles.food_image}/>
-            </View>
-            <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-start" style={styles.name_column}>
-                <Text style={{ fontWeight: '500' }}>{fields.name}</Text>
-                <Text>{fields.weight}</Text>
-            </View>
+      <TouchableWithoutFeedback onPress={() => alert('Pressed me!')}>
 
-            <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-center" style={styles.protein_column}>
-                <Text>{fields.protein}</Text>
-            </View>
-            <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-end" style={styles.calorie_column}>
-                <Text>{fields.calories}</Text>
-            </View>
-        </View>
+      <View flexDirection="row" justifyContent="space-between" alignItems="center" style={styles.food_row}>
+          <View justifyContent="flex-start" alignItems="flex-start">
+              <Image source={fields.imageSRC} style={styles.food_image}/>
+          </View>
+          <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-start" style={styles.name_column}>
+              <Text style={{ fontWeight: '500' }}>{fields.title}</Text>
+              <Text>{fields.weight}</Text>
+          </View>
+
+          <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-center" style={styles.protein_column}>
+              <Text>{fields.protein}</Text>
+          </View>
+          <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-end" style={styles.calorie_column}>
+              <Text>{fields.calories}</Text>
+          </View>
+      </View>
+      </TouchableWithoutFeedback>
+
   )
 
   const renderItem = ({ item }) => (
         <Item fields={item}/>
   )
 
+  const [foodList, setFoodList] = useState(
+      <Text> Nothing to See here YET!!! </Text>
+  )
+
   return (
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.large_container}>
-              <FlatList
-                  data={FOOD_DATA}
-                  renderItem={renderItem}
-                  keyExtractor={item => item.id}
-              />
+              {foodList}
           </View>
       </SafeAreaView>
 

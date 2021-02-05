@@ -1,16 +1,44 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { Divider, Text, Button } from 'react-native-paper'
 import { CALORIE_DASHBOARD } from './reusable_components/calorie_dashboard'
 import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
+import { DatabaseContext } from './context/DatabaseContext'
 
 export const LogScreen = ({ navigation, propDB }) => {
+  const databaseContext = useContext(DatabaseContext)
+  const { getStoredFood } = databaseContext
+  const [loaded, setLoaded] = useState(false)
+  const [foodObj, setFoodObj] = useState(undefined)
+
   console.log('Printing in LogScreen')
   console.log(propDB)
   console.log(navigation)
+
   const NavigateToAddFoodScreen = () => {
     navigation.navigate('Add Food')
   }
+
+  const queryFoodTable = async () => {
+    console.log('Result inside ASYNC LogScreen: ')
+    getStoredFood(propDB, setFoodObj)
+    console.log('Ending LogScreen')
+  }
+
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    console.log('Calling QueryFoodTable')
+    queryFoodTable()
+  }, [loaded])
+
+  useEffect(() => {
+    console.log('Starting to Print Food Obj')
+    console.log(foodObj)
+    console.log('Ending print Food Obj in USE Effect in LogScreen')
+  }, [foodObj])
   return (
         <SafeAreaView style={{ flex: 1 }}>
 
@@ -22,7 +50,7 @@ export const LogScreen = ({ navigation, propDB }) => {
                     <View flexDirection='column'>
                         <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Breakfast | Time of Day </Text>
                         <Divider style={{ marginTop: 10 }}/>
-                        <FOOD_ADD_SCREEN propDB={ propDB }/>
+
                         <Button onPress={NavigateToAddFoodScreen}> ADD FOOD </Button>
                     </View>
 

@@ -1,3 +1,9 @@
+import {
+  CHICKEN_BREAST, CHICKEN_DRUMSTICK, CHICKEN_THIGH,
+  HAM, LAMB_SHANK, PORK_CHOP, RIB_EYE, VENISON, AHI_TUNA,
+  COD, HALIBUT, MASHED_POTATOES, MASHED_SWEET_POTATOES,
+  SALMON, SHRIMP
+} from '../images'
 
 const ribEye = {
   name: 'Rib Eye',
@@ -7,7 +13,7 @@ const ribEye = {
   carbohydrates: 0,
   sugar: 0,
   protein: 23.8,
-  imageSRC: 'blah',
+  imageSRC: RIB_EYE,
   typeOfFood: 'protein',
   weight: 85
 }
@@ -20,7 +26,7 @@ const rainbowTrout = {
   carbohydrates: 0,
   sugar: 0,
   protein: 17.4,
-  imageSRC: 'blah',
+  imageSRC: AHI_TUNA,
   typeOfFood: 'protein',
   weight: 85
 }
