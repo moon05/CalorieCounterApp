@@ -8,60 +8,7 @@
 //   // throw Error("Statement failed.");
 // }
 
-/**
- *
- * @param parentFunctionName: function calling this function
- * @param db: database instance
- * @param sqlStatement
- * @param args: array of args passed
- * @returns {Promise<unknown>}
- */
-const INSERTQUERYPROMISE = (parentFunctionName, db, sqlStatement, args) => {
-  return new Promise((resolve, reject) => {
-    db.transaction(tx => {
-      tx.executeSql(sqlStatement, [...args], null,
-        (tx, error) => {
-          console.log('@ ' + parentFunctionName)
-          console.log(error)
-        })
-    },
-    (t, error) => { console.log('Insert error @ ' + parentFunctionName); console.log(error) },
-    (t, success) => { console.log('Insert Success @ ' + parentFunctionName) })
-  })
-}
-
-/**
- *
- * @param parentFunctionName: function calling this function
- * @param db: database instance
- * @param sqlStatement
- * @param args: array of args passed (could be empty)
- * @returns {Promise<unknown>}
- */
-const SELECTQUERYPROMISE = (parentFunctionName, db, sqlStatement, args, setterFunc) => {
-  return new Promise((resolve, reject) => {
-    db.transaction(tx => {
-      tx.executeSql(sqlStatement, [...args],
-        (_, { rows }) => {
-          setterFunc(rows)
-        },
-        (tx, error) => {
-          console.log('@ ' + parentFunctionName)
-          console.log(error)
-        })
-    },
-    (t, error) => { console.log('Select error @ ' + parentFunctionName); console.log(error) },
-    (t, success) => { console.log('Select Success @ ' + parentFunctionName) })
-  })
-}
-
-const insertProfileObj = {
-  sqlStatement: 'insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
-  parentFunctionName: 'insertProfile'
-}
-const insertProfile = (db, args) => {
-  return INSERTQUERYPROMISE(insertProfileObj.parentFunctionName, db, insertProfileObj.sqlStatement, args)
-}
+import { INSERTQUERYPROMISE, SELECTQUERYPROMISE } from './helpers'
 
 const getProfileObj = {
   sqlStatement: 'select * from Profile',
@@ -71,6 +18,24 @@ const getProfileObj = {
 
 const getProfile = (db, setter) => {
   return SELECTQUERYPROMISE(getProfileObj.parentFunctionName, db, getProfileObj.sqlStatement, getProfileObj.args, setter)
+}
+
+const getFoodObj = {
+  sqlStatement: 'select * from Food',
+  parentFunctionName: 'getAllFood',
+  args: []
+}
+
+const getAllFood = async (db, setter) => {
+  return SELECTQUERYPROMISE(getFoodObj.parentFunctionName, db, getFoodObj.sqlStatement, getFoodObj.args, setter)
+}
+
+const insertProfileObj = {
+  sqlStatement: 'insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
+  parentFunctionName: 'insertProfile'
+}
+const insertProfile = (db, args) => {
+  return INSERTQUERYPROMISE(insertProfileObj.parentFunctionName, db, insertProfileObj.sqlStatement, args)
 }
 
 const insertWeightLogObj = {
@@ -157,6 +122,7 @@ export const crud = {
   getProfile,
   insertWeightLog,
   insertFood,
+  getAllFood,
   insertBreakfastItem,
   insertLunchItem,
   insertDinnerItem,

@@ -5,6 +5,7 @@
 // db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
 //   console.log('Foreign keys turned on')
 // )
+import { FOOD_OBJECTS } from '../reusable_components/food_detailed_data'
 
 const setupDatabaseAsync = async (db) => {
   return new Promise((resolve, reject) => {
@@ -47,23 +48,16 @@ const setupDatabaseAsync = async (db) => {
                 goalWeight FLOAT)
                 `, [], onSuccess('Profile'), onError)
 
-      // tx.executeSql(
-      //   ' insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
-      //   ['carrie', 150, 'male', 110, 110, 140],
-      //   (_, success) => {
-      //     console.log('Inserting Sample Data from Initialize')
-      //   }, onError)
-
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WeightLog (
-                weightLogID INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+                weightLogID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
                 weight FLOAT NOT NULL);
                 `, [], onSuccess('WeightLog'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS Food (
-                foodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                foodID INTEGER PRIMARY KEY NOT NULL,
                 name VARCHAR NOT NULL,
                 calories FLOAT,
                 fat FLOAT,
@@ -76,9 +70,24 @@ const setupDatabaseAsync = async (db) => {
                 weight FLOAT NOT NULL);
                 `, [], onSuccess('Food'), onError)
 
+      tx.executeSql('INSERT INTO Food values (?,?,?,?,?,?,?,?,?,?,?)',
+        [1, FOOD_OBJECTS.ribEye.name, FOOD_OBJECTS.ribEye.calories, FOOD_OBJECTS.ribEye.fat,
+          FOOD_OBJECTS.ribEye.sodium, FOOD_OBJECTS.ribEye.carbohydrates, FOOD_OBJECTS.ribEye.sugar,
+          FOOD_OBJECTS.ribEye.protein, FOOD_OBJECTS.ribEye.imageSRC, FOOD_OBJECTS.ribEye.typeOfFood,
+          FOOD_OBJECTS.ribEye.weight], onSuccess('Insert RibEYE'), onError)
+
+      tx.executeSql('INSERT INTO Food values (?,?,?,?,?,?,?,?,?,?,?)',
+        [2, FOOD_OBJECTS.rainbowTrout.name, FOOD_OBJECTS.rainbowTrout.calories, FOOD_OBJECTS.rainbowTrout.fat,
+          FOOD_OBJECTS.rainbowTrout.sodium, FOOD_OBJECTS.rainbowTrout.carbohydrates, FOOD_OBJECTS.rainbowTrout.sugar,
+          FOOD_OBJECTS.rainbowTrout.protein, FOOD_OBJECTS.rainbowTrout.imageSRC, FOOD_OBJECTS.rainbowTrout.typeOfFood,
+          FOOD_OBJECTS.rainbowTrout.weight], onSuccess('Insert Trout'), onError)
+
+      tx.executeSql('SELECT * from Food',
+        [], (_, tx) => { console.log(tx) }, onError)
+
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS BreakfastItems (
-                breakfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                breakfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY (foodID) REFERENCES Food ( foodID ) );
@@ -86,7 +95,7 @@ const setupDatabaseAsync = async (db) => {
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS LunchItems (
-                lunchfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                lunchfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
@@ -94,7 +103,7 @@ const setupDatabaseAsync = async (db) => {
       tx.executeSql(`
                 
                 CREATE TABLE IF NOT EXISTS DinnerItems (
-                dinnerfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                dinnerfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
@@ -102,7 +111,7 @@ const setupDatabaseAsync = async (db) => {
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS SnacksItems (
-                snacksfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                snacksfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
                 foodID INTEGER,
                 FOREIGN KEY (foodID) REFERENCES Food( foodID ));
@@ -110,14 +119,14 @@ const setupDatabaseAsync = async (db) => {
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS WaterItems(
-                waterfoodID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                waterfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
                 waterCount INTEGER NOT NULL);
                 `, [], onSuccess('WaterItems'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS FoodGather (
-                foodgatherID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                foodgatherID INTEGER PRIMARY KEY NOT NULL,
                 date DATE UNIQUE NOT NULL,
                 breakfastNetCalorie FLOAT,
                 lunchNetCalorie FLOAT,
@@ -130,7 +139,7 @@ const setupDatabaseAsync = async (db) => {
 
       tx.executeSql(`       
                 CREATE TABLE IF NOT EXISTS RecentlyEatenFood (
-                recentlyID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                recentlyID INTEGER PRIMARY KEY NOT NULL,
                 createdAt DATE NOT NULL,
                 updatedAt DATE NOT NULL,
                 numberOfTimesAdded INT NOT NULL,
