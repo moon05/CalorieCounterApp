@@ -6,17 +6,20 @@ import { DatabaseContext } from './context/DatabaseContext'
 
 export const LogScreen = ({ navigation, propDB }) => {
   const databaseContext = useContext(DatabaseContext)
-  const { getStoredFood } = databaseContext
+  const {
+    getStoredFood,
+    addNewBreakfastItem,
+    addNewLunchItem,
+    addNewDinnerItem,
+    addNewSnacksItem,
+    addNewWaterItem
+  } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [foodObj, setFoodObj] = useState(undefined)
 
   console.log('Printing in LogScreen')
   console.log(propDB)
   console.log(navigation)
-  //
-  // const NavigateToFoodSelectionScreen = (headerName) => {
-  //   navigation.navigate('AddFood', { name: headerName })
-  // }
 
   const queryFoodTable = async () => {
     console.log('Result inside ASYNC LogScreen: ')
@@ -46,7 +49,7 @@ export const LogScreen = ({ navigation, propDB }) => {
                         <Divider style={{ marginTop: 10 }}/>
 
                         <Button onPress={() =>
-                          navigation.navigate('AddFood', { name: 'Breakfast' })
+                          navigation.navigate('FoodSelection', { name: 'Breakfast', heya: 'Blah', itemRegisterFunc: addNewBreakfastItem })
                         }>
                             ADD FOOD
                         </Button>
@@ -59,7 +62,7 @@ export const LogScreen = ({ navigation, propDB }) => {
                         <Divider style={{ marginTop: 10 }}/>
 
                         <Button onPress={() =>
-                          navigation.navigate('AddFood', { name: 'Lunch' })
+                          navigation.navigate('FoodSelection', { name: 'Lunch' })
                         }>
                             ADD FOOD
                         </Button>
@@ -72,7 +75,7 @@ export const LogScreen = ({ navigation, propDB }) => {
                         <Divider style={{ marginTop: 10 }}/>
 
                         <Button onPress={() =>
-                          navigation.navigate('AddFood', { name: 'Dinner' })
+                          navigation.navigate('FoodSelection', { name: 'Dinner' })
                         }>
                             ADD FOOD
                         </Button>
@@ -85,7 +88,7 @@ export const LogScreen = ({ navigation, propDB }) => {
                         <Divider style={{ marginTop: 10 }}/>
 
                         <Button onPress={() =>
-                          navigation.navigate('AddFood', { name: 'Snacks' })
+                          navigation.navigate('FoodSelection', { name: 'Snacks' })
                         }>
                             ADD FOOD
                         </Button>

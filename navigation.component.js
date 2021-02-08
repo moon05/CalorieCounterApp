@@ -5,8 +5,10 @@ import { MoreScreen } from './moreScreen.component'
 import { ProgressScreen } from './progressScreen.component'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { FOOD_SELECTION_SCREEN } from './reusable_components/food_selection_screen'
+import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
+import { Button } from 'react-native-paper'
 
 // import {BottomNavigation} from 'react-native-paper';
 
@@ -37,18 +39,37 @@ const MainTabs = ({ propDB }) => {
                 }}
             >
                 {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                        screenOptions={{
+                          headerBackTitleVisible: false
+                        }}>
                         <Stack.Screen name="Log">
                             {(props) => <LogScreen {...props} propDB={propDB} />}
                         </Stack.Screen>
 
                         <Stack.Screen
-                            name="AddFood"
+                            name="FoodSelection"
                             options={({ route }) => ({ title: route.params.name })}>
                             {(props) => <FOOD_SELECTION_SCREEN
                                 {...props}
                                 propDB={propDB}
                                 />
+                            }
+                        </Stack.Screen>
+
+                        <Stack.Screen
+                            name="Add Food"
+                            options={({ navigation, route }) => ({
+                              title: 'Awesome app',
+                              headerRight: () => (
+                                <Button onPress={route.params.alertButton}> Right</Button>
+                              )
+                            })}
+                            >
+                            {(props) => <FOOD_ADD_SCREEN
+                                {...props}
+                                propDB={propDB}
+                            />
                             }
                         </Stack.Screen>
                     </Stack.Navigator>

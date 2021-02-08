@@ -2,13 +2,16 @@ import React, { useContext, useState, useEffect } from 'react'
 import { SafeAreaView, Image, View, FlatList, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
-import { FOOD_DATA } from '../food_data'
 
-export const FOOD_SELECTION_SCREEN = ({ propDB }) => {
+export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
   const databaseContext = useContext(DatabaseContext)
   const { getStoredFood } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [foodObj, setFoodObj] = useState('NotReady')
+
+  const alertButtonFunc = () => {
+    alert('Right Button was clicked')
+  }
 
   const styles = StyleSheet.create({
     food_image: {
@@ -46,6 +49,7 @@ export const FOOD_SELECTION_SCREEN = ({ propDB }) => {
 
   useEffect(() => {
     setLoaded(true)
+    console.log(route.params)
   }, [])
 
   const queryFoodTable = async () => {
@@ -53,10 +57,6 @@ export const FOOD_SELECTION_SCREEN = ({ propDB }) => {
     getStoredFood(propDB, setFoodObj)
     console.log('Ending FoodAddScreen')
   }
-
-  useEffect(() => {
-    setLoaded(true)
-  }, [])
 
   useEffect(() => {
     console.log('Calling QueryFoodTable')
@@ -82,7 +82,11 @@ export const FOOD_SELECTION_SCREEN = ({ propDB }) => {
   }, [foodObj])
 
   const Item = ({ fields }) => (
-      <TouchableWithoutFeedback onPress={() => alert('Pressed me!')}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Add Food', {
+        alertButton: () => {
+          alert(route.params.heya)
+        }
+      })}>
 
       <View flexDirection="row" justifyContent="space-between" alignItems="center" style={styles.food_row}>
           <View justifyContent="flex-start" alignItems="flex-start">
