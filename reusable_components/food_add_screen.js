@@ -54,16 +54,20 @@ export const FOOD_ADD_SCREEN = ({ propDB, route, navigation }) => {
                 </View>
                 <View flexDirection="row" justifyContent="space-between" alignItems="center">
                     <View justifyContent="flex-start" alignItems="flex-start">
-                        <Text category="h6"> Total calories</Text>
+                        <Text category="h6"> Total calories </Text>
+                        <Text category="h6"> {route.params.foodInfo.calories} </Text>
                     </View>
                     <View justifyContent="flex-start" alignItems="flex-start">
                         <Text category="h6"> Total Carbs</Text>
+                        <Text category="h6"> {route.params.foodInfo.carbohydrates} </Text>
                     </View>
                     <View justifyContent="flex-start" alignItems="flex-start">
                         <Text category="h6"> Total Fat</Text>
+                        <Text category="h6"> {route.params.foodInfo.fat} </Text>
                     </View>
                     <View justifyContent="flex-start" alignItems="flex-start">
                         <Text category="h6"> Total Protein</Text>
+                        <Text category="h6"> {route.params.foodInfo.protein} </Text>
                     </View>
                 </View>
 

@@ -16,6 +16,7 @@ export const LogScreen = ({ navigation, propDB }) => {
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [foodObj, setFoodObj] = useState(undefined)
+  const todayDate = new Date()
 
   console.log('Printing in LogScreen')
   console.log(propDB)
@@ -45,11 +46,11 @@ export const LogScreen = ({ navigation, propDB }) => {
                 {/* top label for calorie consumption */}
                 <View flexDirection='column'>
                     <View flexDirection='column'>
-                        <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Breakfast | Time of Day </Text>
+                        <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Breakfast </Text>
                         <Divider style={{ marginTop: 10 }}/>
 
                         <Button onPress={() =>
-                          navigation.navigate('FoodSelection', { name: 'Breakfast', heya: 'Blah', itemRegisterFunc: addNewBreakfastItem })
+                          navigation.navigate('FoodSelection', { name: 'Breakfast', itemRegisterFunc: addNewBreakfastItem })
                         }>
                             ADD FOOD
                         </Button>

@@ -87,34 +87,34 @@ const setupDatabaseAsync = async (db) => {
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS BreakfastItems (
-                breakfoodID INTEGER PRIMARY KEY NOT NULL,
+                breakfastfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                foodID INTEGER,
-                FOREIGN KEY (foodID) REFERENCES Food ( foodID ) );
+                fID INTEGER,
+                FOREIGN KEY (fID) REFERENCES Food ( foodID ) );
                 `, [], onSuccess('BreakfastItems'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS LunchItems (
                 lunchfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                foodID INTEGER,
-                FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
+                fID INTEGER,
+                FOREIGN KEY ( fID ) REFERENCES Food (foodID) );
                 `, [], onSuccess('LunchItems'), onError)
       tx.executeSql(`
                 
                 CREATE TABLE IF NOT EXISTS DinnerItems (
                 dinnerfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                foodID INTEGER,
-                FOREIGN KEY ( foodID ) REFERENCES Food (foodID) );
+                fID INTEGER,
+                FOREIGN KEY ( fID ) REFERENCES Food (foodID) );
                 `, [], onSuccess('DinnerItems'), onError)
 
       tx.executeSql(`
                 CREATE TABLE IF NOT EXISTS SnacksItems (
                 snacksfoodID INTEGER PRIMARY KEY NOT NULL,
                 date DATE NOT NULL,
-                foodID INTEGER,
-                FOREIGN KEY (foodID) REFERENCES Food( foodID ));
+                fID INTEGER,
+                FOREIGN KEY (fID) REFERENCES Food( foodID ));
                 `, [], onSuccess('SnacksItems'), onError)
 
       tx.executeSql(`
@@ -143,8 +143,8 @@ const setupDatabaseAsync = async (db) => {
                 createdAt DATE NOT NULL,
                 updatedAt DATE NOT NULL,
                 numberOfTimesAdded INT NOT NULL,
-                foodID INTEGER,
-                FOREIGN KEY (foodID) REFERENCES Food( foodID ));
+                fID INTEGER,
+                FOREIGN KEY (fID) REFERENCES Food( foodID ));
                 `, [], onSuccess('RecentlyEatenFood'), onError)
     },
     (_, error) => {

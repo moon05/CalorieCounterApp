@@ -59,7 +59,7 @@ const MainTabs = ({ propDB }) => {
                             name="Add Food"
                             options={({ navigation, route }) => ({
                               headerRight: () => (
-                                <Button onPress={route.params.alertButton}> Right</Button>
+                                <Button onPress={route.params.rightHeaderInsert}> Right</Button>
                               )
                             })}
                             >

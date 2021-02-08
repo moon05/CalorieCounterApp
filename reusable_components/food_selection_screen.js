@@ -47,6 +47,8 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
     }
   })
 
+  const todayDate = new Date()
+
   useEffect(() => {
     setLoaded(true)
     console.log(route.params)
@@ -86,9 +88,11 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
           onPress={() => {
             const itemId = index
             navigation.navigate('Add Food', {
-              alertButton: () => {
-                alert(`${itemId} + ${fields.name} + ${fields.protein} + ${fields.fat} + ${fields.sodium}`)
-              }
+              rightHeaderInsert: () => {
+                route.params.itemRegisterFunc(propDB, todayDate, itemId)
+              },
+              foodInfo: fields,
+              foodRowId: itemId
             })
           }
           }
@@ -99,7 +103,7 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
               <Image source={fields.imageSRC} style={styles.food_image}/>
           </View>
           <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-start" style={styles.name_column}>
-              <Text style={{ fontWeight: '500' }}>{fields.title}</Text>
+              <Text style={{ fontWeight: '500' }}>{fields.name}</Text>
               <Text>{fields.weight}</Text>
           </View>
 
