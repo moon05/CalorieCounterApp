@@ -22,22 +22,19 @@ export const LogScreen = ({ navigation, propDB }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [foodObj, setFoodObj] = useState(undefined)
   const [breakfastItemsObj, setBreakfastItemsObj] = useState('NotReady')
+  const [lunchItemsObj, setLunchItemsObj] = useState('NotReady')
   const todayDate = new Date()
-
-  const [breakfastFoodList, setBreakfastFoodList] = useState('NotReady')
-  console.log('Printing in LogScreen')
-  console.log(navigation)
-
-  const queryFoodTable = async () => {
-    console.log('Result inside ASYNC Food LogScreen: ')
-    getStoredFood(propDB, setFoodObj)
-    console.log('@@@ Ending Food LogScreen @@@')
-  }
 
   const queryBreakfastTable = async () => {
     console.log('Result inside ASYNC Breakfast LogScreen: ')
     getAllAddedBreakfastItems(propDB, setBreakfastItemsObj)
     console.log('@@@ Ending Breakfast LogScreen @@@')
+  }
+
+  const queryLunchTable = async () => {
+    console.log('Result inside ASYNC Lunch LogScreen: ')
+    getAllAddedBreakfastItems(propDB, setBreakfastItemsObj)
+    console.log('@@@ Ending Lunch LogScreen @@@')
   }
 
   useEffect(() => {
@@ -64,77 +61,47 @@ export const LogScreen = ({ navigation, propDB }) => {
             <View style={{ flex: 1, justifyContent: 'flex-start', paddingLeft: 10, paddingRight: 10, paddingTop: 15 }}>
                 <CALORIE_DASHBOARD/>
                 {/* top label for calorie consumption */}
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                   { isFocused
-                    ? <FoodPeriodChunk navi={navigation} periodName={'Breakfast'} regFunc={addNewBreakfastItem}
-                                    listToLoad={breakfastItemsObj} getter={queryBreakfastTable}/>
+                    ? <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Breakfast'}
+                          regFunc={addNewBreakfastItem}
+                          listToLoad={breakfastItemsObj}
+                          getter={queryBreakfastTable}
+                      />
                     : null}
 
-                {/* <View flexDirection='column'> */}
+                  { isFocused
+                    ? <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Lunch'}
+                          regFunc={addNewBreakfastItem}
+                          listToLoad={lunchItemsObj}
+                          getter={queryLunchTable}
+                      />
+                    : null}
 
-                {/*    <View flexDirection='column'> */}
-                {/*        <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Breakfast </Text> */}
-                {/*        <Divider style={{ marginTop: 10, marginBottom: 10 }}/> */}
+                  { isFocused
+                    ? <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Dinner'}
+                          regFunc={addNewBreakfastItem}
+                          listToLoad={lunchItemsObj}
+                          getter={queryLunchTable}
+                      />
+                    : null}
 
-                {/*        <View>{isFocused */}
-                {/*          ? <LogScreenFoodRow FoodObj={breakfastItemsObj._array} refresh={setIsRefreshing} getter={queryBreakfastTable}/> */}
-                {/*          : null}</View> */}
-                {/*        /!* <LogScreen foodObj={(breakfastItemsObj === 'NotReady') ? null : breakfastItemsObj}/> *!/ */}
+                  { isFocused
+                    ? <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Snacks'}
+                          regFunc={addNewBreakfastItem}
+                          listToLoad={lunchItemsObj}
+                          getter={queryLunchTable}
+                      />
+                    : null}
 
-                {/*        <Button onPress={() => */}
-                {/*          navigation.navigate('FoodSelection', { name: 'Breakfast', itemRegisterFunc: addNewBreakfastItem }) */}
-                {/*        }> */}
-                {/*            ADD FOOD */}
-                {/*        </Button> */}
-                {/*    </View> */}
-
-                {/*    <Divider style={{ height: 10, marginTop: 20 }}/> */}
-
-                {/*    <View flexDirection='column'> */}
-                {/*        <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Lunch </Text> */}
-                {/*        <Divider style={{ marginTop: 10 }}/> */}
-
-                {/*        <Button onPress={() => */}
-                {/*          navigation.navigate('FoodSelection', { name: 'Lunch' }) */}
-                {/*        }> */}
-                {/*            ADD FOOD */}
-                {/*        </Button> */}
-                {/*    </View> */}
-
-                {/*    <Divider style={{ height: 10, marginTop: 20 }}/> */}
-
-                {/*    <View flexDirection='column'> */}
-                {/*        <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Dinner </Text> */}
-                {/*        <Divider style={{ marginTop: 10 }}/> */}
-
-                {/*        <Button onPress={() => */}
-                {/*          navigation.navigate('FoodSelection', { name: 'Dinner' }) */}
-                {/*        }> */}
-                {/*            ADD FOOD */}
-                {/*        </Button> */}
-                {/*    </View> */}
-
-                {/*    <Divider style={{ height: 10, marginTop: 20 }}/> */}
-
-                {/*    <View flexDirection='column'> */}
-                {/*        <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Snacks </Text> */}
-                {/*        <Divider style={{ marginTop: 10 }}/> */}
-
-                {/*        <Button onPress={() => */}
-                {/*          navigation.navigate('FoodSelection', { name: 'Snacks' }) */}
-                {/*        }> */}
-                {/*            ADD FOOD */}
-                {/*        </Button> */}
-                {/*    </View> */}
-
-                {/*    <Divider style={{ height: 10, marginTop: 20 }}/> */}
-
-                {/*    <View flexDirection='column'> */}
-                {/*        <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Water </Text> */}
-                {/*        <Divider style={{ marginTop: 10 }}/> */}
-                {/*        <Text style={{ marginTop: 15 }}> ADD Water </Text> */}
-                {/*    </View> */}
-                {/* </View> */}
                 </ScrollView>
 
             </View>

@@ -17,7 +17,7 @@ export class FoodPeriodChunk extends Component {
                      <LogScreenFoodRow foodObj={(this.props.listToLoad !== 'NotReady') ? this.props.listToLoad : 'NotReady'} queryGetter={this.props.getter}/>
 
                     <Button onPress={() => {
-                      this.props.navi.navigate('FoodSelection', { name: 'Breakfast', itemRegisterFunc: this.props.regFunc })
+                      this.props.navi.navigate('FoodSelection', { name: this.props.periodName, itemRegisterFunc: this.props.regFunc })
                     }
                     }>
                         ADD FOOD
