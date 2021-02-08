@@ -70,9 +70,9 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
     // console.log(foodObj)
     // console.log('Ending print Food Obj in USE Effect in Food Add Screen')
     if (foodObj !== 'NotReady') {
-      console.log('@@@@@ Printing in Food ADD Screen @@@@@')
-      console.log(foodObj._array)
-      console.log('@@@ FoodObj isnt null anymore @@@')
+      // console.log('@@@@@ Printing in Food ADD Screen @@@@@')
+      // console.log(foodObj._array)
+      // console.log('@@@ FoodObj isnt null anymore @@@')
       setFoodList(
               <FlatList
                   data={foodObj._array}
