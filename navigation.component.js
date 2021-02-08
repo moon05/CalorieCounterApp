@@ -4,7 +4,7 @@ import { LogScreen } from './logScreen.component'
 import { MoreScreen } from './moreScreen.component'
 import { ProgressScreen } from './progressScreen.component'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
+import { FOOD_SELECTION_SCREEN } from './reusable_components/food_selection_screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 
@@ -41,8 +41,15 @@ const MainTabs = ({ propDB }) => {
                         <Stack.Screen name="Log">
                             {(props) => <LogScreen {...props} propDB={propDB} />}
                         </Stack.Screen>
-                        <Stack.Screen name="Add Food">
-                            {(props) => <FOOD_ADD_SCREEN {...props} propDB={propDB} />}
+
+                        <Stack.Screen
+                            name="AddFood"
+                            options={({ route }) => ({ title: route.params.name })}>
+                            {(props) => <FOOD_SELECTION_SCREEN
+                                {...props}
+                                propDB={propDB}
+                                />
+                            }
                         </Stack.Screen>
                     </Stack.Navigator>
                 )}

@@ -4,7 +4,7 @@ import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
 import { FOOD_DATA } from '../food_data'
 
-export const FOOD_ADD_SCREEN = ({ propDB }) => {
+export const FOOD_SELECTION_SCREEN = ({ propDB }) => {
   const databaseContext = useContext(DatabaseContext)
   const { getStoredFood } = databaseContext
   const [loaded, setLoaded] = useState(false)
