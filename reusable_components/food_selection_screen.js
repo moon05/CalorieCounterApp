@@ -81,12 +81,18 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
     }
   }, [foodObj])
 
-  const Item = ({ fields }) => (
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Add Food', {
-        alertButton: () => {
-          alert(route.params.heya)
-        }
-      })}>
+  const Item = ({ fields, index }) => (
+      <TouchableWithoutFeedback
+          onPress={() => {
+            const itemId = index
+            navigation.navigate('Add Food', {
+              alertButton: () => {
+                alert(`${itemId} + ${fields.name} + ${fields.protein} + ${fields.fat} + ${fields.sodium}`)
+              }
+            })
+          }
+          }
+      >
 
       <View flexDirection="row" justifyContent="space-between" alignItems="center" style={styles.food_row}>
           <View justifyContent="flex-start" alignItems="flex-start">
@@ -108,8 +114,8 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
 
   )
 
-  const renderItem = ({ item }) => (
-        <Item fields={item}/>
+  const renderItem = ({ item, index }) => (
+        <Item fields={item} index = {index + 1}/>
   )
 
   const [foodList, setFoodList] = useState(

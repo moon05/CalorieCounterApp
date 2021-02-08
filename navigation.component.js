@@ -10,8 +10,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 
-// import {BottomNavigation} from 'react-native-paper';
-
 const Tab = createMaterialBottomTabNavigator()
 const Stack = createStackNavigator()
 
@@ -60,7 +58,6 @@ const MainTabs = ({ propDB }) => {
                         <Stack.Screen
                             name="Add Food"
                             options={({ navigation, route }) => ({
-                              title: 'Awesome app',
                               headerRight: () => (
                                 <Button onPress={route.params.alertButton}> Right</Button>
                               )

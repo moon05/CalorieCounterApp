@@ -21,8 +21,7 @@ export const FOOD_ADD_SCREEN = ({ propDB, route, navigation }) => {
     },
     large_container: {
       flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center'
+      flexDirection: 'column'
     },
     food_row: {
       flex: 1,
