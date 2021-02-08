@@ -12,20 +12,27 @@ export const LogScreen = ({ navigation, propDB }) => {
     addNewLunchItem,
     addNewDinnerItem,
     addNewSnacksItem,
-    addNewWaterItem
+    addNewWaterItem,
+    getAllAddedBreakfastItems
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [foodObj, setFoodObj] = useState(undefined)
+  const [breakfastItemsObj, setBreakfastItemsObj] = useState('NotReady')
   const todayDate = new Date()
 
+  const [breakfastFoodList, setBreakfastFoodList] = useState('NotReady')
   console.log('Printing in LogScreen')
-  console.log(propDB)
-  console.log(navigation)
 
   const queryFoodTable = async () => {
-    console.log('Result inside ASYNC LogScreen: ')
+    console.log('Result inside ASYNC Food LogScreen: ')
     getStoredFood(propDB, setFoodObj)
-    console.log('Ending LogScreen')
+    console.log('@@@ Ending Food LogScreen @@@')
+  }
+
+  const queryBreakfastTable = async () => {
+    console.log('Result inside ASYNC Breakfast LogScreen: ')
+    getAllAddedBreakfastItems(propDB, setBreakfastItemsObj)
+    console.log('@@@ Ending Breakfast LogScreen @@@')
   }
 
   useEffect(() => {
@@ -35,7 +42,13 @@ export const LogScreen = ({ navigation, propDB }) => {
   useEffect(() => {
     console.log('Calling QueryFoodTable')
     queryFoodTable()
+    queryBreakfastTable()
   }, [loaded])
+
+  useEffect(() => {
+    console.log('Calling BreakfastFoodTable')
+    console.log(breakfastItemsObj)
+  })
 
   return (
         <SafeAreaView style={{ flex: 1 }}>

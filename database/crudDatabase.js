@@ -31,7 +31,7 @@ const getAllFood = async (db, setter) => {
 }
 
 const getInsertedBreakfastItemsObj = {
-  sqlStatement: 'SELECT foodID, name, calories, fat, sodium, carbohydrates, sugar, protein, imageSRC, typeOfFood, weight FROM Food INNER JOIN BreakfastItems ON BreakfastItems.fID = Food.foodID',
+  sqlStatement: 'SELECT Food.foodID, Food.name, Food.calories, Food.fat, Food.sodium, Food.carbohydrates, Food.sugar, Food.protein, Food.imageSRC, Food.typeOfFood, Food.weight FROM Food INNER JOIN BreakfastItems ON BreakfastItems.fID = Food.foodID',
   parentFunctionName: 'getInsertedBreakfastItems',
   args: []
 }
@@ -66,7 +66,7 @@ const insertFood = (db, args) => {
 }
 
 const insertBreakfastItemObj = {
-  sqlStatement: 'insert into BreakfastItems (date, foodID) values (?,?)',
+  sqlStatement: 'insert into BreakfastItems (date, fID) values (?,?)',
   parentFunctionName: 'insertBreakfastItem'
 }
 
