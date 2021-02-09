@@ -7,8 +7,34 @@ export const LogScreenFoodRow = ({ foodObj, refresh, getter, queryGetter }) => {
   const styles = StyleSheet.create({
 
     large_container: {
-      flexDirection: 'column'
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 20
+
+    },
+
+    food_title_view: {
+      marginBottom: 5
+    },
+
+    food_weight_view: {
+      backgroundColor: 'grey'
+    },
+
+    food_title_text: {
+      fontSize: 15
+    },
+
+    food_weight_text: {
+      color: 'grey',
+      fontSize: 15
+    },
+
+    food_calorie_text: {
+      fontSize: 15
     }
+
   })
   const [FoodObj, setFoodObj] = useState('NotReady')
   const [foodList, setFoodList] = useState(
@@ -37,15 +63,19 @@ export const LogScreenFoodRow = ({ foodObj, refresh, getter, queryGetter }) => {
 
   const Item = ({ fields, index }) => (
 
-            <View flexDirection="row" justifyContent="space-between" alignItems="center" style={styles.food_row}>
+            <View style={styles.large_container}>
 
                 <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-start" style={styles.name_column}>
-                    <Text style={{ fontWeight: '500' }}>{fields.name}</Text>
-                    <Text>{fields.weight}g</Text>
+                    <View style={styles.food_title_view}>
+                        <Text style={styles.food_title_text}>{fields.name}</Text>
+                    </View>
+                    <View >
+                        <Text style={styles.food_weight_text}>{fields.weight}g</Text>
+                    </View>
                 </View>
 
                 <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-end" style={styles.calorie_column}>
-                    <Text>{fields.calories}</Text>
+                    <Text style={styles.food_calorie_text}>{fields.calories}</Text>
                 </View>
             </View>
 
