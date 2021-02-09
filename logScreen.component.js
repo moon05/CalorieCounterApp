@@ -69,7 +69,13 @@ export const LogScreen = ({ navigation, propDB }) => {
                           listToLoad={breakfastItemsObj}
                           getter={queryBreakfastTable}
                       />
-                    : null}
+                    : <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Breakfast'}
+                          regFunc={addNewBreakfastItem}
+                          listToLoad={breakfastItemsObj}
+                          getter={queryBreakfastTable}
+                      />}
 
                   { isFocused
                     ? <FoodPeriodChunk
