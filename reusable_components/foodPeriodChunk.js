@@ -8,20 +8,20 @@ export class FoodPeriodChunk extends Component {
     return (
 
             <View flexDirection='column'>
-                <Text style={{ marginTop: 10, fontWeight: 'bold' }}> Breakfast </Text><Divider
-                style={{ marginTop: 10, marginBottom: 10 }}/>
+                <Text style={{ marginTop: 10, fontWeight: 'bold' }}> {this.props.periodName} </Text>
+                <Divider style={{ marginTop: 10, marginBottom: 10 }}/>
 
                 <View>
-                    <Text> {this.props.periodName} </Text>
 
                      <LogScreenFoodRow foodObj={(this.props.listToLoad !== 'NotReady') ? this.props.listToLoad : 'NotReady'} queryGetter={this.props.getter}/>
 
                     <Button onPress={() => {
-                      this.props.navi.navigate('FoodSelection', { name: this.props.periodName, itemRegisterFunc: this.props.regFunc })
-                    }
-                    }>
-                        ADD FOOD
-                    </Button>
+                      this.props.navi.navigate(
+                        'FoodSelection',
+                        { name: this.props.periodName, itemRegisterFunc: this.props.regFunc }
+                      )
+                    }}
+                    > ADD FOOD </Button>
                 </View>
             </View>
 
