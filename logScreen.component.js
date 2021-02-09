@@ -3,8 +3,7 @@ import { SafeAreaView, View, ScrollView } from 'react-native'
 import { Divider, Text, Button } from 'react-native-paper'
 import { CALORIE_DASHBOARD } from './reusable_components/calorie_dashboard'
 import { DatabaseContext } from './context/DatabaseContext'
-import { LogScreenFoodRow } from './reusable_components/logscreen_foodrow'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import { FoodPeriodChunk } from './reusable_components/foodPeriodChunk'
 
 export const LogScreen = ({ navigation, propDB }) => {

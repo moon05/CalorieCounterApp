@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { SafeAreaView, Image, View, FlatList, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { Divider, Text } from 'react-native-paper'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native'
+import React, { useState, useEffect } from 'react'
+import { View, FlatList, StyleSheet } from 'react-native'
+import { Text } from 'react-native-paper'
+import { useIsFocused } from '@react-navigation/native'
 
 export const LogScreenFoodRow = ({ foodObj, refresh, getter, queryGetter }) => {
   const styles = StyleSheet.create({
