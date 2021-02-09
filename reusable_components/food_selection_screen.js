@@ -14,33 +14,83 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
   }
 
   const styles = StyleSheet.create({
-    food_image: {
+
+    large_container: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      marginTop: 5
+    },
+    header_container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: 15,
+      marginBottom: 10
+    },
+    header_item_view: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    header_gap_view: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    header_protein_view: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    header_calories_view: {
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      alignItems: 'center'
+    },
+
+    flatList_food_row: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 10
+    },
+
+    flatList_food_image: {
       width: 50,
       height: 50,
       alignItems: 'center',
       justifyContent: 'flex-start',
       backgroundColor: 'grey',
       borderRadius: 3,
+      marginTop: 10,
       marginLeft: 10
 
     },
-    large_container: {
-      flex: 1,
+
+    flatList_name_column: {
       flexDirection: 'column',
-      justifyContent: 'center'
-    },
-    food_row: {
-      flex: 1,
-      marginBottom: 10
-    },
-    name_column: {
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
       width: 190,
-      paddingLeft: 10
+      paddingLeft: 5,
+      marginLeft: -25
     },
-    protein_column: {
-      width: 50
+
+    flatList_protein_column: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      width: 50,
+      marginLeft: -35
+
     },
-    calorie_column: {
+
+    flatList_calorie_column: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-end',
       width: 50,
       paddingRight: 5,
       marginRight: 8
@@ -98,19 +148,19 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
           }
       >
 
-      <View flexDirection="row" justifyContent="space-between" alignItems="center" style={styles.food_row}>
+      <View style={styles.flatList_food_row}>
           <View justifyContent="flex-start" alignItems="flex-start">
-              <Image source={fields.imageSRC} style={styles.food_image}/>
+              <Image source={fields.imageSRC} style={styles.flatList_food_image}/>
           </View>
-          <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-start" style={styles.name_column}>
-              <Text style={{ fontWeight: '500' }}>{fields.name}</Text>
-              <Text>{fields.weight}</Text>
+          <View style={styles.flatList_name_column}>
+              <Text style={{ fontSize: 15, fontWeight: '500' }}>{fields.name}</Text>
+              <Text style={{ fontSize: 13 }}>Serving Size: {fields.weight}g</Text>
           </View>
 
-          <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-center" style={styles.protein_column}>
+          <View style={styles.flatList_protein_column}>
               <Text>{fields.protein}</Text>
           </View>
-          <View flexDireciton="column" justifyContent="flex-start" alignItems="flex-end" style={styles.calorie_column}>
+          <View style={styles.flatList_calorie_column}>
               <Text>{fields.calories}</Text>
           </View>
       </View>
@@ -129,7 +179,24 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
   return (
       <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.large_container}>
+              <View style={styles.header_container}>
+                  <View style={styles.header_item_view}>
+                      <Text category="h6" style={{ marginLeft: 60, fontWeight: 'bold' }}>Item</Text>
+                  </View>
+                  <View style={styles.header_gap_view}>
+                      <Text style={{ marginRight: 140 }}></Text>
+                  </View>
+
+                  <View style={styles.header_protein_view}>
+                      <Text style={{ fontWeight: 'bold', width: 70, marginRight: 10 }}>Protein</Text>
+                  </View>
+                  <View style={styles.header_calories_view}>
+                      <Text style={{ fontWeight: 'bold', width: 80, marginRight: 8 }}>Calories</Text>
+                  </View>
+              </View>
+
               {foodList}
+
           </View>
       </SafeAreaView>
 
