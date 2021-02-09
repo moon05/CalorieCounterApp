@@ -10,7 +10,7 @@ export const LogScreenFoodRow = ({ foodObj, refresh, getter, queryGetter }) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 20
+      marginBottom: 10
 
     },
 
