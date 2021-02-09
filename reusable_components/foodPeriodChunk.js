@@ -15,6 +15,16 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
 
+  title_divider: {
+    marginTop: 15,
+    marginBottom: 10
+  },
+
+  period_divider: {
+    height: 10,
+    marginBottom: 5
+  },
+
   period_title_text: {
     fontSize: 15,
     fontWeight: '900'
@@ -23,7 +33,8 @@ const styles = StyleSheet.create({
   add_button_view: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginLeft: -22
+    marginLeft: -15,
+    marginBottom: 5
   }
 
 })
@@ -33,11 +44,14 @@ export class FoodPeriodChunk extends Component {
     return (
 
             <View style={styles.large_container}>
+                <Divider style={styles.period_divider}/>
+
                 <View style={styles.title_row_view}>
                     <Text style={styles.period_title_text}> {this.props.periodName} </Text>
                     {/* <Text style={styles.period_title_text}> 445 </Text> */}
                 </View>
-                <Divider style={{ marginTop: 10, marginBottom: 10 }}/>
+
+                <Divider style={styles.title_divider}/>
 
                 <View>
 
