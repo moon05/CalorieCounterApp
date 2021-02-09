@@ -8,7 +8,7 @@ import { FOOD_SELECTION_SCREEN } from './reusable_components/food_selection_scre
 import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { Button } from 'react-native-paper'
+import { IconButton } from 'react-native-paper'
 
 const Tab = createMaterialBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -59,12 +59,12 @@ const MainTabs = ({ propDB }) => {
                             name="Add Food"
                             options={({ navigation, route }) => ({
                               headerRight: () => (
-                                <Button onPress={() => {
+                                <IconButton icon="check" onPress={() => {
                                   route.params.rightHeaderInsert()
                                   navigation.navigate('Log')
                                 }
                                 }
-                                > Right</Button>
+                                />
                               )
                             })}
                             >
