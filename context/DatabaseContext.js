@@ -60,6 +60,10 @@ export const DatabaseContextProvider = props => {
     await crud.insertDinnerItem(db, [date, foodID])
   }
 
+  const getAllAddedDinnerItems = async (db, setter) => {
+    await crud.getAllDinnerItems(db, setter)
+  }
+
   const addNewSnacksItem = async (db, date, foodID) => {
     await crud.insertDinnerItem(db, [date, foodID])
   }
@@ -87,7 +91,9 @@ export const DatabaseContextProvider = props => {
     addNewBreakfastItem,
     getAllAddedBreakfastItems,
     addNewLunchItem,
+    getAllAddedLunchItems,
     addNewDinnerItem,
+    getAllAddedDinnerItems,
     addNewSnacksItem,
     addNewWaterItem,
     addNewFoodGather,
