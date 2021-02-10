@@ -80,7 +80,19 @@ const setupDatabaseAsync = async (db) => {
         [2, FOOD_OBJECTS.rainbowTrout.name, FOOD_OBJECTS.rainbowTrout.calories, FOOD_OBJECTS.rainbowTrout.fat,
           FOOD_OBJECTS.rainbowTrout.sodium, FOOD_OBJECTS.rainbowTrout.carbohydrates, FOOD_OBJECTS.rainbowTrout.sugar,
           FOOD_OBJECTS.rainbowTrout.protein, FOOD_OBJECTS.rainbowTrout.imageSRC, FOOD_OBJECTS.rainbowTrout.typeOfFood,
-          FOOD_OBJECTS.rainbowTrout.weight], onSuccess('Insert Trout'), onError)
+          FOOD_OBJECTS.rainbowTrout.weight], onSuccess('Insert RainbowTrout'), onError)
+
+      tx.executeSql('INSERT INTO Food values (?,?,?,?,?,?,?,?,?,?,?)',
+        [3, FOOD_OBJECTS.salmon.name, FOOD_OBJECTS.salmon.calories, FOOD_OBJECTS.salmon.fat,
+          FOOD_OBJECTS.salmon.sodium, FOOD_OBJECTS.salmon.carbohydrates, FOOD_OBJECTS.salmon.sugar,
+          FOOD_OBJECTS.salmon.protein, FOOD_OBJECTS.salmon.imageSRC, FOOD_OBJECTS.salmon.typeOfFood,
+          FOOD_OBJECTS.salmon.weight], onSuccess('Insert Salmon'), onError)
+
+      tx.executeSql('INSERT INTO Food values (?,?,?,?,?,?,?,?,?,?,?)',
+        [4, FOOD_OBJECTS.shrimp.name, FOOD_OBJECTS.shrimp.calories, FOOD_OBJECTS.shrimp.fat,
+          FOOD_OBJECTS.shrimp.sodium, FOOD_OBJECTS.shrimp.carbohydrates, FOOD_OBJECTS.shrimp.sugar,
+          FOOD_OBJECTS.shrimp.protein, FOOD_OBJECTS.shrimp.imageSRC, FOOD_OBJECTS.shrimp.typeOfFood,
+          FOOD_OBJECTS.shrimp.weight], onSuccess('Insert Shrimp'), onError)
 
       tx.executeSql('SELECT * from Food',
         [], (_, tx) => { console.log(tx) }, onError)

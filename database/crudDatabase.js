@@ -30,14 +30,14 @@ const getAllFood = async (db, setter) => {
   return SELECTQUERYPROMISE(getFoodObj.parentFunctionName, db, getFoodObj.sqlStatement, getFoodObj.args, setter)
 }
 
-const getInsertedBreakfastItemsObj = {
+const getAllBreakfastItemsObj = {
   sqlStatement: 'SELECT Food.foodID, Food.name, Food.calories, Food.fat, Food.sodium, Food.carbohydrates, Food.sugar, Food.protein, Food.imageSRC, Food.typeOfFood, Food.weight FROM Food INNER JOIN BreakfastItems ON BreakfastItems.fID = Food.foodID',
-  parentFunctionName: 'getInsertedBreakfastItems',
+  parentFunctionName: 'getAllBreakfastItems',
   args: []
 }
 
-const getInsertedBreakfastItems = async (db, setter) => {
-  return SELECTQUERYPROMISE(getInsertedBreakfastItemsObj.parentFunctionName, db, getInsertedBreakfastItemsObj.sqlStatement, getInsertedBreakfastItemsObj.args, setter)
+const getAllBreakfastItems = async (db, setter) => {
+  return SELECTQUERYPROMISE(getAllBreakfastItemsObj.parentFunctionName, db, getAllBreakfastItemsObj.sqlStatement, getAllBreakfastItemsObj.args, setter)
 }
 
 const insertProfileObj = {
@@ -75,7 +75,7 @@ const insertBreakfastItem = (db, args) => {
 }
 
 const insertLunchItemObj = {
-  sqlStatement: 'insert into LunchItems (date, foodID) values (?,?)',
+  sqlStatement: 'insert into LunchItems (date, fID) values (?,?)',
   parentFunctionName: 'insertLunchItem'
 }
 
@@ -84,7 +84,7 @@ const insertLunchItem = (db, args) => {
 }
 
 const insertDinnerItemObj = {
-  sqlStatement: 'insert into DinnerItems (date, foodID) values (?,?)',
+  sqlStatement: 'insert into DinnerItems (date, fID) values (?,?)',
   parentFunctionName: 'insertDinnerItem'
 }
 const insertDinnerItem = (db, args) => {
@@ -92,7 +92,7 @@ const insertDinnerItem = (db, args) => {
 }
 
 const insertSnacksItemObj = {
-  sqlStatement: 'insert into SnacksItems (date, foodID) values (?,?)',
+  sqlStatement: 'insert into SnacksItems (date, fID) values (?,?)',
   parentFunctionName: 'insertSnacksItem'
 }
 
@@ -101,7 +101,7 @@ const insertSnacksItem = (db, args) => {
 }
 
 const insertWaterItemObj = {
-  sqlStatement: 'insert into WaterItems (date, foodID) values (?,?)',
+  sqlStatement: 'insert into WaterItems (date, waterCount) values (?,?)',
   parentFunctionName: 'insertWaterItem'
 }
 
@@ -133,7 +133,7 @@ export const crud = {
   insertWeightLog,
   insertFood,
   getAllFood,
-  getInsertedBreakfastItems,
+  getAllBreakfastItems,
   insertBreakfastItem,
   insertLunchItem,
   insertDinnerItem,
