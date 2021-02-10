@@ -65,7 +65,7 @@ export const DatabaseContextProvider = props => {
   }
 
   const addNewSnacksItem = async (db, date, foodID) => {
-    await crud.insertDinnerItem(db, [date, foodID])
+    await crud.insertSnacksItem(db, [date, foodID])
   }
 
   const getAllAddedSnacksItems = async (db, setter) => {

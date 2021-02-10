@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react'
 import { SafeAreaView, View, ScrollView } from 'react-native'
-import { Divider, Text, Button } from 'react-native-paper'
+import { Divider } from 'react-native-paper'
 import { CALORIE_DASHBOARD } from './reusable_components/calorie_dashboard'
 import { DatabaseContext } from './context/DatabaseContext'
 import { useIsFocused } from '@react-navigation/native'
@@ -9,7 +9,6 @@ import { FoodPeriodChunk } from './reusable_components/foodPeriodChunk'
 export const LogScreen = ({ navigation, propDB }) => {
   const databaseContext = useContext(DatabaseContext)
   const {
-    getStoredFood,
     addNewBreakfastItem,
     addNewLunchItem,
     addNewDinnerItem,
@@ -17,11 +16,12 @@ export const LogScreen = ({ navigation, propDB }) => {
     addNewWaterItem,
     getAllAddedBreakfastItems,
     getAllAddedLunchItems,
-    getAllAddedDinnerItems
+    getAllAddedDinnerItems,
+    getAllAddedSnacksItems
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
-  const [isRefreshing, setIsRefreshing] = useState(false)
-  const [foodObj, setFoodObj] = useState(undefined)
+  // const [isRefreshing, setIsRefreshing] = useState(false)
+  // const [foodObj, setFoodObj] = useState(undefined)
   const [breakfastItemsObj, setBreakfastItemsObj] = useState('NotReady')
   const [lunchItemsObj, setLunchItemsObj] = useState('NotReady')
   const [dinnerItemsObj, setDinnerItemsObj] = useState('NotReady')
@@ -47,20 +47,24 @@ export const LogScreen = ({ navigation, propDB }) => {
     console.log('@@@ Ending Dinner LogScreen @@@')
   }
 
+  const querySnacksTable = async () => {
+    console.log('Result inside ASYNC Snacks LogScreen: ')
+    getAllAddedSnacksItems(propDB, setSnacksItemsObj)
+    console.log('@@@ Ending Snacks LogScreen @@@')
+  }
+
   useEffect(() => {
     setLoaded(true)
   }, [])
-
-  useEffect(() => {
-    console.log('Calling BreakfastFoodTable')
-    console.log(breakfastItemsObj)
-  })
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
     if (isFocused) {
       queryBreakfastTable()
+      queryLunchTable()
+      queryDinnerTable()
+      querySnacksTable()
     }
   }, [isFocused])
 
@@ -126,9 +130,15 @@ export const LogScreen = ({ navigation, propDB }) => {
                           periodName={'Snacks'}
                           regFunc={addNewSnacksItem}
                           listToLoad={snacksItemsObj}
-                          getter={queryLunchTable}
+                          getter={querySnacksTable}
                       />
-                    : null}
+                    : <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Snacks'}
+                          regFunc={addNewSnacksItem}
+                          listToLoad={snacksItemsObj}
+                          getter={querySnacksTable}
+                      />}
 
                 </ScrollView>
 
