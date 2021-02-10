@@ -15,7 +15,8 @@ export const LogScreen = ({ navigation, propDB }) => {
     addNewDinnerItem,
     addNewSnacksItem,
     addNewWaterItem,
-    getAllAddedBreakfastItems
+    getAllAddedBreakfastItems,
+    getAllAddedLunchItems
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -32,7 +33,7 @@ export const LogScreen = ({ navigation, propDB }) => {
 
   const queryLunchTable = async () => {
     console.log('Result inside ASYNC Lunch LogScreen: ')
-    getAllAddedBreakfastItems(propDB, setBreakfastItemsObj)
+    getAllAddedLunchItems(propDB, setLunchItemsObj)
     console.log('@@@ Ending Lunch LogScreen @@@')
   }
 
@@ -81,11 +82,17 @@ export const LogScreen = ({ navigation, propDB }) => {
                     ? <FoodPeriodChunk
                           navi={navigation}
                           periodName={'Lunch'}
-                          regFunc={addNewBreakfastItem}
+                          regFunc={addNewLunchItem}
                           listToLoad={lunchItemsObj}
                           getter={queryLunchTable}
                       />
-                    : null}
+                    : <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Lunch'}
+                          regFunc={addNewLunchItem}
+                          listToLoad={lunchItemsObj}
+                          getter={queryLunchTable}
+                      />}
 
                   { isFocused
                     ? <FoodPeriodChunk
