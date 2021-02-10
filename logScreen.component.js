@@ -205,7 +205,7 @@ export const LogScreen = ({ navigation, propDB }) => {
 
             <Divider/>
             <View style={{ flex: 1, justifyContent: 'flex-start', paddingLeft: 10, paddingRight: 10, paddingTop: 15 }}>
-                <CALORIE_DASHBOARD/>
+                <CALORIE_DASHBOARD goalCalorie={2800} consumedCalorie={dailyAggregate.netCalorie}/>
                 {/* top label for calorie consumption */}
                 <ScrollView showsVerticalScrollIndicator={false}>
                   { isFocused

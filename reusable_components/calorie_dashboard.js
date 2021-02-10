@@ -12,7 +12,7 @@ export class CALORIE_DASHBOARD extends Component {
 
                 <View flexDirection='row' justifyContent="space-between" style={{ paddingTop: 10 }}>
                     <View flexDirection='column' justifyContent="space-between" alignItems="center">
-                        <View><Text style={{ fontSize: 17 }}>2,800</Text></View>
+                        <View><Text style={{ fontSize: 17 }}>{this.props.goalCalorie}</Text></View>
                         <View><Text>Goal</Text></View>
                     </View>
 
@@ -21,7 +21,7 @@ export class CALORIE_DASHBOARD extends Component {
                     </View>
 
                     <View flexDirection='column' justifyContent="space-between" alignItems="center">
-                        <View><Text style={{ fontSize: 17 }}>400</Text></View>
+                        <View><Text style={{ fontSize: 17 }}>{this.props.consumedCalorie}</Text></View>
                         <View><Text>Food</Text></View>
                     </View>
 
@@ -30,7 +30,7 @@ export class CALORIE_DASHBOARD extends Component {
                     </View>
 
                     <View flexDirection='column' justifyContent="space-between" alignItems="center">
-                        <View><Text style={{ fontSize: 20, color: 'green' }}>1,400</Text></View>
+                        <View><Text style={{ fontSize: 20, color: 'green' }}>{this.props.goalCalorie - this.props.consumedCalorie}</Text></View>
                         <View><Text>Remaining Calories</Text></View>
                     </View>
 
