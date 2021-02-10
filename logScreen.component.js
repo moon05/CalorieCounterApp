@@ -22,8 +22,7 @@ export const LogScreen = ({ navigation, propDB }) => {
     getFoodGatherRowFromDate
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
-  // const [isRefreshing, setIsRefreshing] = useState(false)
-  // const [foodObj, setFoodObj] = useState(undefined)
+
   const [breakfastItemsObj, setBreakfastItemsObj] = useState('NotReady')
   const [lunchItemsObj, setLunchItemsObj] = useState('NotReady')
   const [dinnerItemsObj, setDinnerItemsObj] = useState('NotReady')
@@ -146,7 +145,7 @@ export const LogScreen = ({ navigation, propDB }) => {
   useEffect(() => {
     if (breakfastItemsObj !== 'NotReady') {
       if (Array.isArray(breakfastItemsObj._array) || breakfastItemsObj._array.length) {
-        setSnacksAggregate(aggregateFoodValues(breakfastItemsObj._array))
+        setBreakfastAggregate(aggregateFoodValues(breakfastItemsObj._array))
       }
     }
   }, [breakfastItemsObj])
@@ -198,7 +197,7 @@ export const LogScreen = ({ navigation, propDB }) => {
     }
     setDailyAggregate(t)
     console.log(dailyAggregate)
-  }, [breakfastAggregate, lunchAggregate, dinnerItemsObj, snacksAggregate])
+  }, [breakfastAggregate, lunchAggregate, dinnerAggregate, snacksAggregate])
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
