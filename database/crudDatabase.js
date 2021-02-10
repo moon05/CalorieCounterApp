@@ -40,6 +40,16 @@ const getAllBreakfastItems = async (db, setter) => {
   return SELECTQUERYPROMISE(getAllBreakfastItemsObj.parentFunctionName, db, getAllBreakfastItemsObj.sqlStatement, getAllBreakfastItemsObj.args, setter)
 }
 
+const getAllLunchItemsObj = {
+  sqlStatement: 'SELECT Food.foodID, Food.name, Food.calories, Food.fat, Food.sodium, Food.carbohydrates, Food.sugar, Food.protein, Food.imageSRC, Food.typeOfFood, Food.weight FROM Food INNER JOIN LunchItems ON LunchItems.fID = Food.foodID',
+  parentFunctionName: 'getAllLunchItems',
+  args: []
+}
+
+const getAllLunchItems = async (db, setter) => {
+  return SELECTQUERYPROMISE(getAllLunchItemsObj.parentFunctionName, db, getAllLunchItemsObj.sqlStatement, getAllLunchItemsObj.args, setter)
+}
+
 const insertProfileObj = {
   sqlStatement: 'insert into Profile (username, height, sex, startingWeight, currentWeight, goalWeight) values (?,?,?,?,?,?)',
   parentFunctionName: 'insertProfile'
@@ -134,6 +144,7 @@ export const crud = {
   insertFood,
   getAllFood,
   getAllBreakfastItems,
+  getAllLunchItems,
   insertBreakfastItem,
   insertLunchItem,
   insertDinnerItem,
