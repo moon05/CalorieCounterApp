@@ -30,6 +30,48 @@ export const LogScreen = ({ navigation, propDB }) => {
   const [snacksItemsObj, setSnacksItemsObj] = useState('NotReady')
   const [foodGatherObj, setFoodGatherObj] = useState('NotReady')
 
+  const [breakfastAggregate, setBreakfastAggregate] = useState({
+    NetCal: 0,
+    NetCar: 0,
+    NetFat: 0,
+    NetPro: 0,
+    NetSo: 0,
+    NetSug: 0
+  })
+  const [lunchAggregate, setLunchAggregate] = useState({
+    NetCal: 0,
+    NetCar: 0,
+    NetFat: 0,
+    NetPro: 0,
+    NetSo: 0,
+    NetSug: 0
+  })
+  const [dinnerAggregate, setDinnerAggregate] = useState({
+    NetCal: 0,
+    NetCar: 0,
+    NetFat: 0,
+    NetPro: 0,
+    NetSo: 0,
+    NetSug: 0
+  })
+  const [snacksAggregate, setSnacksAggregate] = useState({
+    NetCal: 0,
+    NetCar: 0,
+    NetFat: 0,
+    NetPro: 0,
+    NetSo: 0,
+    NetSug: 0
+  })
+
+  const [dailyAggregate, setDailyAggregate] = useState({
+    netCalorie: 0,
+    netCarb: 0,
+    netFat: 0,
+    netProtein: 0,
+    netSodium: 0,
+    netSugar: 0
+  })
+
   const todayDate = new Date().toJSON().slice(0, 10)
 
   const queryBreakfastTable = async () => {
@@ -62,6 +104,20 @@ export const LogScreen = ({ navigation, propDB }) => {
     console.log('@@@ Ending FoodGather LogScreen @@@')
   }
 
+  const aggregateFoodValues = (foodArray) => {
+    let [NetCal, NetCar, NetFat, NetPro, NetSo, NetSug] = [0, 0, 0, 0, 0, 0]
+
+    for (const item of foodArray) {
+      NetCal += item.calories
+      NetCar += item.carbohydrates
+      NetFat += item.fat
+      NetPro += item.protein
+      NetSo += item.sodium
+      NetSug += item.sugar
+    }
+    return { NetCal: NetCal, NetCar: NetCar, NetFat: NetFat, NetPro: NetPro, NetSo: NetSo, NetSug: NetSug }
+  }
+
   useEffect(() => {
     setLoaded(true)
     addNewFoodGather(propDB, todayDate, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -81,10 +137,68 @@ export const LogScreen = ({ navigation, propDB }) => {
   }, [isFocused])
 
   useEffect(() => {
-    console.log(todayDate)
     console.log('@@@ Printing FoodGather Obj in UseEffect @@@')
     console.log(foodGatherObj)
   }, [foodGatherObj])
+
+  // setting aggregate values
+  // breakfast
+  useEffect(() => {
+    if (breakfastItemsObj !== 'NotReady') {
+      if (Array.isArray(breakfastItemsObj._array) || breakfastItemsObj._array.length) {
+        setSnacksAggregate(aggregateFoodValues(breakfastItemsObj._array))
+      }
+    }
+  }, [breakfastItemsObj])
+
+  // lunch
+  useEffect(() => {
+    if (lunchItemsObj !== 'NotReady') {
+      if (Array.isArray(lunchItemsObj._array) || lunchItemsObj._array.length) {
+        setLunchAggregate(aggregateFoodValues(lunchItemsObj._array))
+      }
+    }
+  }, [lunchItemsObj])
+
+  // dinner
+
+  useEffect(() => {
+    if (dinnerItemsObj !== 'NotReady') {
+      if (Array.isArray(dinnerItemsObj._array) || dinnerItemsObj._array.length) {
+        setDinnerAggregate(aggregateFoodValues(dinnerItemsObj._array))
+      }
+    }
+  }, [dinnerItemsObj])
+
+  // snacks
+  useEffect(() => {
+    if (snacksItemsObj !== 'NotReady') {
+      if (Array.isArray(snacksItemsObj._array) || snacksItemsObj._array.length) {
+        setSnacksAggregate(aggregateFoodValues(snacksItemsObj._array))
+      }
+    }
+  }, [snacksItemsObj])
+
+  // daily
+  useEffect(() => {
+    const a = breakfastAggregate.NetCal + lunchAggregate.NetCal + dinnerAggregate.NetCal + snacksAggregate.NetCal
+    const b = breakfastAggregate.NetCar + lunchAggregate.NetCar + dinnerAggregate.NetCar + snacksAggregate.NetCar
+    const c = breakfastAggregate.NetFat + lunchAggregate.NetFat + dinnerAggregate.NetFat + snacksAggregate.NetFat
+    const d = breakfastAggregate.NetPro + lunchAggregate.NetPro + dinnerAggregate.NetPro + snacksAggregate.NetPro
+    const e = breakfastAggregate.NetSo + lunchAggregate.NetSo + dinnerAggregate.NetSo + snacksAggregate.NetSo
+    const f = breakfastAggregate.NetSug + lunchAggregate.NetSug + dinnerAggregate.NetSug + snacksAggregate.NetSug
+
+    const t = {
+      netCalorie: a,
+      netCarb: b,
+      netFat: c,
+      netPro: d,
+      netSodium: e,
+      netSugar: f
+    }
+    setDailyAggregate(t)
+    console.log(dailyAggregate)
+  }, [breakfastAggregate, lunchAggregate, dinnerItemsObj, snacksAggregate])
 
   return (
         <SafeAreaView style={{ flex: 1 }}>

@@ -162,7 +162,7 @@ const updateFoodGatherObj = {
   parentFunctionName: 'updateFoodGather'
 }
 
-const updateFoodGather = (db, args) => {
+const updateDatedFoodGatherWith = (db, args) => {
   return UPDATEQUERYPROMISE(updateFoodGatherObj.parentFunctionName, db, updateFoodGatherObj.sqlStatement, args)
 }
 
@@ -192,5 +192,6 @@ export const crud = {
   insertSnacksItem,
   insertWaterItem,
   insertFoodGather,
+  updateDatedFoodGatherWith,
   insertRecentlyEatenFood
 }
