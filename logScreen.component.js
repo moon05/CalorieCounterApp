@@ -16,13 +16,17 @@ export const LogScreen = ({ navigation, propDB }) => {
     addNewSnacksItem,
     addNewWaterItem,
     getAllAddedBreakfastItems,
-    getAllAddedLunchItems
+    getAllAddedLunchItems,
+    getAllAddedDinnerItems
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [foodObj, setFoodObj] = useState(undefined)
   const [breakfastItemsObj, setBreakfastItemsObj] = useState('NotReady')
   const [lunchItemsObj, setLunchItemsObj] = useState('NotReady')
+  const [dinnerItemsObj, setDinnerItemsObj] = useState('NotReady')
+  const [snacksItemsObj, setSnacksItemsObj] = useState('NotReady')
+
   const todayDate = new Date()
 
   const queryBreakfastTable = async () => {
@@ -35,6 +39,12 @@ export const LogScreen = ({ navigation, propDB }) => {
     console.log('Result inside ASYNC Lunch LogScreen: ')
     getAllAddedLunchItems(propDB, setLunchItemsObj)
     console.log('@@@ Ending Lunch LogScreen @@@')
+  }
+
+  const queryDinnerTable = async () => {
+    console.log('Result inside ASYNC Dinner LogScreen: ')
+    getAllAddedDinnerItems(propDB, setDinnerItemsObj)
+    console.log('@@@ Ending Dinner LogScreen @@@')
   }
 
   useEffect(() => {
@@ -98,18 +108,24 @@ export const LogScreen = ({ navigation, propDB }) => {
                     ? <FoodPeriodChunk
                           navi={navigation}
                           periodName={'Dinner'}
-                          regFunc={addNewBreakfastItem}
-                          listToLoad={lunchItemsObj}
-                          getter={queryLunchTable}
+                          regFunc={addNewDinnerItem}
+                          listToLoad={dinnerItemsObj}
+                          getter={queryDinnerTable}
                       />
-                    : null}
+                    : <FoodPeriodChunk
+                          navi={navigation}
+                          periodName={'Dinner'}
+                          regFunc={addNewDinnerItem}
+                          listToLoad={dinnerItemsObj}
+                          getter={queryDinnerTable}
+                      />}
 
                   { isFocused
                     ? <FoodPeriodChunk
                           navi={navigation}
                           periodName={'Snacks'}
-                          regFunc={addNewBreakfastItem}
-                          listToLoad={lunchItemsObj}
+                          regFunc={addNewSnacksItem}
+                          listToLoad={snacksItemsObj}
                           getter={queryLunchTable}
                       />
                     : null}
