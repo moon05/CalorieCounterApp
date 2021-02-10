@@ -8,7 +8,7 @@
 //   // throw Error("Statement failed.");
 // }
 
-import { INSERTQUERYPROMISE, SELECTQUERYPROMISE } from './helpers'
+import { INSERTQUERYPROMISE, SELECTQUERYPROMISE, UPDATEQUERYPROMISE } from './helpers'
 
 const getProfileObj = {
   sqlStatement: 'select * from Profile',
@@ -68,6 +68,15 @@ const getAllSnacksItemsObj = {
 
 const getAllSnacksItems = async (db, setter) => {
   return SELECTQUERYPROMISE(getAllSnacksItemsObj.parentFunctionName, db, getAllSnacksItemsObj.sqlStatement, getAllSnacksItemsObj.args, setter)
+}
+
+const getDatedFoodGatherObj = {
+  sqlStatement: 'SELECT * FROM FoodGather where FoodGather.date = ?',
+  parentFunctionName: 'getDatedFoodGather'
+}
+
+const getDatedFoodGather = async (db, args, setter) => {
+  return SELECTQUERYPROMISE(getDatedFoodGatherObj.parentFunctionName, db, getDatedFoodGatherObj.sqlStatement, args, setter)
 }
 
 const insertProfileObj = {
@@ -140,12 +149,21 @@ const insertWaterItem = (db, args) => {
 }
 
 const insertFoodGatherObj = {
-  sqlStatement: 'insert into FoodGather (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) values (?,?,?,?,?,?,?,?)',
+  sqlStatement: 'insert into FoodGather (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat) values (?,?,?,?,?,?,?,?,?)',
   parentFunctionName: 'insertFoodGather'
 }
 
 const insertFoodGather = (db, args) => {
   return INSERTQUERYPROMISE(insertFoodGatherObj.parentFunctionName, db, insertFoodGatherObj.sqlStatement, args)
+}
+
+const updateFoodGatherObj = {
+  sqlStatement: 'update FoodGather set breakfastNetCalorie = ?, lunchNetCalorie = ?,  dinnerNetCalorie = ?, snacksNetCalorie = ?, dayNetCalorie = ?, totalCarb = ?, totalProtein = ?, totalFat = ? where FoodGather.date = ?',
+  parentFunctionName: 'updateFoodGather'
+}
+
+const updateFoodGather = (db, args) => {
+  return UPDATEQUERYPROMISE(updateFoodGatherObj.parentFunctionName, db, updateFoodGatherObj.sqlStatement, args)
 }
 
 const insertRecentlyEatenFoodObj = {
@@ -167,6 +185,7 @@ export const crud = {
   getAllLunchItems,
   getAllDinnerItems,
   getAllSnacksItems,
+  getDatedFoodGather,
   insertBreakfastItem,
   insertLunchItem,
   insertDinnerItem,

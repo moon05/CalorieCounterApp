@@ -76,8 +76,12 @@ export const DatabaseContextProvider = props => {
     await crud.insertWaterItem(db, [date, waterCount])
   }
 
-  const addNewFoodGather = async (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat) => {
-    await crud.insertFoodGather(db, [date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, totalCarb, totalProtein, totalFat])
+  const addNewFoodGather = async (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat) => {
+    await crud.insertFoodGather(db, [date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat])
+  }
+
+  const getFoodGatherRowFromDate = async (db, arg, setter) => {
+    await crud.getDatedFoodGather(db, [arg], setter)
   }
 
   const addNewRecentlyEatenFood = async (db, createdAt, updatedAt, numberOfTimesAdded, foodID) => {
@@ -102,6 +106,7 @@ export const DatabaseContextProvider = props => {
     getAllAddedSnacksItems,
     addNewWaterItem,
     addNewFoodGather,
+    getFoodGatherRowFromDate,
     addNewRecentlyEatenFood
   }
 

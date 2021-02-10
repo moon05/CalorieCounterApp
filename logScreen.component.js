@@ -14,10 +14,12 @@ export const LogScreen = ({ navigation, propDB }) => {
     addNewDinnerItem,
     addNewSnacksItem,
     addNewWaterItem,
+    addNewFoodGather,
     getAllAddedBreakfastItems,
     getAllAddedLunchItems,
     getAllAddedDinnerItems,
-    getAllAddedSnacksItems
+    getAllAddedSnacksItems,
+    getFoodGatherRowFromDate
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
   // const [isRefreshing, setIsRefreshing] = useState(false)
@@ -26,13 +28,14 @@ export const LogScreen = ({ navigation, propDB }) => {
   const [lunchItemsObj, setLunchItemsObj] = useState('NotReady')
   const [dinnerItemsObj, setDinnerItemsObj] = useState('NotReady')
   const [snacksItemsObj, setSnacksItemsObj] = useState('NotReady')
+  const [foodGatherObj, setFoodGatherObj] = useState('NotReady')
 
-  const todayDate = new Date()
+  const todayDate = new Date().toJSON().slice(0, 10)
 
   const queryBreakfastTable = async () => {
-    console.log('Result inside ASYNC Breakfast LogScreen: ')
+    console.log('@@@@@@@')
     getAllAddedBreakfastItems(propDB, setBreakfastItemsObj)
-    console.log('@@@ Ending Breakfast LogScreen @@@')
+    console.log('@@@@@@@')
   }
 
   const queryLunchTable = async () => {
@@ -53,8 +56,15 @@ export const LogScreen = ({ navigation, propDB }) => {
     console.log('@@@ Ending Snacks LogScreen @@@')
   }
 
+  const queryFoodGatherTable = async (selectedDate) => {
+    console.log('Result inside ASYNC FoodGather LogScreen: ')
+    getFoodGatherRowFromDate(propDB, selectedDate, setFoodGatherObj)
+    console.log('@@@ Ending FoodGather LogScreen @@@')
+  }
+
   useEffect(() => {
     setLoaded(true)
+    addNewFoodGather(propDB, todayDate, 0, 0, 0, 0, 0, 0, 0, 0)
   }, [])
 
   const isFocused = useIsFocused()
@@ -65,8 +75,16 @@ export const LogScreen = ({ navigation, propDB }) => {
       queryLunchTable()
       queryDinnerTable()
       querySnacksTable()
+      queryFoodGatherTable(todayDate)
+      console.log(foodGatherObj)
     }
   }, [isFocused])
+
+  useEffect(() => {
+    console.log(todayDate)
+    console.log('@@@ Printing FoodGather Obj in UseEffect @@@')
+    console.log(foodGatherObj)
+  }, [foodGatherObj])
 
   return (
         <SafeAreaView style={{ flex: 1 }}>

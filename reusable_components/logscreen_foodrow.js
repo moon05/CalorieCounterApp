@@ -43,14 +43,7 @@ export const LogScreenFoodRow = ({ foodObj, refresh, getter, queryGetter }) => {
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    console.log('Inside LogScreenFoodRow')
-    console.log(foodObj)
-    console.log(foodObj._array)
-    console.log('Ending print Food Obj in USE Effect in LogScrennFoodRow')
     if (FoodObj !== 'NotReady') {
-      console.log('@@@@@ Printing in LogScrennFoodRow @@@@@')
-      console.log(FoodObj.foodObj._array)
-      console.log('@@@ FoodObj isnt null anymore @@@')
       setFoodList(
                 <FlatList
                     data={FoodObj.foodObj._array}

@@ -9,10 +9,6 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
   const [loaded, setLoaded] = useState(false)
   const [foodObj, setFoodObj] = useState('NotReady')
 
-  const alertButtonFunc = () => {
-    alert('Right Button was clicked')
-  }
-
   const styles = StyleSheet.create({
 
     large_container: {
@@ -97,17 +93,14 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
     }
   })
 
-  const todayDate = new Date()
+  const todayDate = new Date().toJSON().slice(0, 10)
 
   useEffect(() => {
     setLoaded(true)
-    console.log(route.params)
   }, [])
 
   const queryFoodTable = async () => {
-    console.log('Result inside ASYNC FoodAddScreen: ')
     getStoredFood(propDB, setFoodObj)
-    console.log('Ending FoodAddScreen')
   }
 
   useEffect(() => {
@@ -116,13 +109,7 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
   }, [loaded])
 
   useEffect(() => {
-    // console.log('Starting to Print Food Obj')
-    // console.log(foodObj)
-    // console.log('Ending print Food Obj in USE Effect in Food Add Screen')
     if (foodObj !== 'NotReady') {
-      // console.log('@@@@@ Printing in Food ADD Screen @@@@@')
-      // console.log(foodObj._array)
-      // console.log('@@@ FoodObj isnt null anymore @@@')
       setFoodList(
               <FlatList
                   data={foodObj._array}

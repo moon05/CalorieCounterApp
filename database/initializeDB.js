@@ -144,6 +144,7 @@ const setupDatabaseAsync = async (db) => {
                 lunchNetCalorie FLOAT,
                 dinnerNetCalorie FLOAT,
                 snacksNetCalorie FLOAT,
+                dayNetCalorie FLOAT,
                 totalCarb FLOAT,
                 totalProtein FLOAT,
                 totalFat FLOAT);
