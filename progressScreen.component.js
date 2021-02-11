@@ -3,6 +3,7 @@ import { SafeAreaView, View, Dimensions } from 'react-native'
 import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from './context/DatabaseContext'
 import { useIsFocused } from '@react-navigation/native'
+import { CustomPieChart } from './reusable_components/customPieChart'
 
 import { VictoryBar, VictoryPie, VictoryLegend, VictoryChart, VictoryTheme } from 'victory-native'
 
@@ -84,30 +85,15 @@ export const ProgressScreen = ({ navigation, propDB }) => {
               <Text> Calorie Consumption </Text>
             </View>
 
-            <View flexDirection = "column" justifyContent = "flex-start" alignItems = "center" backgroundColor={'#f5fcff'}>
-              <VictoryPie
-                  animate={{ duration: 500 }}
-                  colorScale={['tomato', 'orange', 'gold', 'turquoise']}
-                  data={calorieProcessedData} x="period" y="calories"
-                  height={250}
-                  theme={VictoryTheme.material}
-                  labels={() => null}
-              />
-              <VictoryLegend x={80}
-                             centerTitle
-                             orientation="horizontal"
-                             gutter={40}
-                             itemsPerRow={2}
-                             height={80}
-                             style={{ data: { size: 10 }, title: { fontSize: 20 } }}
-                             data={[
-                               { name: 'Breakfast', symbol: { fill: 'tomato', type: 'square' } },
-                               { name: 'Lunch', symbol: { fill: 'orange', type: 'square' } },
-                               { name: 'Dinner', symbol: { fill: 'gold', type: 'square' } },
-                               { name: 'Snacks', symbol: { fill: 'turquoise', type: 'square' } }
-                             ]}
-              />
-            </View>
+            <CustomPieChart
+                data={calorieProcessedData}
+                xAccessor={'period'}
+                yAccessor={'calories'}
+                colorArray={['tomato', 'orange', 'gold', 'turquoise']}
+                heightPie={250}
+                gutterLegend={40}
+                heightLegend={80}
+            />
 
             <Divider style={{ height: 40, backgroundColor: 'red', marginTop: 100, marginBottom: 20 }}/>
           </View>

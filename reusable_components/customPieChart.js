@@ -5,7 +5,7 @@ import { VictoryPie, VictoryLegend, VictoryTheme } from 'victory-native'
 
 // default heightPie should be 250
 
-export const ProgressScreen = ({ data, xAccessor, yAccessor, colorArray, heightPie, gutterLegend, heightLegend }) => {
+export const CustomPieChart = ({ data, xAccessor, yAccessor, colorArray, heightPie, gutterLegend, heightLegend, legendTitle }) => {
   const legendData = []
   for (const [index, value] of data.entries()) {
     legendData.push({ name: value.period, symbol: { fill: colorArray[index], type: 'square' } })
@@ -22,7 +22,7 @@ export const ProgressScreen = ({ data, xAccessor, yAccessor, colorArray, heightP
                 labels={() => null}
             />
             <VictoryLegend x={80}
-                           title="Legend"
+                           title={legendTitle}
                            centerTitle
                            orientation="horizontal"
                            gutter={gutterLegend}
