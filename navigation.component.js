@@ -9,6 +9,7 @@ import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { IconButton } from 'react-native-paper'
+import StackNavigator from '@react-navigation/stack/src/navigators/createStackNavigator'
 
 const Tab = createMaterialBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -17,7 +18,7 @@ const MainTabs = ({ propDB }) => {
   return (
         <Tab.Navigator
             initialRouteName="Home"
-            shifting={true}
+            shifting={false}
             sceneAnimationEnabled={false}
         >
             <Tab.Screen
@@ -27,7 +28,15 @@ const MainTabs = ({ propDB }) => {
                   tabBarIcon: 'home'
                 }}
             >
-                {() => <HomeScreen propDB={propDB}/>}
+
+                {() =>
+                  (<Stack.Navigator>
+                            <Stack.Screen name="LightWeightCalorieCounter">
+                                {(props) => <HomeScreen propDB={propDB}/>}
+                            </Stack.Screen>
+                        </Stack.Navigator>
+                  )
+                }
             </Tab.Screen>
 
             <Tab.Screen
@@ -113,7 +122,14 @@ const MainTabs = ({ propDB }) => {
                   tabBarIcon: 'chart-bar'
                 }}
             >
-                {() => <ProgressScreen propDB={propDB}/>}
+                {() =>
+                  (<Stack.Navigator>
+                        <Stack.Screen name="Progress">
+                            {(props) => <ProgressScreen propDB={propDB}/>}
+                        </Stack.Screen>
+                    </Stack.Navigator>
+                  )
+                }
             </Tab.Screen>
 
             <Tab.Screen
@@ -122,7 +138,14 @@ const MainTabs = ({ propDB }) => {
                   tabBarIcon: 'more'
                 }}
             >
-                {() => <MoreScreen propDB={propDB}/>}
+                {() =>
+                  (<Stack.Navigator>
+                            <Stack.Screen name="More">
+                                {(props) => <MoreScreen propDB={propDB}/>}
+                            </Stack.Screen>
+                        </Stack.Navigator>
+                  )
+                }
             </Tab.Screen>
         </Tab.Navigator>
   )
