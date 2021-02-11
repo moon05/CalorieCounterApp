@@ -147,7 +147,9 @@ const setupDatabaseAsync = async (db) => {
                 dayNetCalorie FLOAT,
                 totalCarb FLOAT,
                 totalProtein FLOAT,
-                totalFat FLOAT);
+                totalFat FLOAT,
+                totalSodium FLOAT,
+                totalSugar FLOAT);
                 `, [], onSuccess('FoodGather'), onError)
 
       tx.executeSql(`       

@@ -76,16 +76,16 @@ export const DatabaseContextProvider = props => {
     await crud.insertWaterItem(db, [date, waterCount])
   }
 
-  const addNewFoodGather = async (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat) => {
-    await crud.insertFoodGather(db, [date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat])
+  const addNewFoodGather = async (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat, totalSodium, totalSugar) => {
+    await crud.insertFoodGather(db, [date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat, totalSodium, totalSugar])
   }
 
   const getFoodGatherRowFromDate = async (db, arg, setter) => {
     await crud.getDatedFoodGather(db, [arg], setter)
   }
 
-  const updateFoodGatherRowWithDate = async (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat) => {
-    await crud.updateDatedFoodGatherWith(db, [breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat, date])
+  const updateFoodGatherRowWithDate = async (db, date, breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat, totalSodium, totalSugar) => {
+    await crud.updateDatedFoodGatherWith(db, [breakfastNetCalorie, lunchNetCalorie, dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat, totalSodium, totalSugar, date])
   }
 
   const addNewRecentlyEatenFood = async (db, createdAt, updatedAt, numberOfTimesAdded, foodID) => {

@@ -149,7 +149,7 @@ const insertWaterItem = (db, args) => {
 }
 
 const insertFoodGatherObj = {
-  sqlStatement: 'insert into FoodGather (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat) values (?,?,?,?,?,?,?,?,?)',
+  sqlStatement: 'insert into FoodGather (date, breakfastNetCalorie, lunchNetCalorie,  dinnerNetCalorie, snacksNetCalorie, dayNetCalorie, totalCarb, totalProtein, totalFat, totalSodium, totalSugar) values (?,?,?,?,?,?,?,?,?,?,?)',
   parentFunctionName: 'insertFoodGather'
 }
 
@@ -158,7 +158,7 @@ const insertFoodGather = (db, args) => {
 }
 
 const updateFoodGatherObj = {
-  sqlStatement: 'update FoodGather set breakfastNetCalorie = ?, lunchNetCalorie = ?,  dinnerNetCalorie = ?, snacksNetCalorie = ?, dayNetCalorie = ?, totalCarb = ?, totalProtein = ?, totalFat = ? where FoodGather.date = ?',
+  sqlStatement: 'update FoodGather set breakfastNetCalorie = ?, lunchNetCalorie = ?,  dinnerNetCalorie = ?, snacksNetCalorie = ?, dayNetCalorie = ?, totalCarb = ?, totalProtein = ?, totalFat = ?, totalSodium = ?, totalSugar = ? where FoodGather.date = ?',
   parentFunctionName: 'updateFoodGather'
 }
 
