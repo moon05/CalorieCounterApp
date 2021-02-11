@@ -6,31 +6,6 @@ import { useIsFocused } from '@react-navigation/native'
 
 import { VictoryBar, VictoryPie, VictoryLegend, VictoryChart, VictoryTheme } from 'victory-native'
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from 'react-native-chart-kit'
-
-const chartConfig = {
-  backgroundColor: '#e26a00',
-  backgroundGradientFrom: '#fb8c00',
-  backgroundGradientTo: '#ffa726',
-  decimalPlaces: 2, // optional, defaults to 2dp
-  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-  style: {
-    borderRadius: 10
-  },
-  propsForDots: {
-    r: '6',
-    strokeWidth: '2',
-    stroke: '#ffa726'
-  }
-}
 export const ProgressScreen = ({ navigation, propDB }) => {
   const databaseContext = useContext(DatabaseContext)
 
@@ -85,49 +60,12 @@ export const ProgressScreen = ({ navigation, propDB }) => {
     }
   }, [foodGatherObj])
 
-  const data = [
-    {
-      name: 'Seoul',
-      population: 21500000,
-      color: 'rgba(131, 167, 234, 1)',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15
-    },
-    {
-      name: 'Toronto',
-      population: 2800000,
-      color: '#F00',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15
-    },
-    {
-      name: 'Beijing',
-      population: 527612,
-      color: 'red',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15
-    },
-    {
-      name: 'New York',
-      population: 8538000,
-      color: '#ffffff',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15
-    },
-    {
-      name: 'Moscow',
-      population: 11920000,
-      color: 'rgb(0, 0, 255)',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15
-    }
-  ]
-
   const [calorieProcessedData, setCalorieProcessedData] = useState([
     { period: 'Breakfast', calories: 0 },
     { period: 'Lunch', calories: 0 },
     { period: 'Dinner', calories: 0 },
     { period: 'Snacks', calories: 0 }])
+
   useEffect(() => {
     const data = [
       { period: 'Breakfast', calories: calorieData.Breakfast },
@@ -135,15 +73,7 @@ export const ProgressScreen = ({ navigation, propDB }) => {
       { period: 'Dinner', calories: calorieData.Dinner },
       { period: 'Snacks', calories: calorieData.Snacks }]
     setCalorieProcessedData(data)
-    console.log(calorieProcessedData)
   }, [calorieData])
-
-  const data1 = [
-    { quarter: 1, earnings: 13000 },
-    { quarter: 2, earnings: 16500 },
-    { quarter: 3, earnings: 14250 },
-    { quarter: 4, earnings: 19000 }
-  ]
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
