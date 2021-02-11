@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { SafeAreaView, Image, View, FlatList, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { ActivityIndicator, SafeAreaView, Image, View, FlatList, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
+import SkeletonContent from 'react-native-skeleton-content'
 
 export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
   const databaseContext = useContext(DatabaseContext)
@@ -14,7 +15,7 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
     large_container: {
       flex: 1,
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       marginTop: 5
     },
     header_container: {
@@ -165,7 +166,19 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
   )
 
   const [foodList, setFoodList] = useState(
-      <Text> Nothing to See here YET!!! </Text>
+      <SkeletonContent
+          containerStyle={{ flex: 1, width: 400 }}
+          animationDirection="horizontalLeft"
+          layout={[
+            // long line
+            { width: 355, height: 70, marginTop: 5, marginLeft: 10, marginBottom: 10 },
+            { width: 355, height: 70, marginLeft: 10, marginBottom: 10 },
+            { width: 355, height: 70, marginLeft: 10, marginBottom: 10 },
+            { width: 355, height: 70, marginLeft: 10, marginBottom: 10 },
+            { width: 355, height: 70, marginLeft: 10, marginBottom: 10 }
+          ]}
+          isLoading={true}
+      />
   )
 
   return (
@@ -186,6 +199,8 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
                       <Text style={{ fontWeight: 'bold', width: 80, marginRight: 8 }}>Calories</Text>
                   </View>
               </View>
+
+              <Divider style={{ marginTop: 5, marginBottom: 5 }}/>
 
               {foodList}
 
