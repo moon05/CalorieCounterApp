@@ -120,7 +120,7 @@ export const LogScreen = ({ navigation, propDB, route }) => {
 
   useEffect(() => {
     setLoaded(true)
-    addNewFoodGather(propDB, todayDate, 0, 0, 0, 0, 0, 0, 0, 0)
+    addNewFoodGather(propDB, todayDate, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
   }, [])
 
   const isFocused = useIsFocused()
@@ -210,7 +210,7 @@ export const LogScreen = ({ navigation, propDB, route }) => {
     }
     setDailyAggregate(t)
     console.log(dailyAggregate)
-    updateFoodGatherRowWithDate(propDB, todayDate, breakfastAggregate.NetCal, lunchAggregate.NetCal, dinnerAggregate.NetCal, snacksAggregate.NetCal, dailyAggregate.netCalorie, dailyAggregate.netCarb, dailyAggregate.netProtein, dailyAggregate.netFat)
+    updateFoodGatherRowWithDate(propDB, todayDate, breakfastAggregate.NetCal, lunchAggregate.NetCal, dinnerAggregate.NetCal, snacksAggregate.NetCal, dailyAggregate.netCalorie, dailyAggregate.netCarb, dailyAggregate.netProtein, dailyAggregate.netFat, dailyAggregate.netSodium, dailyAggregate.netSugar)
   }, [breakfastAggregate, lunchAggregate, dinnerAggregate, snacksAggregate])
 
   return (
