@@ -77,14 +77,14 @@ export const ProgressScreen = ({ navigation, propDB }) => {
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
-          <View flexDirection = "column" justifyContent= 'flex-start' alignItems = "center">
+          <View flexDirection = "column" justifyContent= 'flex-start'>
             <Divider/>
 
             <View>
               <Text> Calorie Consumption </Text>
             </View>
 
-            <View justifyContent = "center" alignItems = "center" backgroundColor={'#f5fcff'}>
+            <View flexDirection = "column" justifyContent = "flex-start" alignItems = "center" backgroundColor={'#f5fcff'}>
               <VictoryPie
                   animate={{ duration: 500 }}
                   colorScale={['tomato', 'orange', 'gold', 'turquoise']}
@@ -93,13 +93,12 @@ export const ProgressScreen = ({ navigation, propDB }) => {
                   theme={VictoryTheme.material}
                   labels={() => null}
               />
-              <VictoryLegend justifyContent = "center" alignItems = "center" x={20}
-                             title="Legend"
+              <VictoryLegend x={80}
                              centerTitle
                              orientation="horizontal"
-                             gutter={80}
+                             gutter={40}
                              itemsPerRow={2}
-                             height={120}
+                             height={80}
                              style={{ data: { size: 10 }, title: { fontSize: 20 } }}
                              data={[
                                { name: 'Breakfast', symbol: { fill: 'tomato', type: 'square' } },
@@ -110,7 +109,7 @@ export const ProgressScreen = ({ navigation, propDB }) => {
               />
             </View>
 
-            <Divider style={{ height: 20, backgroundColor: 'red' }}/>
+            <Divider style={{ height: 40, backgroundColor: 'red', marginTop: 100, marginBottom: 20 }}/>
           </View>
 
         </SafeAreaView>
