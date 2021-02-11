@@ -212,7 +212,7 @@ export const LogScreen = ({ navigation, propDB, route }) => {
     }
     setDailyAggregate(t)
     console.log(dailyAggregate)
-    updateFoodGatherRowWithDate(propDB, todayDate, breakfastAggregate.NetCal, lunchAggregate.NetCal, dinnerAggregate.NetCal, snacksAggregate.NetCal, dailyAggregate.netCalorie, dailyAggregate.netCarb, dailyAggregate.netProtein, dailyAggregate.netFat, dailyAggregate.netSodium, dailyAggregate.netSugar)
+    updateFoodGatherRowWithDate(propDB, todayDate, breakfastAggregate.NetCal, lunchAggregate.NetCal, dinnerAggregate.NetCal, snacksAggregate.NetCal, dailyAggregate.netCalorie, dailyAggregate.netCarb, dailyAggregate.netPro, dailyAggregate.netFat, dailyAggregate.netSodium, dailyAggregate.netSugar)
   }, [breakfastAggregate, lunchAggregate, dinnerAggregate, snacksAggregate])
 
   return (

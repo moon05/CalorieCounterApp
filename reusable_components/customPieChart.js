@@ -8,7 +8,7 @@ import { VictoryPie, VictoryLegend, VictoryTheme } from 'victory-native'
 export const CustomPieChart = ({ data, xAccessor, yAccessor, colorArray, heightPie, gutterLegend, heightLegend, legendTitle }) => {
   const legendData = []
   for (const [index, value] of data.entries()) {
-    legendData.push({ name: value.period, symbol: { fill: colorArray[index], type: 'square' } })
+    legendData.push({ name: `${value[xAccessor]}\n${data[index][yAccessor]}`, symbol: { fill: colorArray[index], type: 'square' } })
   }
   return (
 
