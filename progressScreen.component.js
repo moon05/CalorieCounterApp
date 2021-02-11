@@ -80,8 +80,11 @@ export const ProgressScreen = ({ navigation, propDB }) => {
           <View flexDirection = "column" justifyContent= 'flex-start' alignItems = "center">
             <Divider/>
 
+            <View>
+              <Text> Calorie Consumption </Text>
+            </View>
+
             <View justifyContent = "center" alignItems = "center" backgroundColor={'#f5fcff'}>
-              <Text> Victory Pie Chart</Text>
               <VictoryPie
                   animate={{ duration: 500 }}
                   colorScale={['tomato', 'orange', 'gold', 'turquoise']}
@@ -94,15 +97,15 @@ export const ProgressScreen = ({ navigation, propDB }) => {
                              title="Legend"
                              centerTitle
                              orientation="horizontal"
-                             gutter={60}
+                             gutter={80}
                              itemsPerRow={2}
-                             height={130}
-                             style={{ data: { size: 10 }, border: { stroke: 'red' }, title: { fontSize: 20 } }}
+                             height={120}
+                             style={{ data: { size: 10 }, title: { fontSize: 20 } }}
                              data={[
-                               { name: 'Breakfast', symbol: { fill: 'tomato', type: 'star' } },
-                               { name: 'Lunch', symbol: { fill: 'orange' } },
-                               { name: 'Dinner', symbol: { fill: 'gold' } },
-                               { name: 'Snacks', symbol: { fill: 'turquoise' } }
+                               { name: 'Breakfast', symbol: { fill: 'tomato', type: 'square' } },
+                               { name: 'Lunch', symbol: { fill: 'orange', type: 'square' } },
+                               { name: 'Dinner', symbol: { fill: 'gold', type: 'square' } },
+                               { name: 'Snacks', symbol: { fill: 'turquoise', type: 'square' } }
                              ]}
               />
             </View>

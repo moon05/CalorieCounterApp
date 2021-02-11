@@ -6,7 +6,7 @@ import { DatabaseContext } from './context/DatabaseContext'
 import { useIsFocused } from '@react-navigation/native'
 import { FoodPeriodChunk } from './reusable_components/foodPeriodChunk'
 
-export const LogScreen = ({ navigation, propDB }) => {
+export const LogScreen = ({ navigation, propDB, route }) => {
   const databaseContext = useContext(DatabaseContext)
   const {
     addNewBreakfastItem,
@@ -127,12 +127,15 @@ export const LogScreen = ({ navigation, propDB }) => {
 
   useEffect(() => {
     if (isFocused) {
+      console.log('########################')
       queryBreakfastTable()
       queryLunchTable()
       queryDinnerTable()
       querySnacksTable()
-      queryFoodGatherTable(todayDate)
       console.log(foodGatherObj)
+      console.log('########################')
+      console.log('Printing navigation Param')
+      console.log(route.params)
     }
   }, [isFocused])
 
@@ -141,11 +144,13 @@ export const LogScreen = ({ navigation, propDB }) => {
     console.log(foodGatherObj)
   }, [foodGatherObj])
 
-  // setting aggregate values
+  // SETTING AGGREGATE VALUES
   // breakfast
   useEffect(() => {
     if (breakfastItemsObj !== 'NotReady') {
-      if (Array.isArray(breakfastItemsObj._array) || breakfastItemsObj._array.length) {
+      if (!Array.isArray(breakfastItemsObj._array) || !breakfastItemsObj._array.length) {
+
+      } else {
         setBreakfastAggregate(aggregateFoodValues(breakfastItemsObj._array))
       }
     }
@@ -154,7 +159,9 @@ export const LogScreen = ({ navigation, propDB }) => {
   // lunch
   useEffect(() => {
     if (lunchItemsObj !== 'NotReady') {
-      if (Array.isArray(lunchItemsObj._array) || lunchItemsObj._array.length) {
+      if (!Array.isArray(lunchItemsObj._array) || !lunchItemsObj._array.length) {
+
+      } else {
         setLunchAggregate(aggregateFoodValues(lunchItemsObj._array))
       }
     }
@@ -164,7 +171,9 @@ export const LogScreen = ({ navigation, propDB }) => {
 
   useEffect(() => {
     if (dinnerItemsObj !== 'NotReady') {
-      if (Array.isArray(dinnerItemsObj._array) || dinnerItemsObj._array.length) {
+      if (!Array.isArray(dinnerItemsObj._array) || !dinnerItemsObj._array.length) {
+
+      } else {
         setDinnerAggregate(aggregateFoodValues(dinnerItemsObj._array))
       }
     }
@@ -173,7 +182,9 @@ export const LogScreen = ({ navigation, propDB }) => {
   // snacks
   useEffect(() => {
     if (snacksItemsObj !== 'NotReady') {
-      if (Array.isArray(snacksItemsObj._array) || snacksItemsObj._array.length) {
+      if (!Array.isArray(snacksItemsObj._array) || !snacksItemsObj._array.length) {
+
+      } else {
         setSnacksAggregate(aggregateFoodValues(snacksItemsObj._array))
       }
     }

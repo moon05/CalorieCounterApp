@@ -110,13 +110,17 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
 
   useEffect(() => {
     if (foodObj !== 'NotReady') {
-      setFoodList(
-              <FlatList
-                  data={foodObj._array}
-                  renderItem={renderItem}
-                  keyExtractor={(item, index) => index}
-              />
-      )
+      if (!Array.isArray(foodObj._array) || !foodObj._array.length) {
+
+      } else {
+        setFoodList(
+                <FlatList
+                    data={foodObj._array}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index}
+                />
+        )
+      }
     }
   }, [foodObj])
 
@@ -129,7 +133,8 @@ export const FOOD_SELECTION_SCREEN = ({ propDB, route, navigation }) => {
                 route.params.itemRegisterFunc(propDB, todayDate, itemId)
               },
               foodInfo: fields,
-              foodRowId: itemId
+              foodRowId: itemId,
+              lastScreen: 'LogScreen'
             })
           }
           }

@@ -47,7 +47,23 @@ const MainTabs = ({ propDB }) => {
 
                         <Stack.Screen
                             name="FoodSelection"
-                            options={({ route }) => ({ title: route.params.name })}>
+                            options={({ route, navigation }) => (
+                              {
+                                title: route.params.name,
+                                headerLeft: () => (
+                                        <IconButton
+                                            icon="chevron-left"
+                                            size={45} style ={{ marginLeft: -19 }}
+                                            onPress={() => {
+                                              navigation.navigate('Log', { lastScreen: 'FoodSelectionScreen' })
+                                            }
+                                        }
+                                        />
+                                )
+                              })
+
+                            }
+                        >
                             {(props) => <FOOD_SELECTION_SCREEN
                                 {...props}
                                 propDB={propDB}
@@ -58,11 +74,24 @@ const MainTabs = ({ propDB }) => {
                         <Stack.Screen
                             name="Add Food"
                             options={({ navigation, route }) => ({
+                              headerLeft: () => (
+                                    <IconButton
+                                        icon="chevron-left"
+                                        size={45} style ={{ marginLeft: -19 }}
+                                        onPress={() => {
+                                          navigation.navigate('FoodSelection', { lastScreen: 'FoodAddScreen' })
+                                        }
+                                        }
+                                    />
+                              ),
                               headerRight: () => (
-                                <IconButton icon="check" onPress={() => {
-                                  route.params.rightHeaderInsert()
-                                  navigation.navigate('Log')
-                                }
+                                <IconButton
+                                    icon="check"
+                                    size={30}
+                                    onPress={() => {
+                                      route.params.rightHeaderInsert()
+                                      navigation.navigate('Log', { lastScreen: 'FoodAddScreen' })
+                                    }
                                 }
                                 />
                               )
