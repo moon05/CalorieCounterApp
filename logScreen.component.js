@@ -19,7 +19,8 @@ export const LogScreen = ({ navigation, propDB }) => {
     getAllAddedLunchItems,
     getAllAddedDinnerItems,
     getAllAddedSnacksItems,
-    getFoodGatherRowFromDate
+    getFoodGatherRowFromDate,
+    updateFoodGatherRowWithDate
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
 
@@ -180,6 +181,7 @@ export const LogScreen = ({ navigation, propDB }) => {
 
   // daily
   useEffect(() => {
+    console.log('Inside Daily Aggregate')
     const a = breakfastAggregate.NetCal + lunchAggregate.NetCal + dinnerAggregate.NetCal + snacksAggregate.NetCal
     const b = breakfastAggregate.NetCar + lunchAggregate.NetCar + dinnerAggregate.NetCar + snacksAggregate.NetCar
     const c = breakfastAggregate.NetFat + lunchAggregate.NetFat + dinnerAggregate.NetFat + snacksAggregate.NetFat
@@ -197,6 +199,7 @@ export const LogScreen = ({ navigation, propDB }) => {
     }
     setDailyAggregate(t)
     console.log(dailyAggregate)
+    updateFoodGatherRowWithDate(propDB, todayDate, breakfastAggregate.NetCal, lunchAggregate.NetCal, dinnerAggregate.NetCal, snacksAggregate.NetCal, dailyAggregate.netCalorie, dailyAggregate.netCarb, dailyAggregate.netProtein, dailyAggregate.netFat)
   }, [breakfastAggregate, lunchAggregate, dinnerAggregate, snacksAggregate])
 
   return (
