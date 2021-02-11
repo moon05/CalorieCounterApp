@@ -4,6 +4,7 @@ import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from './context/DatabaseContext'
 import { useIsFocused } from '@react-navigation/native'
 import { CustomPieChart } from './reusable_components/customPieChart'
+import { differenceWith, isEqual, isEmpty } from 'lodash'
 
 export const ProgressScreen = ({ navigation, propDB }) => {
   const databaseContext = useContext(DatabaseContext)
@@ -48,6 +49,11 @@ export const ProgressScreen = ({ navigation, propDB }) => {
   useEffect(() => {
     console.log('Printing in Progress Screen')
     console.log(foodGatherObj)
+    if (!Array.isArray(foodGatherObj._array) || !foodGatherObj._array.length) {
+      console.log("it's an empty array")
+    } else {
+      console.log("there's stuff")
+    }
   }, [foodGatherObj])
 
   useEffect(() => {
@@ -109,7 +115,113 @@ export const ProgressScreen = ({ navigation, propDB }) => {
     ]
     setMacroProcessedData(data)
     console.log(macroProcessedData)
+    console.log('Before Process')
+    console.log(calorieProcessedData)
+    console.log(emptyStateCalorieData)
+    console.log(isEqual(calorieProcessedData, emptyStateCalorieData))
   }, [macroData])
+
+  const emptyStateCalorieData = [
+    { period: 'Breakfast', calories: 0 },
+    { period: 'Lunch', calories: 0 },
+    { period: 'Dinner', calories: 0 },
+    { period: 'Snacks', calories: 0 }]
+
+  const emptyStateCalorieDataProcessed = [
+    { period: 'Breakfast', calories: 0 },
+    { period: 'Lunch', calories: 0 },
+    { period: 'Dinner', calories: 0 },
+    { period: 'Snacks', calories: 0 },
+    { period: 'None', calories: 1 }]
+
+  const emptyStateMacroData = [
+    { nutrient: 'Carbohydrates', total: 0 },
+    { nutrient: 'Fat', total: 0 },
+    { nutrient: 'Sodium', total: 0 },
+    { nutrient: 'Sugar', total: 0 },
+    { nutrient: 'Protein', total: 0 }]
+
+  const emptyStateMacroDataProcessed = [
+    { nutrient: 'Carbohydrates', total: 0 },
+    { nutrient: 'Fat', total: 0 },
+    { nutrient: 'Sodium', total: 0 },
+    { nutrient: 'Sugar', total: 0 },
+    { nutrient: 'Protein', total: 0 },
+    { nutrient: 'None', total: 1 }]
+
+  const [caloriePie, setCaloriePie] = useState()
+  const [macroPie, setMacroPie] = useState()
+
+  const checkDeepEqual = (x, y) => {
+    return (x).differenceWith(y, isEqual).isEmpty()
+  }
+
+  const EmptyStateCaloriePieChart = (
+      <CustomPieChart
+          data={emptyStateCalorieDataProcessed}
+          xAccessor={'period'}
+          yAccessor={'calories'}
+          colorArrayPie={['tomato', 'orange', 'gold', 'turquoise', 'grey']}
+          colorArrayLegend={['tomato', 'orange', 'gold', 'turquoise']}
+          heightPie={250}
+          gutterLegend={40}
+          heightLegend={80}
+      />
+  )
+
+  const EmptyStateMacroPieChart = (
+    <CustomPieChart
+        data={emptyStateMacroDataProcessed}
+        xAccessor={'nutrient'}
+        yAccessor={'total'}
+        colorArrayPie={['tomato', 'orange', 'gold', 'turquoise', 'navy', 'grey']}
+        colorArrayLegend={['tomato', 'orange', 'gold', 'turquoise', 'navy']}
+        heightPie={250}
+        gutterLegend={40}
+        heightLegend={130}
+    />
+  )
+
+  useEffect(() => {
+    console.log('Setting States')
+    console.log(foodGatherObj)
+    if (foodGatherObj !== 'NotReady') {
+      if (isEmpty(foodGatherObj._array)) {
+        setCaloriePie(EmptyStateCaloriePieChart)
+        setMacroPie(EmptyStateMacroPieChart)
+      } else {
+        if (isEqual(calorieProcessedData, emptyStateCalorieData) || isEqual(macroProcessedData, emptyStateMacroData)) {
+          setCaloriePie(EmptyStateCaloriePieChart)
+          setMacroPie(EmptyStateMacroPieChart)
+        } else {
+          setCaloriePie(
+              <CustomPieChart
+                  data={calorieProcessedData}
+                  xAccessor={'period'}
+                  yAccessor={'calories'}
+                  colorArrayPie={['tomato', 'orange', 'gold', 'turquoise']}
+                  colorArrayLegend={['tomato', 'orange', 'gold', 'turquoise']}
+                  heightPie={250}
+                  gutterLegend={40}
+                  heightLegend={80}
+              />
+          )
+          setMacroPie(
+              <CustomPieChart
+                  data={macroProcessedData}
+                  xAccessor={'nutrient'}
+                  yAccessor={'total'}
+                  colorArrayPie={['tomato', 'orange', 'gold', 'turquoise', 'navy']}
+                  colorArrayLegend={['tomato', 'orange', 'gold', 'turquoise', 'navy']}
+                  heightPie={250}
+                  gutterLegend={40}
+                  heightLegend={130}
+              />
+          )
+        }
+      }
+    }
+  }, [calorieProcessedData, foodGatherObj])
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -121,15 +233,7 @@ export const ProgressScreen = ({ navigation, propDB }) => {
               <Text> Calorie Consumption </Text>
             </View>
 
-            <CustomPieChart
-                data={calorieProcessedData}
-                xAccessor={'period'}
-                yAccessor={'calories'}
-                colorArray={['tomato', 'orange', 'gold', 'turquoise']}
-                heightPie={250}
-                gutterLegend={40}
-                heightLegend={80}
-            />
+            {caloriePie}
 
             <Divider style={{ height: 40, backgroundColor: 'red', marginTop: 10, marginBottom: 10 }}/>
 
@@ -137,15 +241,7 @@ export const ProgressScreen = ({ navigation, propDB }) => {
               <Text> Macros </Text>
             </View>
 
-            <CustomPieChart
-                data={macroProcessedData}
-                xAccessor={'nutrient'}
-                yAccessor={'total'}
-                colorArray={['tomato', 'orange', 'gold', 'turquoise', 'navy']}
-                heightPie={250}
-                gutterLegend={40}
-                heightLegend={130}
-            />
+            {macroPie}
 
           </View>
           </ScrollView>

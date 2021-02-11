@@ -5,17 +5,24 @@ import { VictoryPie, VictoryLegend, VictoryTheme } from 'victory-native'
 
 // default heightPie should be 250
 
-export const CustomPieChart = ({ data, xAccessor, yAccessor, colorArray, heightPie, gutterLegend, heightLegend, legendTitle }) => {
+export const CustomPieChart = ({ data, xAccessor, yAccessor, colorArrayPie, colorArrayLegend, heightPie, gutterLegend, heightLegend, legendTitle }) => {
   const legendData = []
   for (const [index, value] of data.entries()) {
-    legendData.push({ name: `${value[xAccessor]}\n${data[index][yAccessor]}`, symbol: { fill: colorArray[index], type: 'square' } })
+    if (value[xAccessor] === 'None') {
+
+    } else {
+      legendData.push({
+        name: `${value[xAccessor]}\n${data[index][yAccessor]}`,
+        symbol: { fill: colorArrayLegend[index], type: 'square' }
+      })
+    }
   }
   return (
 
         <View flexDirection = "column" justifyContent = "flex-start" alignItems = "center" backgroundColor={'#f5fcff'}>
             <VictoryPie
                 animate={{ duration: 500 }}
-                colorScale={colorArray}
+                colorScale={colorArrayPie}
                 data={data} x={xAccessor} y={yAccessor}
                 height={heightPie}
                 theme={VictoryTheme.material}
