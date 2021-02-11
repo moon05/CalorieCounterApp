@@ -126,16 +126,18 @@ export const LogScreen = ({ navigation, propDB, route }) => {
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    if (route.params.lastScreen === 'FoodAddScreen') {
-      console.log('########################')
-      queryBreakfastTable()
-      queryLunchTable()
-      queryDinnerTable()
-      querySnacksTable()
-      console.log(foodGatherObj)
-      console.log('########################')
-      console.log('Printing navigation Param')
-      console.log(route.params)
+    if (typeof route.params !== 'undefined') {
+      if (route.params.lastScreen === 'FoodAddScreen') {
+        console.log('########################')
+        queryBreakfastTable()
+        queryLunchTable()
+        queryDinnerTable()
+        querySnacksTable()
+        console.log(foodGatherObj)
+        console.log('########################')
+        console.log('Printing navigation Param')
+        console.log(route.params)
+      }
     }
   }, [route])
 
