@@ -1,10 +1,13 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react'
-import { SafeAreaView, View, ScrollView } from 'react-native'
+import { SafeAreaView, View, ScrollView, Platform, Button } from 'react-native'
 import { Divider } from 'react-native-paper'
 import { CALORIE_DASHBOARD } from './reusable_components/calorie_dashboard'
 import { DatabaseContext } from './context/DatabaseContext'
 import { useIsFocused } from '@react-navigation/native'
 import { FoodPeriodChunk } from './reusable_components/foodPeriodChunk'
+import DateTimePicker from '@react-native-community/datetimepicker'
+import { DateTime } from 'luxon'
+import { DatePicker } from './reusable_components/datePicker'
 
 export const LogScreen = ({ navigation, propDB, route }) => {
   const databaseContext = useContext(DatabaseContext)
@@ -23,6 +26,7 @@ export const LogScreen = ({ navigation, propDB, route }) => {
     updateFoodGatherRowWithDate
   } = databaseContext
   const [loaded, setLoaded] = useState(false)
+  const todayDate = new Date().toJSON().slice(0, 10)
 
   const [breakfastItemsObj, setBreakfastItemsObj] = useState('NotReady')
   const [lunchItemsObj, setLunchItemsObj] = useState('NotReady')
@@ -71,8 +75,6 @@ export const LogScreen = ({ navigation, propDB, route }) => {
     netSodium: 0,
     netSugar: 0
   })
-
-  const todayDate = new Date().toJSON().slice(0, 10)
 
   const queryBreakfastTable = async () => {
     console.log('@@@@@@@')
@@ -222,6 +224,8 @@ export const LogScreen = ({ navigation, propDB, route }) => {
             <View style={{ flex: 1, justifyContent: 'flex-start', paddingLeft: 10, paddingRight: 10, paddingTop: 15 }}>
                 <CALORIE_DASHBOARD goalCalorie={2800} consumedCalorie={dailyAggregate.netCalorie}/>
                 {/* top label for calorie consumption */}
+                {/* <DatePicker /> */}
+
                 <ScrollView showsVerticalScrollIndicator={false}>
                   { isFocused
                     ? <FoodPeriodChunk

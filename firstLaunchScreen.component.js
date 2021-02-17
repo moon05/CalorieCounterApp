@@ -56,9 +56,7 @@ export const FirstLaunchScreen = ({ database, propSetter }) => {
 
   return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                  <ProfileForm database={database} profileSubmitted={setProfileHasBeenSubmitted}/>
-            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
 
   )

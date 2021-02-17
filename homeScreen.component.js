@@ -38,11 +38,8 @@ export const HomeScreen = ({ propDB }) => {
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
-            <Text style={styles.appHeaderName}>Lightweight Calorie Counter</Text>
-            <ScrollView>
               <FirstLaunchScreen database={propDB} propSetter={setProfileHasBeenSubmitted}/>
-            </ScrollView>
-          <Profiles database={propDB} safeToLoad={profileHasBeenSubmitted}/>
+          {/* <Profiles database={propDB} safeToLoad={profileHasBeenSubmitted}/> */}
 
           <Divider/>
         </SafeAreaView>

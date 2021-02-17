@@ -8,7 +8,7 @@ import { FOOD_SELECTION_SCREEN } from './reusable_components/food_selection_scre
 import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { IconButton } from 'react-native-paper'
+import { Button, IconButton } from 'react-native-paper'
 import StackNavigator from '@react-navigation/stack/src/navigators/createStackNavigator'
 
 const Tab = createMaterialBottomTabNavigator()
@@ -50,7 +50,22 @@ const MainTabs = ({ propDB }) => {
                         screenOptions={{
                           headerBackTitleVisible: false
                         }}>
-                        <Stack.Screen name="Log">
+                        <Stack.Screen name="Log"
+                              // options={({ route, navigation }) => (
+                              //   {
+                              //     headerRight: () => (
+                              //         <Button
+                              //             size={30}
+                              //             // style={{ marginRight: 135 }}
+                              //             onPress={() => {
+                              //               route.params.rightHeaderInsert()
+                              //             }
+                              //             }
+                              //         > {'<'} Date {'>'} </Button>
+                              //     )
+                              //   }
+                              // )}
+                        >
                             {(props) => <LogScreen {...props} propDB={propDB} />}
                         </Stack.Screen>
 
