@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from 'react'
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, AsyncStorage } from 'react-native'
 import { Divider, Text, Button, TextInput } from 'react-native-paper'
 import { Controller, useForm } from 'react-hook-form'
 import { DatabaseContext } from '../context/DatabaseContext'
@@ -10,6 +10,10 @@ export const ProfileForm = ({ database, profileSubmitted }) => {
   const { addNewProfile } = databaseContext
 
   const { control, handleSubmit, errors } = useForm()
+
+  const SaveFirstUsage = async () => {
+    await AsyncStorage.setItem('FirstTime', 'false')
+  }
 
   const { register } = useForm({
     defaultValues: {
@@ -30,6 +34,7 @@ export const ProfileForm = ({ database, profileSubmitted }) => {
     console.log(database)
     console.log(data)
     addNewProfile(database, data.username, parseFloat(data.height), data.sex, parseFloat(data.startingWeight), parseFloat(data.startingWeight), parseFloat(data.goalWeight))
+    SaveFirstUsage()
     profileSubmitted(true)
   }
 

@@ -9,7 +9,6 @@ import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { Button, IconButton } from 'react-native-paper'
-import StackNavigator from '@react-navigation/stack/src/navigators/createStackNavigator'
 
 const Tab = createMaterialBottomTabNavigator()
 const Stack = createStackNavigator()

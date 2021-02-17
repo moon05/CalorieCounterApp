@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {
   SafeAreaView, View, StyleSheet, Picker, ScrollView, KeyboardAvoidingView,
-  Platform, TouchableWithoutFeedback, Keyboard
+  Platform, TouchableWithoutFeedback, Keyboard, AsyncStorage
 } from 'react-native'
 import { Divider, Text, TextInput, Button } from 'react-native-paper'
 
@@ -35,6 +35,16 @@ export const HomeScreen = ({ propDB }) => {
 
   console.log('Printing in HOMESCREEN:')
   console.log(propDB)
+
+  useEffect(() => {
+    AsyncStorage.getItem('FirstTime', (err, result) => {
+      console.log('Inside Home Screen Async')
+      console.log('Result:' + result)
+      console.log('Err:' + err)
+      alert(result)
+      alert(err)
+    })
+  })
 
   return (
         <SafeAreaView style={{ flex: 1 }}>

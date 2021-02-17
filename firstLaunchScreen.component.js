@@ -7,7 +7,7 @@ import {
   ScrollView,
   Platform,
   TouchableWithoutFeedback,
-  Keyboard, KeyboardAvoidingView
+  Keyboard, KeyboardAvoidingView, AsyncStorage
 } from 'react-native'
 import { Divider, Text, TextInput, Button } from 'react-native-paper'
 
@@ -22,6 +22,9 @@ export const FirstLaunchScreen = ({ database, propSetter }) => {
   })
 
   const [profileHasBeenSubmitted, setProfileHasBeenSubmitted] = useState(false)
+  const SaveFirstUsage = async () => {
+    await AsyncStorage.setItem('FirstTime', 'false')
+  }
 
   useEffect(() => {
     if (profileHasBeenSubmitted) {
