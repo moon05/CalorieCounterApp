@@ -6,6 +6,7 @@ import { ProgressScreen } from './progressScreen.component'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { FOOD_SELECTION_SCREEN } from './reusable_components/food_selection_screen'
 import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
+import { MealPlanScreen } from './reusable_components/mealPlan'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { Button, IconButton } from 'react-native-paper'
@@ -31,8 +32,11 @@ const MainTabs = ({ propDB }) => {
                 {() =>
                   (<Stack.Navigator>
                             <Stack.Screen name="LightWeightCalorieCounter">
-                                {(props) => <HomeScreen propDB={propDB}/>}
+                                {(props) => <HomeScreen {...props} propDB={propDB}/>}
                             </Stack.Screen>
+                          <Stack.Screen name="Meal Plan">
+                              {(props) => <MealPlanScreen {...props} propDB={propDB}/>}
+                          </Stack.Screen>
                         </Stack.Navigator>
                   )
                 }

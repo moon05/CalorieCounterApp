@@ -35,9 +35,6 @@ export const MealPlanCard = ({ route, navigation, planName, foodItemsObject }) =
     setSCal(snacksTotaCal)
   }, [foodItemsObject])
 
-  useEffect(() => {
-    console.log(bCal)
-  }, [bCal])
   return (
         <View >
             <Card>

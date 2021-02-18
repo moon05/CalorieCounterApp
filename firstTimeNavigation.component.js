@@ -10,6 +10,7 @@ import { FOOD_ADD_SCREEN } from './reusable_components/food_add_screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { IconButton } from 'react-native-paper'
+import { MealPlanScreen } from './reusable_components/mealPlan'
 
 const Tab = createMaterialBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -38,6 +39,9 @@ const MainTabs = ({ propDB }) => {
                             <Stack.Screen name="LightWeightCalorieCounter">
                                 {(props) => <HomeScreen propDB={propDB}/>}
                             </Stack.Screen>
+                          <Stack.Screen name="Meal Plan">
+                              {(props) => <MealPlanScreen {...props} propDB={propDB}/>}
+                          </Stack.Screen>
                   </Stack.Navigator>
                   )
                 }

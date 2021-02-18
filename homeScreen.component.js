@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {
   SafeAreaView, View, StyleSheet, Picker, ScrollView, KeyboardAvoidingView,
-  Platform, TouchableWithoutFeedback, Keyboard, AsyncStorage
+  Platform, TouchableWithoutFeedback, Keyboard
 } from 'react-native'
 import { Divider, Text, TextInput, Button } from 'react-native-paper'
-import { MealPlan } from './reusable_components/mealPlan'
+import { MealPlanScreen } from './reusable_components/mealPlan'
 import { MealPlanCard } from './reusable_components/mealPlanCard'
 import { FOOD_OBJECTS } from './reusable_components/food_detailed_data'
 
-export const HomeScreen = ({ propDB }) => {
+export const HomeScreen = ({ navigation, route, propDB }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -39,14 +39,7 @@ export const HomeScreen = ({ propDB }) => {
 
   console.log('Printing in HOMESCREEN:')
   console.log(propDB)
-
-  useEffect(() => {
-    AsyncStorage.getItem('FirstTime', (err, result) => {
-      console.log('Inside Home Screen Async')
-      console.log('Result:' + result)
-      console.log('Err:' + err)
-    })
-  })
+  console.log(navigation)
 
   const planObject1 = {
     breakfast: [FOOD_OBJECTS.shrimp, FOOD_OBJECTS.rainbowTrout],
@@ -61,17 +54,27 @@ export const HomeScreen = ({ propDB }) => {
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
-              {/* <FirstLaunchScreen database={propDB} propSetter={setProfileHasBeenSubmitted}/> */}
-          {/* <Profiles database={propDB} safeToLoad={profileHasBeenSubmitted}/> */}
+
           <View style={styles.mainContainer}>
             <Text>
               You are in HomeScreen!!
             </Text>
             <Text>
-              Sample Plans
+              Sample Meal Plans
             </Text>
-             <MealPlanCard planName={'DuckLobster'} foodItemsObject={planObject1}/>
-            <MealPlan foodObjectArr={planObject1} totalCal={1100}/>
+            <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('Meal Plan',
+                    { planName: 'DuckLobster', totalCal: 1000, foodItemsObject: planObject1 }
+                  )
+                }
+                }
+            >
+              <View>
+                <MealPlanCard planName={'DuckLobster'} foodItemsObject={planObject1}/>
+              </View>
+
+            </TouchableWithoutFeedback>
           </View>
 
         </SafeAreaView>
