@@ -5,6 +5,9 @@ import {
 } from 'react-native'
 import { Divider, Text, TextInput, Button } from 'react-native-paper'
 import { MealPlan } from './reusable_components/mealPlan'
+import { MealPlanCard } from './reusable_components/mealPlanCard'
+import { FOOD_OBJECTS } from './reusable_components/food_detailed_data'
+
 export const HomeScreen = ({ propDB }) => {
   const styles = StyleSheet.create({
     container: {
@@ -45,6 +48,17 @@ export const HomeScreen = ({ propDB }) => {
     })
   })
 
+  const planObject1 = {
+    breakfast: [FOOD_OBJECTS.shrimp, FOOD_OBJECTS.rainbowTrout],
+    lunch: [FOOD_OBJECTS.ribEye, FOOD_OBJECTS.salmon],
+    dinner: [FOOD_OBJECTS.duck, FOOD_OBJECTS.lobster],
+    snacks: [FOOD_OBJECTS.ribEye]
+  }
+  const planObject2 = { breakfast: [], lunch: [], dinner: [], snacks: [] }
+  const planObject3 = { breakfast: [], lunch: [], dinner: [], snacks: [] }
+  const planObject4 = { breakfast: [], lunch: [], dinner: [], snacks: [] }
+  const planObject5 = { breakfast: [], lunch: [], dinner: [], snacks: [] }
+
   return (
         <SafeAreaView style={{ flex: 1 }}>
               {/* <FirstLaunchScreen database={propDB} propSetter={setProfileHasBeenSubmitted}/> */}
@@ -53,7 +67,11 @@ export const HomeScreen = ({ propDB }) => {
             <Text>
               You are in HomeScreen!!
             </Text>
-            <MealPlan/>
+            <Text>
+              Sample Plans
+            </Text>
+             <MealPlanCard planName={'DuckLobster'} foodItemsObject={planObject1}/>
+            <MealPlan foodObjectArr={planObject1} totalCal={1100}/>
           </View>
 
         </SafeAreaView>

@@ -4,7 +4,7 @@ import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from '../context/DatabaseContext'
 import { FOOD_OBJECTS } from './food_detailed_data'
 
-export const MealPlan = ({ route, navigation }) => {
+export const MealPlan = ({ route, navigation, foodObjectArr, totalCal }) => {
   const styles = StyleSheet.create({
     food_image: {
       width: 50,
@@ -98,7 +98,7 @@ export const MealPlan = ({ route, navigation }) => {
                         </View>
 
                         <FlatList
-                            data={[FOOD_OBJECTS.ribEye, FOOD_OBJECTS.shrimp]}
+                            data={foodObjectArr.breakfast}
                             renderItem={renderItem}
                             keyExtractor={(item, index) => index}
                         />
@@ -111,7 +111,7 @@ export const MealPlan = ({ route, navigation }) => {
                         </View>
 
                         <FlatList
-                            data={[FOOD_OBJECTS.duck, FOOD_OBJECTS.lobster]}
+                            data={foodObjectArr.lunch}
                             renderItem={renderItem}
                             keyExtractor={(item, index) => index}
                         />
@@ -124,7 +124,7 @@ export const MealPlan = ({ route, navigation }) => {
                         </View>
 
                         <FlatList
-                            data={[FOOD_OBJECTS.shrimp, FOOD_OBJECTS.salmon]}
+                            data={foodObjectArr.dinner}
                             renderItem={renderItem}
                             keyExtractor={(item, index) => index}
                         />
@@ -137,7 +137,7 @@ export const MealPlan = ({ route, navigation }) => {
                         </View>
 
                         <FlatList
-                            data={[FOOD_OBJECTS.rainbowTrout, FOOD_OBJECTS.shrimp]}
+                            data={foodObjectArr.snacks}
                             renderItem={renderItem}
                             keyExtractor={(item, index) => index}
                         />
@@ -151,7 +151,7 @@ export const MealPlan = ({ route, navigation }) => {
                             <Text style={styles.period_title}> Total Calories </Text>
                         </View>
                         <View>
-                            <Text style={styles.period_title}> Put total Calories </Text>
+                            <Text style={styles.period_title}> {totalCal} </Text>
                         </View>
                     </View>
 
