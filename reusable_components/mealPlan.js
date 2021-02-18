@@ -69,34 +69,46 @@ export const MealPlanScreen = ({ route, navigation, foodObjectArr, totalCal }) =
   })
 
   const [bCal, setBCal] = useState(0)
+  const [bPro, setBPro] = useState(0)
 
   const [lCal, setLCal] = useState(0)
+  const [lPro, setLPro] = useState(0)
 
   const [dCal, setDCal] = useState(0)
+  const [dPro, setDPro] = useState(0)
 
   const [sCal, setSCal] = useState(0)
+  const [sPro, setSPro] = useState(0)
 
   useEffect(() => {
-    let breakfastTotaCal = 0
+    let [breakfastTotaCal, breakfastTotalProtein] = [0, 0]
     for (const keyIndex in route.params.foodItemsObject.breakfast) {
       breakfastTotaCal += route.params.foodItemsObject.breakfast[keyIndex].calories
+      breakfastTotalProtein += route.params.foodItemsObject.breakfast[keyIndex].protein
     }
     setBCal(breakfastTotaCal)
-    let lunchTotaCal = 0
+    setBPro(breakfastTotalProtein)
+    let [lunchTotaCal, lunchTotalProtein] = [0, 0]
     for (const keyIndex in route.params.foodItemsObject.lunch) {
       lunchTotaCal += route.params.foodItemsObject.lunch[keyIndex].calories
+      lunchTotalProtein += route.params.foodItemsObject.lunch[keyIndex].protein
     }
     setLCal(lunchTotaCal)
-    let dinnerTotaCal = 0
+    setLPro(lunchTotalProtein)
+    let [dinnerTotaCal, dinnerTotalProtein] = [0, 0]
     for (const keyIndex in route.params.foodItemsObject.dinner) {
       dinnerTotaCal += route.params.foodItemsObject.dinner[keyIndex].calories
+      dinnerTotalProtein += route.params.foodItemsObject.dinner[keyIndex].protein
     }
     setDCal(dinnerTotaCal)
-    let snacksTotaCal = 0
-    for (const keyIndex in route.params.foodItemsObject.dinner) {
-      snacksTotaCal += route.params.foodItemsObject.dinner[keyIndex].calories
+    setDPro(dinnerTotalProtein)
+    let [snacksTotaCal, snacksTotalProtein] = [0, 0]
+    for (const keyIndex in route.params.foodItemsObject.snacks) {
+      snacksTotaCal += route.params.foodItemsObject.snacks[keyIndex].calories
+      snacksTotalProtein += route.params.foodItemsObject.snacks[keyIndex].protein
     }
     setSCal(snacksTotaCal)
+    setSPro(snacksTotalProtein)
   }, [route.params.foodItemsObject])
 
   const Item = ({ fields, index }) => (
@@ -189,7 +201,7 @@ export const MealPlanScreen = ({ route, navigation, foodObjectArr, totalCal }) =
                     <Text style={styles.period_title}> Total Protein </Text>
                 </View>
                 <View>
-                    <Text style={styles.period_title}> Put total Protein </Text>
+                    <Text style={styles.period_title}> {bPro + lPro + dPro + sPro} </Text>
                 </View>
             </View>
 
