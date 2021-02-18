@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Provider as PaperProvider } from 'react-native-paper'
 import AppNavigator from './navigation.component'
+import FirstTimeAppNavigator from './firstTimeNavigation.component'
 import * as SQLite from 'expo-sqlite'
 import * as SplashScreen from 'expo-splash-screen'
 import useDatabase from './database/useDatabase'
@@ -42,7 +43,7 @@ export default function App () {
     return (
         <PaperProvider>
             <DatabaseContextProvider>
-                <AppNavigator propDB={db}/>
+                <FirstTimeAppNavigator propDB={db}/>
             </DatabaseContextProvider>
 
         </PaperProvider>

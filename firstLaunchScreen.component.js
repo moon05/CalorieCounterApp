@@ -14,10 +14,11 @@ import { Divider, Text, TextInput, Button } from 'react-native-paper'
 // import { Profiles } from './reusable_components/temp'
 import { ProfileForm } from './reusable_components/createProfileForm'
 
-export const FirstLaunchScreen = ({ database, propSetter }) => {
+export const FirstLaunchScreen = ({ navigation, database, propSetter }) => {
   useEffect(() => {
     console.log('printing props in FirstLaunchScreen')
-    // console.log(database)
+    console.log(database)
+    console.log(navigation)
     console.log('Done printing')
   })
 
@@ -25,12 +26,12 @@ export const FirstLaunchScreen = ({ database, propSetter }) => {
   const SaveFirstUsage = async () => {
     await AsyncStorage.setItem('FirstTime', 'false')
   }
-
-  useEffect(() => {
-    if (profileHasBeenSubmitted) {
-      propSetter(profileHasBeenSubmitted)
-    }
-  }, [profileHasBeenSubmitted])
+  //
+  // useEffect(() => {
+  //   if (profileHasBeenSubmitted) {
+  //     propSetter(profileHasBeenSubmitted)
+  //   }
+  // }, [profileHasBeenSubmitted])
 
   const styles = StyleSheet.create({
     container: {
@@ -59,7 +60,7 @@ export const FirstLaunchScreen = ({ database, propSetter }) => {
 
   return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                 <ProfileForm database={database} profileSubmitted={setProfileHasBeenSubmitted}/>
+                 <ProfileForm navi={navigation} database={database} profileSubmitted={setProfileHasBeenSubmitted}/>
         </KeyboardAvoidingView>
 
   )

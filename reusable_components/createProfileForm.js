@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { DatabaseContext } from '../context/DatabaseContext'
 import ViewPager from '@react-native-community/viewpager'
 
-export const ProfileForm = ({ database, profileSubmitted }) => {
+export const ProfileForm = ({ navi, database, profileSubmitted }) => {
   const databaseContext = useContext(DatabaseContext)
   const { addNewProfile } = databaseContext
 
@@ -36,6 +36,7 @@ export const ProfileForm = ({ database, profileSubmitted }) => {
     addNewProfile(database, data.username, parseFloat(data.height), data.sex, parseFloat(data.startingWeight), parseFloat(data.startingWeight), parseFloat(data.goalWeight))
     SaveFirstUsage()
     profileSubmitted(true)
+    navi.navigate('MainTabs', { lastScreen: 'FirstTimeScreen' })
   }
 
   const styles = StyleSheet.create({

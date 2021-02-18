@@ -41,15 +41,18 @@ export const HomeScreen = ({ propDB }) => {
       console.log('Inside Home Screen Async')
       console.log('Result:' + result)
       console.log('Err:' + err)
-      alert(result)
-      alert(err)
     })
   })
 
   return (
         <SafeAreaView style={{ flex: 1 }}>
-              <FirstLaunchScreen database={propDB} propSetter={setProfileHasBeenSubmitted}/>
+              {/* <FirstLaunchScreen database={propDB} propSetter={setProfileHasBeenSubmitted}/> */}
           {/* <Profiles database={propDB} safeToLoad={profileHasBeenSubmitted}/> */}
+          <View>
+            <Text>
+              You are in HomeScreen!!
+            </Text>
+          </View>
 
           <Divider/>
         </SafeAreaView>
