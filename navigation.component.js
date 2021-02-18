@@ -10,9 +10,11 @@ import { MealPlanScreen } from './reusable_components/mealPlan'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { Button, IconButton } from 'react-native-paper'
+import { FirstLaunchScreen } from './firstLaunchScreen.component'
 
 const Tab = createMaterialBottomTabNavigator()
 const Stack = createStackNavigator()
+const HigherStack = createStackNavigator()
 
 const MainTabs = ({ propDB }) => {
   return (
@@ -171,7 +173,15 @@ const MainTabs = ({ propDB }) => {
 const AppNavigator = ({ propDB }) => {
   return (
       <NavigationContainer propDB={propDB}>
-          <MainTabs propDB={propDB} />
+          <HigherStack.Navigator screenOptions={{
+            headerShown: false,
+            headerLeft: null
+          }}>
+              <HigherStack.Screen name="MainTabs">
+                  {(props) => <MainTabs {...props} propDB={propDB}/>}
+              </HigherStack.Screen>
+          </HigherStack.Navigator>
+
       </NavigationContainer>
 
   )

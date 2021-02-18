@@ -37,7 +37,7 @@ const MainTabs = ({ propDB }) => {
                           }}
                       >
                             <Stack.Screen name="LightWeightCalorieCounter">
-                                {(props) => <HomeScreen propDB={propDB}/>}
+                                {(props) => <HomeScreen {...props} propDB={propDB}/>}
                             </Stack.Screen>
                           <Stack.Screen name="Meal Plan">
                               {(props) => <MealPlanScreen {...props} propDB={propDB}/>}

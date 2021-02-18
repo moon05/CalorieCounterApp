@@ -9,7 +9,7 @@ import { FOOD_OBJECTS } from '../reusable_components/food_detailed_data'
 
 const setupDatabaseAsync = async (db) => {
   return new Promise((resolve, reject) => {
-    const dropAllTables = true
+    const dropAllTables = false
     if (dropAllTables) {
       db.transaction(tx => {
         tx.executeSql('DROP TABLE IF EXISTS Profile;')

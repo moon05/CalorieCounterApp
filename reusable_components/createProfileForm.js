@@ -31,12 +31,10 @@ export const ProfileForm = ({ navi, database, profileSubmitted }) => {
   const goalWeightInputRef = useRef()
   const onSubmit = data => {
     console.log('SubmitPressed')
-    console.log(database)
-    console.log(data)
     addNewProfile(database, data.username, parseFloat(data.height), data.sex, parseFloat(data.startingWeight), parseFloat(data.startingWeight), parseFloat(data.goalWeight))
     SaveFirstUsage()
     profileSubmitted(true)
-    navi.navigate('MainTabs', { lastScreen: 'FirstTimeScreen' })
+    navi.navigate('MainTabs', { lastScreen: 'FirstTimeScreen', userObj: data })
   }
 
   const styles = StyleSheet.create({
