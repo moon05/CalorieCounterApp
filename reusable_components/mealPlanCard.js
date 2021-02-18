@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, Image, View, FlatList, StyleSheet } from 'react-native'
-import { Divider, Text, Card, Title, Paragraph } from 'react-native-paper'
-import { FOOD_OBJECTS } from './food_detailed_data'
+import { View } from 'react-native'
+import { Card, Title, Paragraph } from 'react-native-paper'
 
 export const MealPlanCard = ({ route, navigation, planName, foodItemsObject }) => {
   const [bCal, setBCal] = useState(0)

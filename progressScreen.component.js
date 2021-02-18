@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { SafeAreaView, ScrollView, View, Dimensions } from 'react-native'
+import { SafeAreaView, ScrollView, View, Dimensions, StyleSheet } from 'react-native'
 import { Divider, Text } from 'react-native-paper'
 import { DatabaseContext } from './context/DatabaseContext'
 import { useIsFocused } from '@react-navigation/native'
@@ -10,6 +10,28 @@ export const ProgressScreen = ({ navigation, propDB }) => {
   const databaseContext = useContext(DatabaseContext)
 
   const isFocused = useIsFocused()
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'space-between',
+      backgroundColor: '#fff',
+      padding: 20,
+      margin: 10
+    },
+    mainContainer: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      marginLeft: 10,
+      marginRight: 10,
+      marginTop: 16
+    },
+    chartHeaderText: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: 'grey'
+    }
+  })
 
   const {
     getFoodGatherRowFromDate
@@ -226,19 +248,17 @@ export const ProgressScreen = ({ navigation, propDB }) => {
   return (
         <SafeAreaView style={{ flex: 1 }}>
           <ScrollView>
-          <View flexDirection = "column" justifyContent= 'flex-start'>
-            <Divider/>
-
-            <View>
-              <Text> Calorie Consumption </Text>
+          <View style={styles.mainContainer}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.chartHeaderText}> Calorie Consumption </Text>
             </View>
 
             {caloriePie}
 
-            <Divider style={{ height: 40, backgroundColor: 'red', marginTop: 10, marginBottom: 10 }}/>
+            <View style={{ marginTop: 10, marginBottom: 10 }}></View>
 
-            <View>
-              <Text> Macros </Text>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.chartHeaderText}> Macros </Text>
             </View>
 
             {macroPie}
