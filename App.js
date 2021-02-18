@@ -14,28 +14,19 @@ console.log(db)
 
 export default function App () {
   const [firstTimeUsage, setFirstTimeUsage] = useState(null)
+
+  // for development only
   const clearAsyncStorage = async () => {
     AsyncStorage.clear()
   }
-  useEffect(() => {
-    clearAsyncStorage()
-  }, [])
-
-  useEffect(() => {
-    AsyncStorage.getItem('FirstTime', (err, result) => {
-      console.log(result)
-      setFirstTimeUsage(result)
-    })
-  })
-
-  useEffect(() => {
-    console.log('Inside App.js')
-    console.log('FirstUsage: ' + firstTimeUsage)
-  }, firstTimeUsage)
+  // uncomment when you have to clear asyncstorage to check first user screen
+  // useEffect(() => {
+  //   clearAsyncStorage()
+  // }, [])
 
   SplashScreen.preventAutoHideAsync()
 
-  const isDBLoadingComplete = useDatabase(db)
+  const [isDBLoadingComplete, t, isFirstTime] = useDatabase(db)
 
   if (isDBLoadingComplete) {
     SplashScreen.hideAsync()
@@ -43,7 +34,7 @@ export default function App () {
     return (
         <PaperProvider>
             <DatabaseContextProvider>
-                <FirstTimeAppNavigator propDB={db}/>
+              {isFirstTime ? <FirstTimeAppNavigator propDB={db}/> : <AppNavigator propDB={db}/>}
             </DatabaseContextProvider>
 
         </PaperProvider>

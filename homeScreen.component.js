@@ -5,12 +5,6 @@ import {
 } from 'react-native'
 import { Divider, Text, TextInput, Button } from 'react-native-paper'
 
-import { CALORIE_DASHBOARD } from './reusable_components/calorie_dashboard'
-
-import { Profiles } from './reusable_components/temp'
-import { ProfileForm } from './reusable_components/createProfileForm'
-import { FirstLaunchScreen } from './firstLaunchScreen.component'
-
 export const HomeScreen = ({ propDB }) => {
   const styles = StyleSheet.create({
     container: {

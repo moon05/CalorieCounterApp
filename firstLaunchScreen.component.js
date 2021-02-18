@@ -15,23 +15,7 @@ import { Divider, Text, TextInput, Button } from 'react-native-paper'
 import { ProfileForm } from './reusable_components/createProfileForm'
 
 export const FirstLaunchScreen = ({ navigation, database, propSetter }) => {
-  useEffect(() => {
-    console.log('printing props in FirstLaunchScreen')
-    console.log(database)
-    console.log(navigation)
-    console.log('Done printing')
-  })
-
   const [profileHasBeenSubmitted, setProfileHasBeenSubmitted] = useState(false)
-  const SaveFirstUsage = async () => {
-    await AsyncStorage.setItem('FirstTime', 'false')
-  }
-  //
-  // useEffect(() => {
-  //   if (profileHasBeenSubmitted) {
-  //     propSetter(profileHasBeenSubmitted)
-  //   }
-  // }, [profileHasBeenSubmitted])
 
   const styles = StyleSheet.create({
     container: {
