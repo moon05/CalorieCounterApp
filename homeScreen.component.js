@@ -4,7 +4,7 @@ import {
   Platform, TouchableWithoutFeedback, Keyboard, AsyncStorage
 } from 'react-native'
 import { Divider, Text, TextInput, Button } from 'react-native-paper'
-
+import { MealPlan } from './reusable_components/mealPlan'
 export const HomeScreen = ({ propDB }) => {
   const styles = StyleSheet.create({
     container: {
@@ -13,6 +13,13 @@ export const HomeScreen = ({ propDB }) => {
       backgroundColor: '#fff',
       padding: 20,
       margin: 10
+    },
+    mainContainer: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      marginLeft: 10,
+      marginRight: 10,
+      marginTop: 16
     },
     appHeaderName: {
       backgroundColor: 'pink',
@@ -42,13 +49,13 @@ export const HomeScreen = ({ propDB }) => {
         <SafeAreaView style={{ flex: 1 }}>
               {/* <FirstLaunchScreen database={propDB} propSetter={setProfileHasBeenSubmitted}/> */}
           {/* <Profiles database={propDB} safeToLoad={profileHasBeenSubmitted}/> */}
-          <View>
+          <View style={styles.mainContainer}>
             <Text>
               You are in HomeScreen!!
             </Text>
+            <MealPlan/>
           </View>
 
-          <Divider/>
         </SafeAreaView>
   )
 }
